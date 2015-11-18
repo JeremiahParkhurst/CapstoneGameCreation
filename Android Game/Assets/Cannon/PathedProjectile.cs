@@ -11,11 +11,6 @@ public class PathedProjectile : MonoBehaviour {
         _destination = destination;
         _speed = speed;
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,4 +21,10 @@ public class PathedProjectile : MonoBehaviour {
 
         Destroy(gameObject);
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Destroy(gameObject);
+
+    }
 }
