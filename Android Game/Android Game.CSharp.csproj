@@ -69,15 +69,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Camera2D.cs" />
-    <Compile Include="Assets\Cannon\PathedProjectile.cs" />
-    <Compile Include="Assets\Cannon\PathedProjectileSpawner.cs" />
-    <Compile Include="Assets\FollowPath.cs" />
-    <Compile Include="Assets\PathDefinition.cs" />
+    <Compile Include="Assets\Enemy\Cannon\PathedProjectile.cs" />
+    <Compile Include="Assets\Enemy\Cannon\PathedProjectileSpawner.cs" />
+    <Compile Include="Assets\PickupDestroy.cs" />
+    <Compile Include="Assets\Platforms\Moving Platforms\FollowPath.cs" />
+    <Compile Include="Assets\Platforms\Moving Platforms\PathDefinition.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
     <Compile Include="Assets\Scroll.cs" />
     <Compile Include="Assets\SimpleEnemyAI.cs" />
-    <Compile Include="Assets\Tomato.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
