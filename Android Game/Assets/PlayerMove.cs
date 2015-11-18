@@ -5,7 +5,7 @@ public class PlayerMove : MonoBehaviour {
 
 	public float maxSpeed = 10f;
 	bool facingRight = true;
-	
+
 	Animator anim;
 	
 	public bool grounded = false;
@@ -30,10 +30,12 @@ public class PlayerMove : MonoBehaviour {
 		float move = Input.GetAxis("Horizontal");
 		
 		anim.SetFloat("Speed", Mathf.Abs(move));
-		
-		// physically moving character
-		GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
-		
+
+        // physically moving character        
+        GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+
+        
+
 		if (move>0 && !facingRight){ //flip character directionally
 			Flip();
 		}
