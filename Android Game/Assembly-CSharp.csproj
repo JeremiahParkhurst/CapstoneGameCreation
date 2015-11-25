@@ -50,16 +50,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Camera2D.cs" />
-    <Compile Include="Assets\Enemy\Cannon\PathedProjectile.cs" />
-    <Compile Include="Assets\Enemy\Cannon\PathedProjectileSpawner.cs" />
-    <Compile Include="Assets\PickupDestroy.cs" />
-    <Compile Include="Assets\Platforms\Moving Platforms\FollowPath.cs" />
-    <Compile Include="Assets\Platforms\Moving Platforms\PathDefinition.cs" />
+    <Compile Include="Assets\ITakeDamage.cs" />
+    <Compile Include="Assets\Platforms\Scripts\FollowPath.cs" />
+    <Compile Include="Assets\Platforms\Scripts\PathDefinition.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
+    <Compile Include="Assets\Prefabs\Enemy\Scripts\PathedProjectile.cs" />
+    <Compile Include="Assets\Prefabs\Enemy\Scripts\PathedProjectileSpawner.cs" />
+    <Compile Include="Assets\Prefabs\Enemy\Scripts\SimpleEnemyAI.cs" />
+    <Compile Include="Assets\Prefabs\Enemy\Scripts\SimpleEnemyScript.cs" />
+    <Compile Include="Assets\Prefabs\Pickups\Scripts\PickupDestroy.cs" />
+    <Compile Include="Assets\Projectile.cs" />
     <Compile Include="Assets\Scroll.cs" />
-    <Compile Include="Assets\SimpleEnemyAI.cs" />
-    <Compile Include="Assets\SimpleEnemyScript.cs" />
+    <Compile Include="Assets\SimpleProjectile.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

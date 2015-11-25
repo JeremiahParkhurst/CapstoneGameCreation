@@ -2,18 +2,20 @@
 using System.Collections;
 
 public class PlayerMove : MonoBehaviour {
-
+    //Jeremy's shit
 	public float maxSpeed = 10f;
 	bool facingRight = true;
-
 	Animator anim;
-	
 	public bool grounded = false;
 	public Transform groundCheck;
 	float groundRadius = 0.2f;
 	public LayerMask whatIsGround;
 	public float jumpForce = 450f;
-	
+
+    //John's shit
+    //public Projectile Projectile;
+
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
