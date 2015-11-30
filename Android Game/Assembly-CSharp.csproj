@@ -51,8 +51,6 @@
   <ItemGroup>
     <Compile Include="Assets\Camera2D.cs" />
     <Compile Include="Assets\ITakeDamage.cs" />
-    <Compile Include="Assets\Platforms\Scripts\FollowPath.cs" />
-    <Compile Include="Assets\Platforms\Scripts\PathDefinition.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
     <Compile Include="Assets\Prefabs\Enemy\Scripts\PathedProjectile.cs" />
@@ -60,6 +58,8 @@
     <Compile Include="Assets\Prefabs\Enemy\Scripts\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Prefabs\Enemy\Scripts\SimpleEnemyScript.cs" />
     <Compile Include="Assets\Prefabs\Pickups\Scripts\PickupDestroy.cs" />
+    <Compile Include="Assets\Prefabs\Platforms\Scripts\FollowPath.cs" />
+    <Compile Include="Assets\Prefabs\Platforms\Scripts\PathDefinition.cs" />
     <Compile Include="Assets\Projectile.cs" />
     <Compile Include="Assets\Scroll.cs" />
     <Compile Include="Assets\SimpleProjectile.cs" />
