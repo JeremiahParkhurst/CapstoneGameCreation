@@ -9,7 +9,6 @@ public class SimpleEnemyScript : MonoBehaviour {
     public Transform sightEnd;
     public LayerMask detectWhat;
     public bool colliding;
-
     Animator anim;
 
 	// Use this for initialization
@@ -19,14 +18,16 @@ public class SimpleEnemyScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Use this for animation
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("Speed", Mathf.Abs(move));
 
+        // Handles the speed of the enemy
         GetComponent<Rigidbody2D>().velocity = new Vector2(velocity*maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
+        // Handles collision of the enemy
         colliding = Physics2D.Linecast(sightStart.position, sightEnd.position, detectWhat);
-
-        // If the enemy collides with
         if (colliding)
         {
             // Mirrors the enemy and change the direction path of the enemy
