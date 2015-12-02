@@ -10,13 +10,18 @@ public class SimpleEnemyScript : MonoBehaviour {
     public LayerMask detectWhat;
     public bool colliding;
 
+    Animator anim;
+
 	// Use this for initialization
 	void Start () {
-	
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        float move = Input.GetAxis("Horizontal");
+        anim.SetFloat("Speed", Mathf.Abs(move));
+
         GetComponent<Rigidbody2D>().velocity = new Vector2(velocity*maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
         colliding = Physics2D.Linecast(sightStart.position, sightEnd.position, detectWhat);

@@ -36,8 +36,6 @@ public class PlayerMove : MonoBehaviour {
         // physically moving character        
         GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
-        
-
 		if (move>0 && !facingRight){ //flip character directionally
 			Flip();
 		}
