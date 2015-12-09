@@ -5,20 +5,27 @@ public class PathedProjectileSpawner : MonoBehaviour {
 
     public Transform Destination;
     public PathedProjectile Projectile;
-
     public GameObject SpawnEffect;
+
     public float Speed;
     public float FireRate;
-
     private float _nextShotInSeconds;
 
-	// Use this for initialization
-	void Start () {
+    Animator anim;
+
+    // Use this for initialization
+    void Start () {
+        anim = GetComponent<Animator>();
         _nextShotInSeconds = FireRate;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Use this for animation
+        float move = Input.GetAxis("Horizontal");
+        anim.SetFloat("Speed", Mathf.Abs(move));
+
         if ((_nextShotInSeconds -= Time.deltaTime) > 0)
             return;
 
