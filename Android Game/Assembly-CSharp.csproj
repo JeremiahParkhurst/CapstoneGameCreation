@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Camera2D.cs" />
+    <Compile Include="Assets\ControllerParameters2D.cs" />
     <Compile Include="Assets\ITakeDamage.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
@@ -63,6 +64,10 @@
     <Compile Include="Assets\Projectile.cs" />
     <Compile Include="Assets\Scroll.cs" />
     <Compile Include="Assets\SimpleProjectile.cs" />
+    <Compile Include="Assets\WIP\CharacterController2D.cs" />
+    <Compile Include="Assets\WIP\ControllerParameters2D.cs" />
+    <Compile Include="Assets\WIP\ControllerState2D.cs" />
+    <Compile Include="Assets\WIP\Player.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
