@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 [Serializable]
-public class ControllerParameters2D : MonoBehaviour {
+public class ControllerParameters2D {
 
     public enum JumpBehavior
     {
@@ -12,12 +12,13 @@ public class ControllerParameters2D : MonoBehaviour {
         CantJump
     }
 
+    // MaxVelocity = MaxVelocity in X direction and MaxVelocity in Y direction
     public Vector2 MaxVelocity = new Vector2(float.MaxValue, float.MaxValue);
 
     [Range(0, 90)]
-    public float SlopeLimit = 30;
-    public float Gravity = -25f;
+    public float SlopeLimit = 30; // angle allowed to travel (this case is 30 degrees)
+    public float Gravity = -25f; // default gravity is -25f
     public JumpBehavior JumpRestrictions;
-    public float JumpFrequence = .25f;
+    public float JumpFrequence = .25f; // limits how often the player can jump
 
 }
