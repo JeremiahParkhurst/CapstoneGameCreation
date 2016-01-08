@@ -18,9 +18,22 @@ public class CharacterController2D : MonoBehaviour
     // properties
     public ControllerState2D State { get; private set; }
     public Vector2 Velocity { get { return _velocity; } }
-    public bool CanJump { get { return false; } }
+    public bool CanJump
+    {
+        get
+        {
+            if (Parameters.JumpRestrictions == ControllerParameters2D.JumpBehavior.CanJumpAnywhere)
+                return _jumpIn <= 0;
+
+            if (Parameters.JumpRestrictions == ControllerParameters2D.JumpBehavior.CanJumpOnGround)
+                return State.IsGrounded;
+
+            return false;
+        }
+    }
     public bool HandleCollisions { get; set; }
     public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters;  } }
+    public GameObject StandingOn { get; private set; }
 
     // allias
     private Vector2 _velocity;
@@ -28,6 +41,8 @@ public class CharacterController2D : MonoBehaviour
     private Vector3 _localScale;
     private BoxCollider2D _boxCollider;
     private ControllerParameters2D _overrideParameters;
+    private float _jumpIn;
+
     private Vector3
         _raycastTopLeft,
         _raycastBottomRight,
@@ -82,14 +97,18 @@ public class CharacterController2D : MonoBehaviour
 
     public void Jump()
     {
-
+        // TODO: Moving platform support
+        AddForce(new Vector2(0, Parameters.JumpMagnitude));
+        _jumpIn = Parameters.JumpFrequency;
     }
 
-    // moves the character scaled by their velocity and time
     public void LateUpdate()
     {
+        _jumpIn -= Time.deltaTime;
+        _velocity.y += Parameters.Gravity * Time.deltaTime;
         Move(Velocity * Time.deltaTime);
     }
+
 
     private void Move(Vector2 deltaMovement)
     {
@@ -143,15 +162,14 @@ public class CharacterController2D : MonoBehaviour
 
     }
 
-    // takes a reference to delta movement to allow it to manipulate it if there anything colliding horizontally
     private void MoveHorizontally(ref Vector2 deltaMovement)
     {
         var isGoingRight = deltaMovement.x > 0;
         var rayDistance = Mathf.Abs(deltaMovement.x) + SkinWidth;
-        var rayDirection = isGoingRight ? Vector2.right : -Vector2.right; // left or right
+        var rayDirection = isGoingRight ? Vector2.right : -Vector2.right;
         var rayOrigin = isGoingRight ? _raycastBottomRight : _raycastBottomLeft;
 
-        for(var i = 0; i < TotalHorizontalRays; i++)
+        for (var i = 0; i < TotalHorizontalRays; i++)
         {
             var rayVector = new Vector2(rayOrigin.x, rayOrigin.y + (i * _verticalDistanceBetweenRays));
             Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.red);
@@ -185,18 +203,106 @@ public class CharacterController2D : MonoBehaviour
     // takes a reference to delta movement to allow it to manipulate it if there anything colliding vertically
     private void MoveVertically(ref Vector2 deltaMovement)
     {
+        var isGoingUp = deltaMovement.y > 0;
+        var rayDistance = Mathf.Abs(deltaMovement.y) + SkinWidth;
+        var rayDirection = isGoingUp ? Vector2.up : -Vector2.up;
+        var rayOrigin = isGoingUp ? _raycastTopLeft : _raycastBottomLeft;
 
+        rayOrigin.x += deltaMovement.x;
+
+        var standingOnDistance = float.MaxValue;
+        for (var i = 0; i < TotalVerticalRays; i++)
+        {
+            var rayVector = new Vector2(rayOrigin.x + (i * _horizontalDistanceBetweenRays), rayOrigin.y);
+            Debug.DrawRay(rayVector, rayDirection * rayDistance, Color.red);
+
+            var raycastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
+            if (!raycastHit)
+                continue;
+
+            if (!isGoingUp)
+            {
+                var verticalDistanceToHit = _transform.position.y - raycastHit.point.y;
+                if (verticalDistanceToHit < standingOnDistance)
+                {
+                    standingOnDistance = verticalDistanceToHit;
+                    StandingOn = raycastHit.collider.gameObject;
+                }
+            }
+
+            deltaMovement.y = raycastHit.point.y - rayVector.y;
+            rayDistance = Mathf.Abs(deltaMovement.y);
+
+            if (isGoingUp)
+            {
+                deltaMovement.y -= SkinWidth;
+                State.IsCollidingAbove = true;
+            }
+            else
+            {
+                deltaMovement.y += SkinWidth;
+                State.IsCollidingBelow = true;
+            }
+
+            if (!isGoingUp && deltaMovement.y > .0001f)
+                State.IsMovingUpSlope = true;
+
+            if (rayDistance < SkinWidth + .0001f)
+                break;
+        }
     }
 
 
     private void HandleVerticalSlope(ref Vector2 deltaMovement)
     {
 
+        // projecting the vertical rays below the player
+        var center = (_raycastBottomLeft.x + _raycastBottomRight.x) / 2;
+        var direction = -Vector2.up;
+
+        var slopeDistance = SlopeLimitTangant * (_raycastBottomRight.x - center);
+        var slopeRayVector = new Vector2(center, _raycastBottomLeft.y);
+
+        Debug.DrawRay(slopeRayVector, direction * slopeDistance, Color.yellow);
+        var raycastHit = Physics2D.Raycast(slopeRayVector, direction, slopeDistance, PlatformMask);
+        if (!raycastHit)
+            return;
+
+        // if the rays cast by the player is not perpendicular to the platform --> player on a slope
+        var isMovingDownSlope = Mathf.Sign(raycastHit.normal.x) == Mathf.Sign(deltaMovement.x);
+        if (!isMovingDownSlope)
+            return;
+
+        var angle = Vector2.Angle(raycastHit.normal, Vector2.up);
+        if (Mathf.Abs(angle) < .0001f)
+            return;
+
+        State.IsMovingDownSlope = true;
+        State.SlopeAngle = angle;
+        deltaMovement.y = raycastHit.point.y - slopeRayVector.y;
     }
 
     private bool HandleHorizontalSlope(ref Vector2 deltaMovement, float angle, bool isGoingRight)
     {
-        return false;
+        if (Mathf.RoundToInt(angle) == 90)
+            return false;
+
+        // if moving up slope that is too slope, then horizontal movement = 0
+        if(angle > Parameters.SlopeLimit)
+        {
+            deltaMovement.x = 0;
+            return true;
+        }
+
+        if (deltaMovement.y > .07f)
+            return true;
+
+        // modify movement based on the angle of the slope
+        deltaMovement.x += isGoingRight ? -SkinWidth : SkinWidth;
+        deltaMovement.y = Mathf.Abs(Mathf.Tan(angle * Mathf.Deg2Rad) * deltaMovement.x);
+        State.IsMovingUpSlope = true;
+        State.IsCollidingBelow = true;
+        return true;
     }
 
     public void OnTriggerEnter2D(Collider2D other)

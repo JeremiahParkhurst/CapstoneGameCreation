@@ -17,8 +17,9 @@ public class ControllerParameters2D {
 
     [Range(0, 90)]
     public float SlopeLimit = 30; // angle allowed to travel (this case is 30 degrees)
+
     public float Gravity = -25f; // default gravity is -25f
     public JumpBehavior JumpRestrictions;
-    public float JumpFrequence = .25f; // limits how often the player can jump
-
+    public float JumpFrequency = .25f; // limits how often the player can jump
+    public float JumpMagnitude = 12;
 }
