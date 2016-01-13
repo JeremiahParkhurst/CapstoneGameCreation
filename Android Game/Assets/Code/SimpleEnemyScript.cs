@@ -20,8 +20,8 @@ public class SimpleEnemyScript : MonoBehaviour {
 	void Update () {
 
         // Use this for animation
-        float move = Input.GetAxis("Horizontal");
-        anim.SetFloat("Speed", Mathf.Abs(move));
+        //float move = Input.GetAxis("Horizontal");
+        //anim.SetFloat("Speed", Mathf.Abs(move));
 
         // Handles the speed of the enemy
         GetComponent<Rigidbody2D>().velocity = new Vector2(velocity*maxSpeed, GetComponent<Rigidbody2D>().velocity.y);

@@ -50,22 +50,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\BackgroundParallax.cs" />
-    <Compile Include="Assets\Code\Camera2D.cs" />
+    <Compile Include="Assets\Code\CameraController.cs" />
     <Compile Include="Assets\Code\CharacterController2D.cs" />
+    <Compile Include="Assets\Code\Checkpoint.cs" />
     <Compile Include="Assets\Code\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\ControllerPhysicsVolume2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
+    <Compile Include="Assets\Code\GameHud.cs" />
+    <Compile Include="Assets\Code\GameManager.cs" />
     <Compile Include="Assets\Code\ITakeDamage.cs" />
+    <Compile Include="Assets\Code\InstaKill.cs" />
     <Compile Include="Assets\Code\JumpPlatform.cs" />
-    <Compile Include="Assets\Code\Old Scripts\Player.cs" />
+    <Compile Include="Assets\Code\LevelManager.cs" />
     <Compile Include="Assets\Code\Old Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Code\Old Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Code\Old Scripts\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\PathedProjectile.cs" />
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
     <Compile Include="Assets\Code\PickupDestroy.cs" />
-    <Compile Include="Assets\Code\PlayerMove.cs" />
+    <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
     <Compile Include="Assets\Code\Scroll.cs" />
     <Compile Include="Assets\Code\SimpleEnemyScript.cs" />

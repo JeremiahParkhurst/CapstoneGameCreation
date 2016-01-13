@@ -11,7 +11,9 @@ public class Player : MonoBehaviour {
     public float SpeedAccelerationOnGround = 10f; // how quickly the player goes from moving to not moving on ground
     public float SpeedAccelerationInAir = 5f; // how quickly the player goes from moving to not moving on air
 
-    public void Start()
+    public bool IsDead { get; private set; }
+
+    public void Awake()
     {
         _controller = GetComponent<CharacterController2D>();
         _isFacingRight = transform.localScale.x > 0;
@@ -19,13 +21,32 @@ public class Player : MonoBehaviour {
 
     public void Update()
     {
-        HandleInput(); // handles what the player press (left, right, jump)
+        if(!IsDead)
+            HandleInput(); // handles what the player press (left, right, jump)
 
         var movementFactor = _controller.State.IsGrounded ? SpeedAccelerationOnGround : SpeedAccelerationInAir;
 
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
     }
 
+    public void Kill()
+    {
+        _controller.HandleCollisions = false;
+        GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
+        IsDead = true;
+    }
+
+    public void RespawnAt(Transform spawnPoint)
+    {
+        if(!_isFacingRight)
+            Flip();
+
+        IsDead = false;
+        GetComponent<Collider2D>().enabled = true; // collider2D.enabled = true;
+        _controller.HandleCollisions = true;
+
+        transform.position = spawnPoint.position;
+    }
 
     private void HandleInput()
     {

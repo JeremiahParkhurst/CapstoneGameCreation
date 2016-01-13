@@ -23,9 +23,10 @@ public class PathedProjectileSpawner : MonoBehaviour {
 	void Update () {
 
         // Use this for animation
-        float move = Input.GetAxis("Horizontal");
-        anim.SetFloat("Speed", Mathf.Abs(move));
+       // float move = Input.GetAxis("Horizontal");
+       // anim.SetFloat("Speed", Mathf.Abs(move));
 
+        // Spawner code
         if ((_nextShotInSeconds -= Time.deltaTime) > 0)
             return;
 
@@ -37,6 +38,7 @@ public class PathedProjectileSpawner : MonoBehaviour {
             Instantiate(SpawnEffect, transform.position, transform.rotation);
 	}
 
+    // Visual indicator for line of travel for the projectile
     public void OnDrawGizmos()
     {
         if (Destination == null)
