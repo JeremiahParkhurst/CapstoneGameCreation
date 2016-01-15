@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour {
     {
         _min = Bounds.bounds.min;
         _max = Bounds.bounds.max;
+        IsFollowing = true;
     }
 
     public void Update()
@@ -36,7 +37,7 @@ public class CameraController : MonoBehaviour {
                 y = Mathf.Lerp(y, Player.position.y, Smoothing.y * Time.deltaTime);
         }
 
-        var cameraHalfWidth = GetComponent<Camera>().orthographicSize * ((float)Screen.width / Screen.height);
+        var cameraHalfWidth = GetComponent<Camera>().orthographicSize * ((float) Screen.width / Screen.height);
 
         x = Mathf.Clamp(x, _min.x + cameraHalfWidth, _max.x - cameraHalfWidth);
         y = Mathf.Clamp(y, _min.y + GetComponent<Camera>().orthographicSize, _max.y - GetComponent<Camera>().orthographicSize);

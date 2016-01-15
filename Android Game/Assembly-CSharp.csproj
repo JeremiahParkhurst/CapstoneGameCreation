@@ -63,8 +63,10 @@
     <Compile Include="Assets\Code\InstaKill.cs" />
     <Compile Include="Assets\Code\JumpPlatform.cs" />
     <Compile Include="Assets\Code\LevelManager.cs" />
+    <Compile Include="Assets\Code\Old Scripts\Camera2D.cs" />
     <Compile Include="Assets\Code\Old Scripts\PlayerController.cs" />
     <Compile Include="Assets\Code\Old Scripts\PlayerMove.cs" />
+    <Compile Include="Assets\Code\Old Scripts\Scroll.cs" />
     <Compile Include="Assets\Code\Old Scripts\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\PathedProjectile.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="Assets\Code\PickupDestroy.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
-    <Compile Include="Assets\Code\Scroll.cs" />
     <Compile Include="Assets\Code\SimpleEnemyScript.cs" />
     <Compile Include="Assets\Code\SimpleProjectile.cs" />
     <Reference Include="UnityEngine.UI">
