@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,25 @@ public class LevelManager : MonoBehaviour {
 
     public Player Player { get; private set; }
     public CameraController Camera { get; private set; }
+    public TimeSpan RunningTime { get { return DateTime.UtcNow - _started; } }
+
+    public int CurrentTimeBonus
+    {
+        get
+        {
+            var secondDifference = (int)(BonusCutOffSeconds - RunningTime.TotalSeconds);
+            return Mathf.Max(0, secondDifference) * BonusCutOffSeconds;
+        }
+    }
 
     private List<Checkpoint> _checkpoints;
     private int _currentCheckpointIndex;
+    private DateTime _started;
+    private int _savedPoints;
 
     public Checkpoint DebugSpawn;
+    public int BonusCutOffSeconds; // max time player has before reaching a checkpoint
+    public int BonusSecondMultiplier; // calculates how many seconds * points
 
     public void Awake()
     {
@@ -21,13 +36,19 @@ public class LevelManager : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
-        _checkpoints = FindObjectsOfType<Checkpoint>().OrderBy(t => this.transform.position.x).ToList();
+	public void Start () {
+
+        // Checkpoint code
+        _checkpoints = FindObjectsOfType<Checkpoint>().OrderBy(t => t.transform.position.x).ToList();
         _currentCheckpointIndex = _checkpoints.Count > 0 ? 0 : -1;
 
         Player = FindObjectOfType<Player>();
         Camera = FindObjectOfType<CameraController>();
 
+        // Points code
+        _started = DateTime.UtcNow;
+
+        // Checkpoint code
 #if UNITY_EDITOR
         if (DebugSpawn != null)
             DebugSpawn.SpawnPlayer(Player);
@@ -40,7 +61,7 @@ public class LevelManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
         var isAtLastCheckpoint = _currentCheckpointIndex + 1 >= _checkpoints.Count;
         if (isAtLastCheckpoint)
             return;
@@ -52,10 +73,11 @@ public class LevelManager : MonoBehaviour {
         _checkpoints[_currentCheckpointIndex].PlayerLeftCheckpoint();
         _currentCheckpointIndex++;
         _checkpoints[_currentCheckpointIndex].PlayerHitCheckpoint();
-        
-        // TODO: time bonus
 
-
+        // When Checkpoint is acquired
+        GameManager.Instance.AddPoints(CurrentTimeBonus);
+        _savedPoints = GameManager.Instance.Points; // calculates points incase player dies
+        _started = DateTime.UtcNow;
 	}
 
     public void KillPlayer()
@@ -63,7 +85,6 @@ public class LevelManager : MonoBehaviour {
         StartCoroutine(KillPlayerCo());
     }
 
-    // FIX CAMERA SCRIPT
     private IEnumerator KillPlayerCo()
     {
         Player.Kill();
@@ -75,8 +96,7 @@ public class LevelManager : MonoBehaviour {
         if (_currentCheckpointIndex != -1)
             _checkpoints[_currentCheckpointIndex].SpawnPlayer(Player);
 
-        // TODO: points
-
-    /* https://www.youtube.com/watch?v=gCZHbqLezZo&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n&index=18  @14:55 */
-}
+        _started = DateTime.UtcNow;
+        GameManager.Instance.ResetPoints(_savedPoints);
+    }
 }
