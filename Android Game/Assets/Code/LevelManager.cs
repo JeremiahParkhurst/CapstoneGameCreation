@@ -48,6 +48,23 @@ public class LevelManager : MonoBehaviour {
         // Points code
         _started = DateTime.UtcNow;
 
+        // Checkpoint/Score Reset for PointStars
+        var listeners = FindObjectsOfType<MonoBehaviour>().OfType<IPlayerRespawnListener>();
+
+        // loops through each checkpoint and assigns the pickups to a the previous checkpoint
+        foreach (var listener in listeners)
+        {
+            for (var i = _checkpoints.Count - 1; i >= 0; i--)
+            {
+                var distance = ((MonoBehaviour)listener).transform.position.x - _checkpoints[i].transform.position.x;
+                if (distance < 0)
+                    continue;
+
+                _checkpoints[i].AssignObjectCheckpoint(listener);
+                break;
+            }
+        }
+
         // Checkpoint code
 #if UNITY_EDITOR
         if (DebugSpawn != null)
@@ -78,6 +95,7 @@ public class LevelManager : MonoBehaviour {
         GameManager.Instance.AddPoints(CurrentTimeBonus);
         _savedPoints = GameManager.Instance.Points; // calculates points incase player dies
         _started = DateTime.UtcNow;
+
 	}
 
     public void KillPlayer()

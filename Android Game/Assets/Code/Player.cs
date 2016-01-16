@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
         _controller.HandleCollisions = false;
         GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
         IsDead = true;
+
+        _controller.SetForce(new Vector2(0, 20)); // and bounces player up
     }
 
     public void RespawnAt(Transform spawnPoint)

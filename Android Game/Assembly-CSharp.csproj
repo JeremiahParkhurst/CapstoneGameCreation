@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Code\AutoDestroyParticleSystem.cs" />
     <Compile Include="Assets\Code\BackgroundParallax.cs" />
     <Compile Include="Assets\Code\CameraController.cs" />
     <Compile Include="Assets\Code\CharacterController2D.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\GameHud.cs" />
     <Compile Include="Assets\Code\GameManager.cs" />
+    <Compile Include="Assets\Code\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\ITakeDamage.cs" />
     <Compile Include="Assets\Code\InstaKill.cs" />
     <Compile Include="Assets\Code\JumpPlatform.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
     <Compile Include="Assets\Code\PickupDestroy.cs" />
     <Compile Include="Assets\Code\Player.cs" />
+    <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
     <Compile Include="Assets\Code\SimpleEnemyScript.cs" />
     <Compile Include="Assets\Code\SimpleProjectile.cs" />

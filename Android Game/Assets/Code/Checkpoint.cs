@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*
  * Class to determine where the checkpoint is located on the level 
@@ -7,9 +8,11 @@ using System.Collections;
  */
 public class Checkpoint : MonoBehaviour {
 
+    private List<IPlayerRespawnListener> _listeners;
+
 	// Use this for initialization
-	public void Start () {
-	
+	public void Awake() {
+        _listeners = new List<IPlayerRespawnListener>();
 	}
 
     public void PlayerHitCheckpoint()
@@ -30,10 +33,13 @@ public class Checkpoint : MonoBehaviour {
     public void SpawnPlayer(Player player)
     {
         player.RespawnAt(transform);
+
+        foreach (var listener in _listeners)
+            listener.OnPlayerRespawnInThisCheckpoint(this, player);
     }
 
-    public void AssignObjectCheckpoint()
+    public void AssignObjectCheckpoint(IPlayerRespawnListener listener)
     {
-
+        _listeners.Add(listener);
     }
 }
