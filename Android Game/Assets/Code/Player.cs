@@ -10,6 +10,10 @@ public class Player : MonoBehaviour {
     public float MaxSpeed = 8; // max speed of the player
     public float SpeedAccelerationOnGround = 10f; // how quickly the player goes from moving to not moving on ground
     public float SpeedAccelerationInAir = 5f; // how quickly the player goes from moving to not moving on air
+    public int MaxHealth = 100; // maximum health of the player
+    public GameObject OuchEffect;
+
+    public int Health { get; private set; }
 
     public bool IsDead { get; private set; }
 
@@ -17,6 +21,7 @@ public class Player : MonoBehaviour {
     {
         _controller = GetComponent<CharacterController2D>();
         _isFacingRight = transform.localScale.x > 0;
+        Health = MaxHealth;
     }
 
     public void Update()
@@ -34,6 +39,7 @@ public class Player : MonoBehaviour {
         _controller.HandleCollisions = false;
         GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
         IsDead = true;
+        Health = 0;
 
         _controller.SetForce(new Vector2(0, 20)); // and bounces player up
     }
@@ -46,8 +52,20 @@ public class Player : MonoBehaviour {
         IsDead = false;
         GetComponent<Collider2D>().enabled = true; // collider2D.enabled = true;
         _controller.HandleCollisions = true;
+        Health = MaxHealth;
 
         transform.position = spawnPoint.position;
+    }
+
+    // method to decrement the player's health
+    public void TakeDamage(int damage)
+    {
+        Instantiate(OuchEffect, transform.position, transform.rotation);
+        Health -= damage;
+
+        // if the player's Health reaches zero, call KillPlayer
+        if (Health <= 0)
+            LevelManager.Instance.KillPlayer();
     }
 
     private void HandleInput()
