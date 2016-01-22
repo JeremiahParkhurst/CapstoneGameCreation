@@ -7,6 +7,8 @@ public class SimpleEnemyAI : MonoBehaviour {//, ITakeDamage, IPlayerRespawnListe
     public float FireRate = 1;
     public Projectile Projectile;
     public GameObject DestroyedEffect;
+    public int PointsToGivePlayer;
+    public AudioClip ShootSound;
 
     private CharacterController2D _controller;
     private Vector2 _direction;
@@ -21,7 +23,7 @@ public class SimpleEnemyAI : MonoBehaviour {//, ITakeDamage, IPlayerRespawnListe
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
         _controller.SetHorizonalForce(_direction.x * Speed);
         if((_direction.x < 0 && _controller.IsCollidingLeft) || (_direction.x > 0 && _controller.IsCollidingRight))
         {
@@ -38,6 +40,9 @@ public class SimpleEnemyAI : MonoBehaviour {//, ITakeDamage, IPlayerRespawnListe
         var projectile = (Projectile)Instantiate(Projectile, transform.position, transform.rotation);
         projectile.Initialize(gameObject, _direction, _controller.Velocity);
         _canFireIn = FireRate;
+
+        if(ShootSound != null
+            AudioSource.PlayClipAtPoint(ShootSound, transform.position);
 	}
 
     public void TakeDamage(int damage, GameObject instigator)

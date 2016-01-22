@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
     public float SpeedAccelerationInAir = 5f; // how quickly the player goes from moving to not moving on air
     public int MaxHealth = 100; // maximum health of the player
     public GameObject OuchEffect;
+    public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
     public int Health { get; private set; }
 
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour {
 
     public void Kill()
     {
+        AudioSource.PlayClipAtPoint(PlayerDeathSound, transform.position);
         _controller.HandleCollisions = false;
         GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
         IsDead = true;
@@ -57,9 +59,10 @@ public class Player : MonoBehaviour {
         transform.position = spawnPoint.position;
     }
 
-    // method to decrement the player's health
+    // method to decrement the player's health when they are hit/damaged by an enemy/trap
     public void TakeDamage(int damage)
     {
+        AudioSource.PlayClipAtPoint(PlayerHitSound, transform.position);
         Instantiate(OuchEffect, transform.position, transform.rotation);
         Health -= damage;
 
@@ -67,6 +70,13 @@ public class Player : MonoBehaviour {
         if (Health <= 0)
             LevelManager.Instance.KillPlayer();
     }
+    /*
+    public void GiveHealth(int health)
+    {
+        AudioSource.PlayClipAtPoint(PlayerHealthSound, transform.position);
+        //FloatingText.Show(string.Format("+{0}", health)
+        Health = Mathf.Min(Health + health, MaxHealth);
+    }*/
 
     private void HandleInput()
     {
@@ -92,6 +102,11 @@ public class Player : MonoBehaviour {
             _controller.Jump();
         }   
     }
+    /*
+    public void FireProjectile()
+    {
+        AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
+    }*/
 
     private void Flip()
     {

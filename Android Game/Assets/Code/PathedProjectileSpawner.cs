@@ -9,6 +9,8 @@ public class PathedProjectileSpawner : MonoBehaviour {
 
     public float Speed;
     public float FireRate;
+    public AudioClip SpawnProjectileSound;
+
     private float _nextShotInSeconds;
 
     Animator anim;
@@ -36,6 +38,9 @@ public class PathedProjectileSpawner : MonoBehaviour {
 
         if (SpawnEffect != null)
             Instantiate(SpawnEffect, transform.position, transform.rotation);
+
+        if (SpawnProjectileSound != null)
+            AudioSource.PlayClipAtPoint(SpawnProjectileSound, transform.position);
 	}
 
     // Visual indicator for line of travel for the projectile

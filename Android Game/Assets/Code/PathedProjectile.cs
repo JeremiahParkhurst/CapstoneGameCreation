@@ -5,6 +5,7 @@ public class PathedProjectile : MonoBehaviour {
 
     private Transform _destination;
     private float _speed;
+    public AudioClip DestroySound;
 
     public GameObject DestroyEffect;
 
@@ -22,6 +23,10 @@ public class PathedProjectile : MonoBehaviour {
             return;
         if (DestroyEffect != null)
             Instantiate(DestroyEffect, transform.position, transform.rotation);
+
+        if (DestroySound != null)
+            AudioSource.PlayClipAtPoint(DestroySound, transform.position);
+
         Destroy(gameObject);
 	}
 
