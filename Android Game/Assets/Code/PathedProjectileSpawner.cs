@@ -36,9 +36,11 @@ public class PathedProjectileSpawner : MonoBehaviour {
         var projectile = (PathedProjectile)Instantiate(Projectile, transform.position, transform.rotation);
         projectile.Initialize(Destination, Speed);
 
+        // Handles projectile effects
         if (SpawnEffect != null)
             Instantiate(SpawnEffect, transform.position, transform.rotation);
 
+        // Sound
         if (SpawnProjectileSound != null)
             AudioSource.PlayClipAtPoint(SpawnProjectileSound, transform.position);
 	}

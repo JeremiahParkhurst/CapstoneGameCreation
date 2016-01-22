@@ -59,17 +59,24 @@ public class Player : MonoBehaviour {
         transform.position = spawnPoint.position;
     }
 
-    // method to decrement the player's health when they are hit/damaged by an enemy/trap
+    // Method to decrement the player's health when they are hit/damaged by an enemy/trap
     public void TakeDamage(int damage)
     {
+        // Floating text
+        FloatingText.Show(string.Format("-{0}", damage), "PlayerTakeDamageText", new FromWorldPointTextPositioner(Camera.main, transform.position, 2f, 60f));
+
+        // Sound
         AudioSource.PlayClipAtPoint(PlayerHitSound, transform.position);
+
+        // Decrement's the player's health
         Instantiate(OuchEffect, transform.position, transform.rotation);
         Health -= damage;
 
-        // if the player's Health reaches zero, call KillPlayer
+        // If the player's Health reaches zero, call KillPlayer
         if (Health <= 0)
             LevelManager.Instance.KillPlayer();
     }
+
     /*
     public void GiveHealth(int health)
     {

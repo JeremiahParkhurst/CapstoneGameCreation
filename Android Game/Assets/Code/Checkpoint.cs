@@ -15,14 +15,19 @@ public class Checkpoint : MonoBehaviour {
         _listeners = new List<IPlayerRespawnListener>();
 	}
 
+    // Method calls the PlayerHitCheckPointCo method when a checkpoint is acquired
     public void PlayerHitCheckpoint()
     {
-
+        /* https://youtu.be/9YBcuSWik9w?list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n&t=1744 */
+        StartCoroutine(PlayerHitCheckpointCo(LevelManager.Instance.CurrentTimeBonus));
     }
 
+    // Method to invoke CheckpointText from GameHUD
     private IEnumerator PlayerHitCheckpointCo(int bonus)
     {
-        yield break;
+        FloatingText.Show("Checkpoint!", "CheckpointText", new CenteredTextPositioner(.5f));
+        yield return new WaitForSeconds(.5f);
+        FloatingText.Show(string.Format("+{0} time bonus!", bonus), "CheckpointText", new CenteredTextPositioner(.5f));
     }
 
     public void PlayerLeftCheckpoint()
@@ -30,6 +35,7 @@ public class Checkpoint : MonoBehaviour {
 
     }
 
+    // Respawns the player at the last acquired checkpoint
     public void SpawnPlayer(Player player)
     {
         player.RespawnAt(transform);
