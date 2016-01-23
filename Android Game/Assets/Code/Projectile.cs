@@ -12,6 +12,9 @@ public class Projectile : MonoBehaviour {
 
     public void Initialize(GameObject owner, Vector2 direction, Vector2 initialVelocity)
     {
+        // match the direction of the projectile with the direciton they're facing
+        transform.right = direction;
+
         Owner = owner;
         Direction = direction;
         InitialVelocity = initialVelocity;

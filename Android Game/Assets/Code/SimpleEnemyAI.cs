@@ -4,8 +4,8 @@ using System.Collections;
 public class SimpleEnemyAI : MonoBehaviour, ITakeDamage/*, IPlayerRespawnListener*/ {
 
     /* player projectile https://youtu.be/re6fookKraU?list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n&t=1092 */
-    public float Speed;
-    public float FireRate = 1;
+    public float Speed; // Travel speed
+    public float FireRate = 1; // Cooldown after firing a projectile
     public Projectile Projectile;
     public GameObject DestroyedEffect;
     public int PointsToGivePlayer;

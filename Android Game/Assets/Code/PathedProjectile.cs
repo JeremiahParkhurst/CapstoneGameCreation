@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /*
-* This class handles how projectiles are spawn, and their travel distance.
+* This class handles how projectiles are spawned, and their travel distance.
 */
-public class PathedProjectile : MonoBehaviour {
+public class PathedProjectile : MonoBehaviour, ITakeDamage {
 
     private Transform _destination; // the end point of the projectile
     private float _speed; // the velocity of the projectile
 
     public AudioClip DestroySound; // Sound
     public GameObject DestroyEffect; // Effects
+    public int PointsToGivePlayer;
 
     // Constructor
     public void Initialize(Transform destination, float speed)
@@ -42,5 +44,20 @@ public class PathedProjectile : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         Destroy(gameObject); // destroys the object
+    }
+
+    public void TakeDamage(int damage, GameObject instigator)
+    {
+        if (DestroyEffect != null)
+            Instantiate(DestroyEffect, transform.position, transform.rotation);
+
+        Destroy(gameObject);
+        var projectile = instigator.GetComponent<Projectile>();
+        if(projectile != null && projectile.Owner.GetComponent<Player>() != null && PointsToGivePlayer != 0)
+        {
+            GameManager.Instance.AddPoints(PointsToGivePlayer);
+            FloatingText.Show(string.Format("+{0}!", PointsToGivePlayer), "PointStarText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
+        }
+
     }
 }

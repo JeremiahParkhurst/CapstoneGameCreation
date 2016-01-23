@@ -12,11 +12,17 @@ public class Player : MonoBehaviour, ITakeDamage {
     public float SpeedAccelerationInAir = 5f; // how quickly the player goes from moving to not moving on air
     public int MaxHealth = 100; // maximum health of the player
     public GameObject OuchEffect;
+    public Projectile Projectile; // the player's projectile
+    public float FireRate; // cooldown after firing a projectile
+    public Transform ProjectileFireLocation;
+    public GameObject FireProjectileEffect;
+
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
     public int Health { get; private set; }
-
     public bool IsDead { get; private set; }
+
+    private float _canFireIn; // tracks when the player can fire
 
     public void Awake()
     {
@@ -27,6 +33,8 @@ public class Player : MonoBehaviour, ITakeDamage {
 
     public void Update()
     {
+        _canFireIn -= Time.deltaTime; // when this reaches 0, they player can shoot again
+
         if(!IsDead)
             HandleInput(); // handles what the player press (left, right, jump)
 
@@ -107,18 +115,43 @@ public class Player : MonoBehaviour, ITakeDamage {
         if(_controller.CanJump && Input.GetKeyDown(KeyCode.Space))
         {
             _controller.Jump();
-        }   
+        }
+
+        if (Input.GetMouseButton(0))
+            FireProjectile();
     }
+
     /*
+    * Method that determines when to fire, the direction of the projectile
+    * Handles instantiation and initialize, and resets canFireIn.
+    */
     public void FireProjectile()
     {
+        if (_canFireIn > 0)
+            return;
+
+        if (FireProjectileEffect != null)
+        {
+            // Plays the effect in the direction the player is facing
+            var effect = (GameObject)Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+            effect.transform.parent = transform;
+            //Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+        }
+        var direction = _isFacingRight ? Vector2.right : -Vector2.right;
+        var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+        projectile.Initialize(gameObject, direction, _controller.Velocity);
+        _canFireIn = FireRate;
+
+        // Reflects the projectile to match the direction the player is facing
+        //projectile.transform.localScale = new Vector3(_isFacingRight ? 1 : -1, 1, 1);
+
+        // Sound
         AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
-    }*/
+    }
 
     private void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         _isFacingRight = transform.localScale.x > 0;
     }
-
 }
