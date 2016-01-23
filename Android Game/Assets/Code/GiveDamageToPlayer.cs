@@ -22,7 +22,7 @@ public class GiveDamageToPlayer : MonoBehaviour {
         if (player == null)
             return;
 
-        player.TakeDamage(DamageToGive);
+        player.TakeDamage(DamageToGive, gameObject);
         var controller = player.GetComponent<CharacterController2D>();
         var totalVelocity = controller.Velocity + _velocity;
 
@@ -31,14 +31,4 @@ public class GiveDamageToPlayer : MonoBehaviour {
            -1 * Mathf.Sign(totalVelocity.x) * Mathf.Clamp(Mathf.Abs(totalVelocity.x) * 6, 10, 40),
            -1 * Mathf.Sign(totalVelocity.y) * Mathf.Clamp(Mathf.Abs(totalVelocity.y) * 6, 5, 30)));
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

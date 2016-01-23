@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-//https://www.youtube.com/watch?v=re6fookKraU&index=28&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n
-public class SimpleEnemyAI : MonoBehaviour {//, ITakeDamage, IPlayerRespawnListener {
-    /*
+/* https://www.youtube.com/watch?v=re6fookKraU&index=28&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n */
+public class SimpleEnemyAI : MonoBehaviour, ITakeDamage/*, IPlayerRespawnListener*/ {
+
+    /* player projectile https://youtu.be/re6fookKraU?list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n&t=1092 */
     public float Speed;
     public float FireRate = 1;
     public Projectile Projectile;
@@ -24,16 +25,19 @@ public class SimpleEnemyAI : MonoBehaviour {//, ITakeDamage, IPlayerRespawnListe
 	
 	// Update is called once per frame
 	public void Update () {
-        _controller.SetHorizonalForce(_direction.x * Speed);
-        if((_direction.x < 0 && _controller.IsCollidingLeft) || (_direction.x > 0 && _controller.IsCollidingRight))
+        _controller.SetHorizontalForce(_direction.x * Speed);
+
+        // Checks to see if this GameObject is colliding with something in the same direction
+        if ((_direction.x < 0 && _controller.State.IsCollidingLeft) || (_direction.x > 0 && _controller.State.IsCollidingRight))
         {
-            _direction = -_direction;
+            _direction = -_direction; // switches direction
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
 
-        if ((_cantFireIn -= Time.deltaTime) > 0)
+        if ((_canFireIn -= Time.deltaTime) > 0)
             return;
 
+        // Casts rays to detect player
         var raycast = Physics2D.Raycast(transform.position, _direction, 10, 1 << LayerMask.NameToLayer("Player"));
         if (!raycast)
             return;
@@ -41,21 +45,37 @@ public class SimpleEnemyAI : MonoBehaviour {//, ITakeDamage, IPlayerRespawnListe
         projectile.Initialize(gameObject, _direction, _controller.Velocity);
         _canFireIn = FireRate;
 
-        if(ShootSound != null
+        // Sound
+        if(ShootSound != null)
             AudioSource.PlayClipAtPoint(ShootSound, transform.position);
 	}
 
+    // 
     public void TakeDamage(int damage, GameObject instigator)
     {
-        Instantiate(DestroyedEffect);
+        if(PointsToGivePlayer != 0)
+        {
+            var projectile = instigator.GetComponent<Projectile>();
+            if(projectile != null && projectile.Owner.GetComponent<Player>() != null)
+            {
+                // Handles points
+                GameManager.Instance.AddPoints(PointsToGivePlayer);
+
+                // Handles floating text
+                FloatingText.Show(string.Format("+{0}!", PointsToGivePlayer), "PointStarText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
+            }
+        }
+        // Handles effects and hides this GameObject
+        Instantiate(DestroyedEffect, transform.position, transform.rotation);
         gameObject.SetActive(false);
     }
 
+    // Method to handle respawning of this Enemey
     public void OnPlayerRespawnInThisCheckPoint(Checkpoint checkpoint, Player player)
     {
-        _direction = new Vector(-1, 0);
+        _direction = new Vector2(-1, 0);
         transform.localScale = new Vector3(1, 1, 1);
         transform.position = _startPosition;
         gameObject.SetActive(true);
-    }*/
+    }
 }
