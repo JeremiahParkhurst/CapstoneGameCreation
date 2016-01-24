@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+
 /*
-* https://www.youtube.com/watch?v=8_rIw0-AI8w&index=9&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n
+* Resource: https://www.youtube.com/watch?v=8_rIw0-AI8w&index=9&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n
+* 
 */
 public class CharacterController2D : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class CharacterController2D : MonoBehaviour
     public LayerMask PlatformMask;
     public ControllerParameters2D DefaultParameters;
 
-    // properties
+    // Properties
     public ControllerState2D State { get; private set; }
     public Vector2 Velocity { get { return _velocity; } }
     public bool CanJump

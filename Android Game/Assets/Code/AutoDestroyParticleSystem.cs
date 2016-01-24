@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
 /*
-*   Attach to a particle system, animates the particle,
-*   after animation, it will destroy the GameObject that this
-*   is applied to.
+* Attach to a particle system, animates the particle, after animation, 
+* it will destroy the GameObject that this is applied to.
 */
 public class AutoDestroyParticleSystem : MonoBehaviour {
 

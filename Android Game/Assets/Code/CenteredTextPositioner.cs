@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
+/*
+*
+*/
 public class CenteredTextPositioner : IFloatingTextPositioner {
 
-    private readonly float _speed; 
-    private float _textPosition;
+    private readonly float _speed;          //
+    private float _textPosition;            //
 
     // Constructor
     public CenteredTextPositioner(float speed)
@@ -13,6 +14,7 @@ public class CenteredTextPositioner : IFloatingTextPositioner {
         _speed = speed;
     }
 
+    // 
     public bool GetPosition(ref Vector2 position, GUIContent content, Vector2 size)
     {
         _textPosition += Time.deltaTime * _speed;
