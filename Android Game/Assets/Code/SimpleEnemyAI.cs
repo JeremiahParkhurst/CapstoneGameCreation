@@ -23,8 +23,11 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
     private Vector2 _startPosition;             // the spawn position of this GameObject
     private float _canFireIn;                   // the amount of time this GameObject can shoot projectiles
 
-	// Use this for initialization
-	void Start () {
+    public Transform ProjectileFireLocation;    // the location of which the projectile is fired at
+    //public GameObject FireProjectileEffect;         // the effect played when the player is shooting
+
+    // Use this for initialization
+    void Start () {
         _controller = GetComponent<CharacterController2D>();
         _direction = new Vector2(-1, 0);
         _startPosition = transform.position;
@@ -47,13 +50,20 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
         if ((_canFireIn -= Time.deltaTime) > 0)
             return;
 
+        /*if (FireProjectileEffect != null)
+        {
+            // Plays the effect in the direction the player is facing
+            var effect = (GameObject)Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+            effect.transform.parent = transform;
+        }*/
+
         // Casts rays to detect player
         var raycast = Physics2D.Raycast(transform.position, _direction, 10, 1 << LayerMask.NameToLayer("Player"));
         if (!raycast)
             return;
 
         // Instantiates the projectile, and initilializes the speed, and direction of the projectile
-        var projectile = (Projectile)Instantiate(Projectile, transform.position, transform.rotation);
+        var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
         projectile.Initialize(gameObject, _direction, _controller.Velocity);
         _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject
 

@@ -65,6 +65,7 @@
     <Compile Include="Assets\Code\GameHud.cs" />
     <Compile Include="Assets\Code\GameManager.cs" />
     <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
+    <Compile Include="Assets\Code\GiveHealth.cs" />
     <Compile Include="Assets\Code\HealthBar.cs" />
     <Compile Include="Assets\Code\IFloatingTextPositioner.cs" />
     <Compile Include="Assets\Code\IPlayerRespawnListener.cs" />
