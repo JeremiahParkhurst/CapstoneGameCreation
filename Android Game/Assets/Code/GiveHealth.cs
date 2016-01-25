@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/*
+* This class handles how much health the Player class recover upon colliding
+* with a GameObject with the GiveHealth script applied.
+*/
 public class GiveHealth : MonoBehaviour {
 
     public GameObject Effect;       // special effects upon colliding with the GameObject
@@ -26,7 +30,7 @@ public class GiveHealth : MonoBehaviour {
         gameObject.SetActive(false); // hides this GameObject
 
         // Floating text appears when picked up
-        FloatingText.Show(string.Format("+{0}!", HealthToGive), "PlayerHealthText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
+        FloatingText.Show(string.Format("+{0}!", HealthToGive), "PlayerGotHealthText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
     }
 
     // Method used to respawn this GameObject after the player respawns at the given checkpoint

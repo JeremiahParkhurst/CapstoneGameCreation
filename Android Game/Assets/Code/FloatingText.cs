@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
+/*
+* This class displays in-game text such as points the player currently has,
+* health recovered, damage taken, etc.
+*/
 public class FloatingText : MonoBehaviour {
 
-    private static readonly GUISkin Skin = Resources.Load<GUISkin>("GameSkin");
+    private static readonly GUISkin Skin = Resources.Load<GUISkin>("GameSkin"); // from Unity
 
     // Displays the floating text
     public static FloatingText Show(string text, string style, IFloatingTextPositioner positioner)
