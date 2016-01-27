@@ -17,10 +17,11 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
     public GameObject DestroyedEffect;  // the destroyed effect
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
     public AudioClip ShootSound;        // the sound when this GameObject shoots a projectile
+    public Transform RespawnPosition;   // position where this GameObject is respawned at
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
     private Vector2 _direction;                 // the x-direction of this GameObject
-    private Vector2 _startPosition;             // the spawn position of this GameObject
+    private Vector2 _startPosition;             // the initial spawn position of this GameObject
     private float _canFireIn;                   // the amount of time this GameObject can shoot projectiles
 
     public Transform ProjectileFireLocation;    // the location of which the projectile is fired at
@@ -29,9 +30,9 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
     // Use this for initialization
     void Start () {
         _controller = GetComponent<CharacterController2D>();
-        _direction = new Vector2(-1, 0);
+        _direction = new Vector2(-1, 0);    // this GameObject will move the left upon initialization
         _startPosition = transform.position;
-	}
+    }
 	
 	// Update is called once per frame
 	public void Update () {
@@ -101,6 +102,8 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
         _direction = new Vector2(-1, 0);
         transform.localScale = new Vector3(1, 1, 1);
         transform.position = _startPosition;
+
         gameObject.SetActive(true); // shows this GameObject
+        transform.position = RespawnPosition.position; // position where this GameObject is respawned at
     }
 }

@@ -74,6 +74,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     */
     public void RespawnAt(Transform spawnPoint)
     {
+        // Ensures that player is always facing right upon respawn
         if(!_isFacingRight)
             Flip();
 
