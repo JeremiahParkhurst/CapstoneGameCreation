@@ -73,7 +73,7 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
             AudioSource.PlayClipAtPoint(ShootSound, transform.position);
 	}
 
-    // Handles how this GameObject receives damage
+    // Handles how this GameObject receives damage from the Player Object's projectiles
     public void TakeDamage(int damage, GameObject instigator)
     {
         if(PointsToGivePlayer != 0)

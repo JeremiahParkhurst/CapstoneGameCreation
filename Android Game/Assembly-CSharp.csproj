@@ -59,6 +59,7 @@
     <Compile Include="Assets\Code\ControllerPhysicsVolume2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
     <Compile Include="Assets\Code\FloatingText.cs" />
+    <Compile Include="Assets\Code\FlyingEnemyAI.cs" />
     <Compile Include="Assets\Code\FollowObject.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\FromWorldPointTextPositioner.cs" />
