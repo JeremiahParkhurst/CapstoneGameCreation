@@ -11,30 +11,45 @@ public class Player : MonoBehaviour, ITakeDamage {
     private bool _isFacingRight;                    // checks if the player is facing right
     private CharacterController2D _controller;      // instance of the CharacterController2D
     private float _normalizedHorizontalSpeed;       // -1 if left, 1 if right
+    private float _normalizedVerticalSpeed;
 
     public float MaxSpeed = 8;                      // max speed of the player
     public float SpeedAccelerationOnGround = 10f;   // how quickly the player goes from moving to not moving on ground
     public float SpeedAccelerationInAir = 5f;       // how quickly the player goes from moving to not moving on air
     public int MaxHealth = 100;                     // maximum health of the player
     public GameObject OuchEffect;                   // effect played when the player is receiving damage
+
+    // Projectile
     public Projectile Projectile;                   // the player's projectile
     public float FireRate;                          // cooldown after firing a projectile
     public Transform ProjectileFireLocation;        // the location of which the projectile is fired at
     public GameObject FireProjectileEffect;         // the effect played when the player is shooting
+    private float _canFireIn; // tracks when the player can fire
 
+    // Sound
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
+    // Health
     public int Health { get; private set; }
     public bool IsDead { get; private set; }
-
-    private float _canFireIn; // tracks when the player can fire
+    
+    // Ladder
+    public bool onLadder;
+    public float ClimbSpeed;
+    private float ClimbVelocity;
+    private float GravityStore;
+    private Rigidbody2D _RigidBody2D;
 
     // Use this for initialization
     public void Awake()
     {
-        _controller = GetComponent<CharacterController2D>();
-        _isFacingRight = transform.localScale.x > 0;
-        Health = MaxHealth;
+        _controller = GetComponent<CharacterController2D>();    // initializes an instance of the CharacterController2D
+        _isFacingRight = transform.localScale.x > 0;            // ensure Player Object's sprite is facing to the right
+        Health = MaxHealth;                                     // initializes Player Object's health to max health
+
+        // Ladder initialization
+        _RigidBody2D = GetComponent<Rigidbody2D>();
+        GravityStore = _RigidBody2D.gravityScale;
     }
 
     // Update is called once per frame
@@ -152,6 +167,11 @@ public class Player : MonoBehaviour, ITakeDamage {
                 Flip();
         }
 
+        else if (Input.GetKey(KeyCode.W) && onLadder)
+        {
+            _normalizedVerticalSpeed = 1;
+        }
+
         // If the player is not moving (not pressing 'A' or 'D')
         else
         {
@@ -167,6 +187,18 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Handles shooting
         if (Input.GetMouseButton(0))
             FireProjectile();
+
+        if (onLadder)
+        {
+            _RigidBody2D.gravityScale = 0f;
+            ClimbVelocity = ClimbSpeed * Input.GetAxisRaw("Vertical");
+            _RigidBody2D.velocity = new Vector2(_RigidBody2D.velocity.x, ClimbSpeed);
+        }
+
+        if (!onLadder)
+        {
+            _RigidBody2D.gravityScale = GravityStore;
+        }
     }
 
     /*

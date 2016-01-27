@@ -73,6 +73,7 @@
     <Compile Include="Assets\Code\ITakeDamage.cs" />
     <Compile Include="Assets\Code\InstaKill.cs" />
     <Compile Include="Assets\Code\JumpPlatform.cs" />
+    <Compile Include="Assets\Code\LadderController2D.cs" />
     <Compile Include="Assets\Code\LevelManager.cs" />
     <Compile Include="Assets\Code\Old Scripts\Camera2D.cs" />
     <Compile Include="Assets\Code\Old Scripts\PickupDestroy.cs" />
