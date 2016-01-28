@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/*
+* Resource:
+*
+* 
+*/
 public class Projectile : MonoBehaviour {
     
     public float Speed;

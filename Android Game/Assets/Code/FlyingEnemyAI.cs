@@ -10,28 +10,30 @@
 public class FlyingEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
 
     private Player player;          // instance of the player class
+    public LayerMask CollisionMask; // determines what this GameObject is colliding with
     public float Speed;             // the movement speed of this GameObject
     public float PlayerRange;       // the distance between the Player Object and this GameObject
-    public LayerMask PlayerLayer;   // the Player Object's layer
     public bool playerInRange;      // used to determine if the Player Object is in range of this GameObject
     public bool facingAway;         // if the Player Object is not facing this GameObject
+
+    private CharacterController2D _controller;  // has an instance of the CharacterController2D
 
     public GameObject DestroyedEffect;  // the destroyed effect
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
     public Transform RespawnPosition;   // position where this GameObject is respawned at
-    public Vector2 InitialPosition;     // the GameObject's initial position
+    private Vector2 _startPosition;     // the initial spawn position of this GameObject
 
     // Use this for initialization
     public void Start () {
-        player = FindObjectOfType<Player>();
-        transform.position = InitialPosition;
+        player = FindObjectOfType<Player>();        
+        _startPosition = transform.position;
     }
 	
 	// Update is called once per frame
 	public void Update () {
 
-        // Variable used to determines if the PlayerLayer overlaps with the Circle
-        playerInRange = Physics2D.OverlapCircle(transform.position, PlayerRange, PlayerLayer);
+        // Variable used to determines if the CollisionMask overlaps with the Circle
+        playerInRange = Physics2D.OverlapCircle(transform.position, PlayerRange, CollisionMask);
 
         // If the Player Object is on the left of this GameObject and is facing away  or vice versa
         if ((player.transform.position.x < transform.position.x && player.transform.localScale.x < 0) 
@@ -57,7 +59,11 @@ public class FlyingEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
         Gizmos.DrawSphere(transform.position, PlayerRange);
     }
 
-    // Handles how this GameObject receives damage from the Player Object's projectiles
+    /*
+    * @param damage, the damage this GameObject receives
+    * @param instigator, the GameObject inflicting damage on this GameObject
+    * Handles how this GameObject receives damage from the Player Object's projectiles
+    */
     public void TakeDamage(int damage, GameObject instigator)
     {
         if (PointsToGivePlayer != 0)
@@ -79,10 +85,14 @@ public class FlyingEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
         gameObject.SetActive(false);                    // hides this GameObject
     }
 
-    // Method used to respawn this GameObject after the player respawns at the given checkpoint
+    /*
+    * @param checkpoint, the last checkpoint the Player Object has acquired
+    * @param player, the Player Object
+    * Method used to respawn this GameObject after the player respawns at the given checkpoint
+    */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
-    {      
-        transform.position = InitialPosition;           // return this GameObject to the InitialPosition
+    {       
+        transform.position = _startPosition;
         gameObject.SetActive(true);                     // shows this GameObject
         transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
     }

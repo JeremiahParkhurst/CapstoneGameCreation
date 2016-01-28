@@ -1,30 +1,36 @@
 ﻿using UnityEngine;
 
 /*
-* This is the player class which handles movement, and controls of the player.
-* The player has a set amount of health which can be decremented by another
-* GameObject. If the Player object's health reaches zero, the Kill method
-* will be invoked, and the player will respawn at the respawn point. 
+* Resources: 
+*
+* This is the player class which handles the Player Object's physics, and controls of the player.
+* The player has a set amount of health which can be decremented by another GameObject if they have
+* the scripts necessary to deal damage to the Player Object. If the Player object's health reaches 
+* zero, the Kill method will be invoked, and the player will respawn at the last acquired checkpoint. 
+* This class has an instance of the Charactercontroller2D which overrides Unity's generic Physics.
+* This allows the Player Object's parameters to be overriden by other classes that can affect how 
+* the Player Object's physics react under certain conditions, such as terrain, and special effects
+* caused by other GameObjects.
 */
 public class Player : MonoBehaviour, ITakeDamage {
 
-    private bool _isFacingRight;                    // checks if the player is facing right
+    private bool _isFacingRight;                    // checks if the Player Object's sprite is facing right
     private CharacterController2D _controller;      // instance of the CharacterController2D
-    private float _normalizedHorizontalSpeed;       // -1 if left, 1 if right
-    private float _normalizedVerticalSpeed;
+    private float _normalizedHorizontalSpeed;       // x-direction speed: -1 = left, 1 = right
+    private float _normalizedVerticalSpeed;         // y-direction speed: -1 = down, 1 = up
 
-    public float MaxSpeed = 8;                      // max speed of the player
-    public float SpeedAccelerationOnGround = 10f;   // how quickly the player goes from moving to not moving on ground
-    public float SpeedAccelerationInAir = 5f;       // how quickly the player goes from moving to not moving on air
-    public int MaxHealth = 100;                     // maximum health of the player
-    public GameObject OuchEffect;                   // effect played when the player is receiving damage
+    public float MaxSpeed = 8;                      // max speed of the Player Object
+    public float SpeedAccelerationOnGround = 10f;   // how quickly the Player Object goes from moving to not moving on ground
+    public float SpeedAccelerationInAir = 5f;       // how quickly the Player Object goes from moving to not moving on air
+    public int MaxHealth = 100;                     // maximum health of the Player Object
+    public GameObject OuchEffect;                   // effect played when the Player Object is receiving damage
 
     // Projectile
-    public Projectile Projectile;                   // the player's projectile
+    public Projectile Projectile;                   // the Player Object's projectile
     public float FireRate;                          // cooldown after firing a projectile
     public Transform ProjectileFireLocation;        // the location of which the projectile is fired at
-    public GameObject FireProjectileEffect;         // the effect played when the player is shooting
-    private float _canFireIn; // tracks when the player can fire
+    public GameObject FireProjectileEffect;         // the effect played when the Player Object is shooting
+    private float _canFireIn;                       // Player object is able to fire when this equals the FireRate
 
     // Sound
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
@@ -34,11 +40,11 @@ public class Player : MonoBehaviour, ITakeDamage {
     public bool IsDead { get; private set; }
     
     // Ladder
-    public bool onLadder;
-    public float ClimbSpeed;
-    private float ClimbVelocity;
-    private float GravityStore;
-    private Rigidbody2D _RigidBody2D;
+    public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
+    //public float ClimbSpeed;
+    //private float ClimbVelocity;
+    private float GravityStore;                     // store Player Object's default gravity
+    private Rigidbody2D _RigidBody2D;               // instance of the Player Object's RigidBody2D
 
     // Use this for initialization
     public void Awake()
@@ -46,7 +52,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         _controller = GetComponent<CharacterController2D>();    // initializes an instance of the CharacterController2D
         _isFacingRight = transform.localScale.x > 0;            // ensure Player Object's sprite is facing to the right
         Health = MaxHealth;                                     // initializes Player Object's health to max health
-
+        
         // Ladder initialization
         _RigidBody2D = GetComponent<Rigidbody2D>();
         GravityStore = _RigidBody2D.gravityScale;
@@ -65,6 +71,7 @@ public class Player : MonoBehaviour, ITakeDamage {
 
         // Handles horizontal velocity
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
+        _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor)); //][][][][][][][][][]
     }
 
     /*
@@ -75,12 +82,12 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Sound
         AudioSource.PlayClipAtPoint(PlayerDeathSound, transform.position);
 
-        _controller.HandleCollisions = false; // player will fall through object
+        _controller.HandleCollisions = false;       // player will fall through object
         GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
         IsDead = true;
-        Health = 0;
+        Health = 0;                                 // sets Player Object's health to 0                              
 
-        _controller.SetForce(new Vector2(0, 20)); // and bounces player up
+        _controller.SetForce(new Vector2(0, 20));   // and bounces player up
     }
 
     /*
@@ -89,16 +96,16 @@ public class Player : MonoBehaviour, ITakeDamage {
     */
     public void RespawnAt(Transform spawnPoint)
     {
-        // Ensures that player is always facing right upon respawn
+        // Handles which direction the player is facing upon Respawn
         if(!_isFacingRight)
             Flip();
 
-        IsDead = false;
-        GetComponent<Collider2D>().enabled = true; // collider2D.enabled = true;
-        _controller.HandleCollisions = true;
-        Health = MaxHealth; // sets current health to the Player object's max health
+        IsDead = false;                             // player is not dead
+        GetComponent<Collider2D>().enabled = true;  // collider2D.enabled = true;
+        _controller.HandleCollisions = true;        // sets collisions to true again
+        Health = MaxHealth;                         // sets current health to the Player object's max health
 
-        transform.position = spawnPoint.position; // respawns the player at the spawnPoint
+        transform.position = spawnPoint.position;   // respawns the player at the spawnPoint
     }
 
     /*
@@ -124,9 +131,9 @@ public class Player : MonoBehaviour, ITakeDamage {
     }
 
     /*
-    * Method that allows the Player object to recover lost health.
     * @param health, the health of the player
     * @param instigator, the GameObject initializing the health recovery
+    * Method that allows the Player object to recover lost health.
     */
     public void GiveHealth(int health, GameObject instigator)
     {
@@ -151,7 +158,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     */
     private void HandleInput()
     {
-        // Handle right direction, and changing the Player object's sprite to match
+        // Handles right direction, and changing the Player object's sprite to match
         if (Input.GetKey(KeyCode.D))
         {
             _normalizedHorizontalSpeed = 1;
@@ -159,23 +166,33 @@ public class Player : MonoBehaviour, ITakeDamage {
                 Flip();
         }
 
-        // Handle left direction, and changing the Player object's sprite to match
+        // Handles left direction, and changing the Player object's sprite to match
         else if (Input.GetKey(KeyCode.A))
         {
             _normalizedHorizontalSpeed = -1;
             if (_isFacingRight)
                 Flip();
         }
-
-        else if (Input.GetKey(KeyCode.W) && onLadder)
+        
+        // Handles up direction and ladders      
+        else if (onLadder && Input.GetKey(KeyCode.W))
         {
-            _normalizedVerticalSpeed = 1;
+            _normalizedVerticalSpeed = 1;               // Y-direction speed = positive = up
+            _RigidBody2D.gravityScale = 0f;             // ignore gravity
+            //ClimbVelocity = ClimbSpeed * Input.GetAxisRaw("Vertical");
+            //_RigidBody2D.velocity = new Vector2(_RigidBody2D.velocity.x, _normalizedVerticalSpeed);                    
         }
 
-        // If the player is not moving (not pressing 'A' or 'D')
+        else if (!onLadder)
+        {
+            _RigidBody2D.gravityScale = GravityStore;   // reset gravity
+        }      
+        
+        // If the player is not pressing anything
         else
         {
             _normalizedHorizontalSpeed = 0;
+            _normalizedVerticalSpeed = 0;
         }
 
         // Handles jumping
@@ -186,19 +203,7 @@ public class Player : MonoBehaviour, ITakeDamage {
 
         // Handles shooting
         if (Input.GetMouseButton(0))
-            FireProjectile();
-
-        if (onLadder)
-        {
-            _RigidBody2D.gravityScale = 0f;
-            ClimbVelocity = ClimbSpeed * Input.GetAxisRaw("Vertical");
-            _RigidBody2D.velocity = new Vector2(_RigidBody2D.velocity.x, ClimbSpeed);
-        }
-
-        if (!onLadder)
-        {
-            _RigidBody2D.gravityScale = GravityStore;
-        }
+            FireProjectile();     
     }
 
     /*

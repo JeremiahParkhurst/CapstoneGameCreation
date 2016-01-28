@@ -73,7 +73,11 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
             AudioSource.PlayClipAtPoint(ShootSound, transform.position);
 	}
 
-    // Handles how this GameObject receives damage from the Player Object's projectiles
+    /*
+    * @param damage, the damage this GameObject receives
+    * @param instigator, the GameObject inflicting damage on this GameObject
+    * Handles how this GameObject receives damage from the Player Object's projectiles
+    */
     public void TakeDamage(int damage, GameObject instigator)
     {
         if(PointsToGivePlayer != 0)
@@ -94,8 +98,11 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
          
         gameObject.SetActive(false); // hides this GameObject
     }
-
-    // Method used to respawn this GameObject after the player respawns at the given checkpoint
+    /*
+    * @param checkpoint, the last checkpoint the Player Object has acquired
+    * @param player, the Player Object
+    * Method used to respawn this GameObject after the player respawns at the given checkpoint
+    */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
         // Re-initializes this GameObject's direction, and start position

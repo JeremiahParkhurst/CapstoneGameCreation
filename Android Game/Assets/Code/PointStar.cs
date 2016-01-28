@@ -14,7 +14,10 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
     public int PointsToAdd = 10;    // the number of points the player is rewarded
     public AudioClip PickupSound;   // sound played when the player collides this GameObject
 
-    // Handles what happens to the GameObject
+    /*
+    * @param other, the other GameObject
+    * Handles what happens to the GameObject
+    */
     public void OnTriggerEnter2D(Collider2D other)
     {
         // Does nothing if another GameObject collides with this GameObject
@@ -37,7 +40,11 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
         FloatingText.Show(string.Format("+{0}!", PointsToAdd), "PointStarText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
     }
 
-    // Method used to respawn this GameObject after the player respawns at the given checkpoint
+    /*
+    * @param checkpoint, the most recent checkpoint the Player Object has acquired
+    * @param player, the Player Object
+    * Method used to respawn this GameObject after the player respawns at the given checkpoint
+    */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
         gameObject.SetActive(true); // shows this GameObject

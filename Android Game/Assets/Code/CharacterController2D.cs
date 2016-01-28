@@ -3,18 +3,19 @@
 /*
 * Resource: https://www.youtube.com/watch?v=8_rIw0-AI8w&index=9&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n
 * 
+* This class allows GameObjects to override Unity's Physics engine. This also creates Raycasts,
+* which can be set to do certain action depending on what the Raycasts collide with.  
 */
 public class CharacterController2D : MonoBehaviour
 {
-
-    private const float SkinWidth = .02f;
-    private const int TotalHorizontalRays = 8;
-    private const int TotalVerticalRays = 4;
+    private const float SkinWidth = .02f;       // the space between the rays
+    private const int TotalHorizontalRays = 8;  // number of horizontal rays used during raycast
+    private const int TotalVerticalRays = 4;    // number of vertical rays used during raycast
 
     private static readonly float SlopeLimitTangant = Mathf.Tan(75f * Mathf.Deg2Rad);
 
-    public LayerMask PlatformMask;
-    public ControllerParameters2D DefaultParameters;
+    public LayerMask PlatformMask;                      // used for detection between GameObjects
+    public ControllerParameters2D DefaultParameters;    // 
 
     // Properties
     public ControllerState2D State { get; private set; }
@@ -34,10 +35,10 @@ public class CharacterController2D : MonoBehaviour
     }
     public bool HandleCollisions { get; set; }
     public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters;  } }
-    public GameObject StandingOn { get; private set; }
-    public Vector3 PlatformVelocity { get; private set; }
+    public GameObject StandingOn { get; private set; }      // what this GameObject is colliding with
+    public Vector3 PlatformVelocity { get; private set; }   // the velocity of the GameObject on a platform
 
-    // allias
+    // Allias
     private Vector2 _velocity;
     private Transform _transform;
     private Vector3 _localScale;
@@ -60,17 +61,19 @@ public class CharacterController2D : MonoBehaviour
         _horizontalDistanceBetweenRays;
 
     /* 
-    * handles initialization of the ControllerState2D and alliases
-    * calculates the collider width and height
+    * Handles initialization of the ControllerState2D and alliases.
+    * Calculates the collider dimensions.
     */
     public void Awake()
     {
+        // Initialization of alliases
         HandleCollisions = true;
         State = new ControllerState2D();
         _transform = transform;
         _localScale = transform.localScale;
         _boxCollider = GetComponent<BoxCollider2D>();
 
+        // Collider Calculations
         var colliderWidth = _boxCollider.size.x * Mathf.Abs(transform.localScale.x) - (2 * SkinWidth);
         _horizontalDistanceBetweenRays = colliderWidth / (TotalVerticalRays - 1);
 
@@ -78,37 +81,54 @@ public class CharacterController2D : MonoBehaviour
         _verticalDistanceBetweenRays = colliderHeight / (TotalHorizontalRays - 1);
     }
 
-    // add force to character controller
+    /*
+    * @param force, the x and y-direction force
+    * Sets the _velocity equal to force
+    */
     public void AddForce(Vector2 force)
     {
         _velocity = force;
     }
 
-    // sets the force
+    /*
+    * @param force, the x and y-direction force
+    * Adds the force to _velocity
+    */
     public void SetForce(Vector2 force)
     {
         _velocity += force;
     }
 
-    // helper method to set the horizontal force
+    /*
+    * @param x, the x velocity
+    * Set the horizontal _velocity equal to x 
+    */
     public void SetHorizontalForce(float x)
     {
         _velocity.x = x;
     }
 
-    // helper method to set the vertical force
+    /*
+    * @param y, the y velocity
+    * Set the vertical _velocity equal to y
+    */ 
     public void SetVerticalForce(float y)
     {
         _velocity.y = y;
     }
 
+    /*
+    * This method allows this GameObject to jump with the use of Vector2.
+    */
     public void Jump()
     {
-        // TODO: Moving platform support
         AddForce(new Vector2(0, Parameters.JumpMagnitude));
         _jumpIn = Parameters.JumpFrequency;
     }
 
+    /*
+    * 
+    */
     public void LateUpdate()
     {
         _jumpIn -= Time.deltaTime;
@@ -116,7 +136,10 @@ public class CharacterController2D : MonoBehaviour
         Move(Velocity * Time.deltaTime);
     }
 
-
+    /*
+    * @param deltaMovement, 
+    * 
+    */
     private void Move(Vector2 deltaMovement)
     {
         var wasGrounded = State.IsCollidingBelow;
@@ -173,10 +196,12 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-    // handle how character movement on a platform reacts
+    /*
+    * Handle this GameObject's movement on a platforms
+    */
     private void HandlePlatforms()
     {
-        // calculates the velocity of an object the player is standing on
+        // Calculates the velocity of an object the player is standing on
         if (StandingOn != null)
         {
             var newGlobalPlatformPoint = StandingOn.transform.TransformPoint(_activeLocalPlatformPoint);
@@ -196,6 +221,11 @@ public class CharacterController2D : MonoBehaviour
         StandingOn = null;
     }
 
+    /*
+    * @param deltaMovement,
+    * @param isright, 
+    * 
+    */
     private void CorrectHorizontalPlacement(ref Vector2 deltaMovement, bool isRight)
     {
         var halfWidth = (_boxCollider.size.x * _localScale.x) / 2f;
@@ -224,12 +254,12 @@ public class CharacterController2D : MonoBehaviour
         deltaMovement.x += offset;
     }
 
-    // where the rays will be instantiated
+    /* 
+    * Calculates where rays will be instantiated
+    */
     private void CalculateRayOrigins()
     {
         var size = new Vector2(_boxCollider.size.x * Mathf.Abs(_localScale.x), _boxCollider.size.y * Mathf.Abs(_localScale.y)) / 2;
-        /* original code */
-        //var center = new Vector2(_boxCollider.center.x * _localScale.x, _boxCollider.center.y * _localScale.y);
         var center = new Vector2(_boxCollider.offset.x * _localScale.x, _boxCollider.offset.y * _localScale.y);
 
         _raycastTopLeft = _transform.position + new Vector3(center.x - size.x + SkinWidth, center.y + size.y - SkinWidth);
@@ -238,6 +268,10 @@ public class CharacterController2D : MonoBehaviour
 
     }
 
+    /*
+    * @param deltaMovement, 
+    * 
+    */
     private void MoveHorizontally(ref Vector2 deltaMovement)
     {
         var isGoingRight = deltaMovement.x > 0;
@@ -276,7 +310,11 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-    // takes a reference to delta movement to allow it to manipulate it if there anything colliding vertically
+    /*
+    * @param deltaMovement, 
+    * This method takes a reference to deltaMvement which allow it to 
+    * manipulate this GameObject if there anything colliding vertically.
+    */
     private void MoveVertically(ref Vector2 deltaMovement)
     {
         var isGoingUp = deltaMovement.y > 0;
@@ -328,7 +366,10 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-
+    /*
+    * @param deltaMovement, reference to change in position
+    * 
+    */
     private void HandleVerticalSlope(ref Vector2 deltaMovement)
     {
 
@@ -358,6 +399,12 @@ public class CharacterController2D : MonoBehaviour
         deltaMovement.y = raycastHit.point.y - slopeRayVector.y;
     }
 
+    /*
+    * @param deltaMovement,
+    * @param angle,
+    * @param isGoingRight,
+    *
+    */
     private bool HandleHorizontalSlope(ref Vector2 deltaMovement, float angle, bool isGoingRight)
     {
         if (Mathf.RoundToInt(angle) == 90)
@@ -381,6 +428,10 @@ public class CharacterController2D : MonoBehaviour
         return true;
     }
 
+    /*
+    * @param other, the other GameObject colliding with this GameObject
+    * 
+    */
     public void OnTriggerEnter2D(Collider2D other)
     {
         var parameters = other.gameObject.GetComponent<ControllerPhysicsVolume2D>();
@@ -390,6 +441,9 @@ public class CharacterController2D : MonoBehaviour
         _overrideParameters = parameters.Parameters;
     }
 
+    /*
+    * @param other, the other GameObject colliding with this GameObject
+    */
     public void OnTriggerExit2D(Collider2D other)
     {
         var parameters = other.gameObject.GetComponent<ControllerPhysicsVolume2D>();
