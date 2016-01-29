@@ -20,7 +20,7 @@ public class LadderController2D : MonoBehaviour {
         if (other.GetComponent<Player>() == null)
             return;
         
-        player.onLadder = true;      
+        //player.onLadder = true;      
     }
 
     // Handles collision
@@ -29,6 +29,6 @@ public class LadderController2D : MonoBehaviour {
         if (other.GetComponent<Player>() == null)
             return;
 
-        player.onLadder = false;        
+        //player.onLadder = false;        
     }
 }

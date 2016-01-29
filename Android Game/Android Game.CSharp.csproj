@@ -103,6 +103,7 @@
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\PathedProjectile.cs" />
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
+    <Compile Include="Assets\Code\PatrolEnemyAI.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />

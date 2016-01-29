@@ -36,15 +36,13 @@ public class Player : MonoBehaviour, ITakeDamage {
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
     // Health
-    public int Health { get; private set; }
-    public bool IsDead { get; private set; }
+    public int Health { get; private set; }         // Player Object's current health
+    public bool IsDead { get; private set; }        // determines if the user can control the Player Object
     
     // Ladder
-    public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
-    //public float ClimbSpeed;
-    //private float ClimbVelocity;
-    private float GravityStore;                     // store Player Object's default gravity
-    private Rigidbody2D _RigidBody2D;               // instance of the Player Object's RigidBody2D
+    //public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
+    //private float GravityStore;                     // variable used to store the Player Object's default gravity
+ 
 
     // Use this for initialization
     public void Awake()
@@ -54,8 +52,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         Health = MaxHealth;                                     // initializes Player Object's health to max health
         
         // Ladder initialization
-        _RigidBody2D = GetComponent<Rigidbody2D>();
-        GravityStore = _RigidBody2D.gravityScale;
+        //GravityStore = _controller.DefaultParameters.Gravity;
     }
 
     // Update is called once per frame
@@ -71,7 +68,7 @@ public class Player : MonoBehaviour, ITakeDamage {
 
         // Handles horizontal velocity
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
-        _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor)); //][][][][][][][][][]
+        //_controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
     }
 
     /*
@@ -173,26 +170,32 @@ public class Player : MonoBehaviour, ITakeDamage {
             if (_isFacingRight)
                 Flip();
         }
+        /*
+        * Bugs: player !onLadder, if they're moving up, they will continue moving up
+        * player wont stay on the ladder without falling
+        * vertical gravity does not reset itself to -9.8 after getting off ladder
         
-        // Handles up direction and ladders      
-        else if (onLadder && Input.GetKey(KeyCode.W))
+        else if (onLadder)
         {
-            _normalizedVerticalSpeed = 1;               // Y-direction speed = positive = up
-            _RigidBody2D.gravityScale = 0f;             // ignore gravity
-            //ClimbVelocity = ClimbSpeed * Input.GetAxisRaw("Vertical");
-            //_RigidBody2D.velocity = new Vector2(_RigidBody2D.velocity.x, _normalizedVerticalSpeed);                    
-        }
+            _controller.DefaultParameters.Gravity = 0;
 
-        else if (!onLadder)
-        {
-            _RigidBody2D.gravityScale = GravityStore;   // reset gravity
-        }      
-        
+            if (Input.GetKey(KeyCode.W))
+            {
+                _normalizedVerticalSpeed = 1;   // Y-direction speed = positive = up
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                _normalizedVerticalSpeed = -1;  // Y-direction speed = negative = down
+            }
+            else
+                _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving        
+        }*/
+
         // If the player is not pressing anything
         else
         {
             _normalizedHorizontalSpeed = 0;
-            _normalizedVerticalSpeed = 0;
+            //_controller.DefaultParameters.Gravity = -25;   // reset gravity
         }
 
         // Handles jumping

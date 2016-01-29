@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /*
 * This class is used to overide the ControllerParameters2D parameters.
