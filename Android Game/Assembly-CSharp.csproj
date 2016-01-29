@@ -68,6 +68,7 @@
     <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\GiveHealth.cs" />
     <Compile Include="Assets\Code\HealthBar.cs" />
+    <Compile Include="Assets\Code\HomingProjectile.cs" />
     <Compile Include="Assets\Code\IFloatingTextPositioner.cs" />
     <Compile Include="Assets\Code\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\ITakeDamage.cs" />
@@ -84,11 +85,13 @@
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\PathedProjectile.cs" />
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
+    <Compile Include="Assets\Code\PatrolEnemyAI.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
     <Compile Include="Assets\Code\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Code\SimpleProjectile.cs" />
+    <Compile Include="Assets\Code\TurretAI.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

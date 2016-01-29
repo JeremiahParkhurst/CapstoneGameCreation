@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class ControllerState2D {
+﻿public class ControllerState2D {
 
     // checks if there is anything colliding to the right of the player
     public bool IsCollidingRight { get; set; }
@@ -43,7 +40,6 @@ public class ControllerState2D {
         SlopeAngle = 0;
     }
 
-    
     public override string ToString()
     {
         return string.Format(
@@ -56,5 +52,4 @@ public class ControllerState2D {
             IsMovingUpSlope,
             SlopeAngle);
     }
-
 }
