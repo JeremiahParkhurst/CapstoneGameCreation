@@ -51,11 +51,17 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -104,11 +110,13 @@
     <Compile Include="Assets\Code\PathedProjectile.cs" />
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
     <Compile Include="Assets\Code\PatrolEnemyAI.cs" />
+    <Compile Include="Assets\Code\PatrolEnemyAI2.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
     <Compile Include="Assets\Code\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Code\SimpleProjectile.cs" />
+    <Compile Include="Assets\Code\TurretAI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

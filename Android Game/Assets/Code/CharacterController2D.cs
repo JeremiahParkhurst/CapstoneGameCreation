@@ -39,13 +39,13 @@ public class CharacterController2D : MonoBehaviour
     public Vector3 PlatformVelocity { get; private set; }   // the velocity of the GameObject on a platform
 
     // Allias
-    private Vector2 _velocity;
-    private Transform _transform;
-    private Vector3 _localScale;
-    private BoxCollider2D _boxCollider;
-    private ControllerParameters2D _overrideParameters;
-    private float _jumpIn;
-    private GameObject _lastStandingOn;
+    private Vector2 _velocity;                              // override velocity
+    private Transform _transform;                           // 
+    private Vector3 _localScale;                            // 
+    private BoxCollider2D _boxCollider;                     //
+    private ControllerParameters2D _overrideParameters;     //
+    private float _jumpIn;                                  //
+    private GameObject _lastStandingOn;                     // 
 
     private Vector3
         _activeGlobalPlatformPoint,

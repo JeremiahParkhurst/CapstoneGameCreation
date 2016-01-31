@@ -7,7 +7,9 @@
 * set by the CollisionMask Layer. If the GameObject has the choosen Layer's property, then
 * this GameObject will pursue it, dealing damage upon colliding with it. This GameObject
 * will move left and right, changing direction (velocity) and continuing until the Player
-* Object leaves this GameObject's sphere.
+* Object leaves this GameObject's sphere. This GameObject is dependent on platforms, in 
+* order for this GameObject to switch directions. If there is no platforms, then this
+* object will continue traveling until it collides with a platform.
 */
 public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 { 
