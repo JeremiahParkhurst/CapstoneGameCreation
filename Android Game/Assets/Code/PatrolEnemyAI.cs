@@ -27,12 +27,20 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     private Vector2 _direction;                 // the x-direction of this GameObject
     private Vector2 _startPosition;             // the initial spawn position of this GameObject
 
+    // Health
+    public int MaxHealth = 100;             // maximum health of the this GameObject
+    public int Health { get; private set; } // this GameObject's current health    
+
+    // Sound
+    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
+
     // Use this for initialization
     void Start()
     {
         _controller = GetComponent<CharacterController2D>();    // instance of Charactercontroller2D
         _direction = new Vector2(-1, 0);                        // this GameObject will move the left upon initialization
         _startPosition = transform.position;                    // starting position of this GameObject
+        Health = MaxHealth;
     }
 
     // Update is called once per frame
@@ -82,9 +90,17 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 
         // Effect played upon the death of this GameObject
         Instantiate(DestroyedEffect, transform.position, transform.rotation);
+        Health -= damage;                               // decrement this GameObject's health
 
-        gameObject.SetActive(false); // hides this GameObject
+        // If this GameObject's health reaches zero
+        if (Health <= 0)
+        {
+            AudioSource.PlayClipAtPoint(EnemyDestroySound, transform.position);
+            Health = 0;                                 // sets this GameObject's health to 0 
+            gameObject.SetActive(false);                // hides this GameObject
+        }
     }
+
     /*
     * @param checkpoint, the last checkpoint the Player Object has acquired
     * @param player, the Player Object
@@ -93,12 +109,15 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
         // Re-initializes this GameObject's direction, and start position
-        _direction = new Vector2(-1, 0);
+        _direction = new Vector2(-1, 0);                // the direction set to left
         transform.localScale = new Vector3(1, 1, 1);
-        transform.position = _startPosition;
+        transform.position = _startPosition;            // intial position of this GameObject
 
-        gameObject.SetActive(true); // shows this GameObject
-        transform.position = RespawnPosition.position; // position where this GameObject is respawned at
+        gameObject.SetActive(true);                     // shows this GameObject
+        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
+        
+        // Resets health
+        Health = MaxHealth;                             // sets current health to the GameObject's max health
     }
 
     // Method draws a sphere indicating the range of view of this GameObject

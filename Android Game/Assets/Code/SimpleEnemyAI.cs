@@ -9,15 +9,18 @@
 * for killing this GameObject, and can be awarded poitns form killing this GameObject's projectiles.
 */
 public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
-
-    /* player projectile https://youtu.be/re6fookKraU?list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n&t=1092 */
+   
     public float Speed;                 // travel speed of this GameObject
     public float FireRate = 1;          // cooldown time after firing a projectile
     public Projectile Projectile;       // this GameObject's projectile
-    public GameObject DestroyedEffect;  // the destroyed effect
+    public GameObject DestroyedEffect;  // the destroyed effect of this GameObject
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
-    public AudioClip ShootSound;        // the sound when this GameObject shoots a projectile
-    public Transform RespawnPosition;   // position where this GameObject is respawned at
+
+    // Sound
+    public AudioClip ShootSound;            // the sound when this GameObject shoots a projectile
+    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
+
+    public Transform RespawnPosition;       // position where this GameObject is respawned at
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
     private Vector2 _direction;                 // the x-direction of this GameObject
@@ -27,11 +30,16 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
     public Transform ProjectileFireLocation;    // the location of which the projectile is fired at
     //public GameObject FireProjectileEffect;         // the effect played when the player is shooting
 
+    // Health
+    public int MaxHealth = 100;                 // maximum health of the this GameObject
+    public int Health { get; private set; }     // this GameObject's current health    
+
     // Use this for initialization
     void Start () {
         _controller = GetComponent<CharacterController2D>();
         _direction = new Vector2(-1, 0);    // this GameObject will move the left upon initialization
         _startPosition = transform.position;
+        Health = MaxHealth;
     }
 	
 	// Update is called once per frame
@@ -74,16 +82,16 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
 	}
 
     /*
-    * @param damage, the damage this GameObject receives
-    * @param instigator, the GameObject inflicting damage on this GameObject
-    * Handles how this GameObject receives damage from the Player Object's projectiles
-    */
+   * @param damage, the damage this GameObject receives
+   * @param instigator, the GameObject inflicting damage on this GameObject
+   * Handles how this GameObject receives damage from the Player Object's projectiles
+   */
     public void TakeDamage(int damage, GameObject instigator)
     {
-        if(PointsToGivePlayer != 0)
+        if (PointsToGivePlayer != 0)
         {
             var projectile = instigator.GetComponent<Projectile>();
-            if(projectile != null && projectile.Owner.GetComponent<Player>() != null)
+            if (projectile != null && projectile.Owner.GetComponent<Player>() != null)
             {
                 // Handles points
                 GameManager.Instance.AddPoints(PointsToGivePlayer);
@@ -95,9 +103,17 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
 
         // Effect played upon the death of this GameObject
         Instantiate(DestroyedEffect, transform.position, transform.rotation);
-         
-        gameObject.SetActive(false); // hides this GameObject
+        Health -= damage;                               // decrement this GameObject's health
+
+        // If this GameObject's health reaches zero
+        if (Health <= 0)
+        {
+            AudioSource.PlayClipAtPoint(EnemyDestroySound, transform.position);
+            Health = 0;                                 // sets this GameObject's health to 0 
+            gameObject.SetActive(false);                // hides this GameObject
+        }
     }
+
     /*
     * @param checkpoint, the last checkpoint the Player Object has acquired
     * @param player, the Player Object
@@ -108,9 +124,11 @@ public class SimpleEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener 
         // Re-initializes this GameObject's direction, and start position
         _direction = new Vector2(-1, 0);
         transform.localScale = new Vector3(1, 1, 1);
-        transform.position = _startPosition;
+        transform.position = _startPosition;            // initial position of this GameObject
+        gameObject.SetActive(true);                     // shows this GameObject
+        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
 
-        gameObject.SetActive(true); // shows this GameObject
-        transform.position = RespawnPosition.position; // position where this GameObject is respawned at
+        // Resets health
+        Health = MaxHealth;                             // sets current health to the GameObject's max health
     }
 }
