@@ -58,8 +58,13 @@
     <Compile Include="Assets\Code\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\ControllerPhysicsVolume2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\TurretAI.cs" />
     <Compile Include="Assets\Code\FloatingText.cs" />
-    <Compile Include="Assets\Code\FlyingEnemyAI.cs" />
     <Compile Include="Assets\Code\FollowObject.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\FromWorldPointTextPositioner.cs" />
@@ -68,7 +73,6 @@
     <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\GiveHealth.cs" />
     <Compile Include="Assets\Code\HealthBar.cs" />
-    <Compile Include="Assets\Code\HomingProjectile.cs" />
     <Compile Include="Assets\Code\IFloatingTextPositioner.cs" />
     <Compile Include="Assets\Code\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\ITakeDamage.cs" />
@@ -85,13 +89,11 @@
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\PathedProjectile.cs" />
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
-    <Compile Include="Assets\Code\PatrolEnemyAI.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
-    <Compile Include="Assets\Code\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Code\SimpleProjectile.cs" />
-    <Compile Include="Assets\Code\TurretAI.cs" />
+    <Compile Include="Assets\Code\SinProjectile.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

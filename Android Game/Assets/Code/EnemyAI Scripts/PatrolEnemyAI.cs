@@ -14,14 +14,14 @@
 public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 { 
     private Player player;              // instance of the player class
-    public float Speed;                 // travel speed of this GameObject
+    public float speed;                 // travel speed of this GameObject
     public GameObject DestroyedEffect;  // the destroyed effect
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
     public Transform RespawnPosition;   // position where this GameObject is respawned at
 
-    public float PlayerRange;       // the distance between the Player Object and this GameObject
-    public bool playerInRange;      // used to determine if the Player Object is in range of this GameObject
-    public LayerMask CollisionMask; // determines what this GameObject is colliding with
+    public float detectionRange;        // the distance between the Player Object and this GameObject
+    public bool isPlayerInRange;        // used to determine if the Player Object is in range of this GameObject
+    public LayerMask CollisionMask;     // determines what this GameObject is colliding with
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
     private Vector2 _direction;                 // the x-direction of this GameObject
@@ -47,16 +47,16 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     public void Update()
     {
         // Sets the x-velocity of this GameObject
-        _controller.SetHorizontalForce(_direction.x * Speed);
+        _controller.SetHorizontalForce(_direction.x * speed);
 
         // Variable used to determines if the CollisionMask overlaps with the Circle
-        playerInRange = Physics2D.OverlapCircle(transform.position, PlayerRange, CollisionMask);
+        isPlayerInRange = Physics2D.OverlapCircle(transform.position, detectionRange, CollisionMask);
 
         // Follows the Player Object of they are in range of this GameObject's sphere
-        if (playerInRange)
+        if (isPlayerInRange)
         {
             // Handles movement of this GameObject
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             return;
         }
 
@@ -123,6 +123,6 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     // Method draws a sphere indicating the range of view of this GameObject
     public void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(transform.position, PlayerRange);
+        Gizmos.DrawSphere(transform.position, detectionRange);
     }
 }
