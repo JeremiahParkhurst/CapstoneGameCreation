@@ -7,7 +7,7 @@
 * and used alongside with conjunction of GiveDamageToPlayer, will allow this GameObject
 * to damage and hinder the player's movements.
 */
-public class FlyingEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
+public class GhostAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
 
     private Player player;          // instance of the player class
     public LayerMask CollisionMask; // determines what this GameObject is colliding with

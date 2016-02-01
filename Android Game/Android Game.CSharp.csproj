@@ -78,12 +78,12 @@
     <Compile Include="Assets\Code\ControllerPhysicsVolume2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
     <Compile Include="Assets\Code\FloatingText.cs" />
-    <Compile Include="Assets\Code\FlyingEnemyAI.cs" />
     <Compile Include="Assets\Code\FollowObject.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\FromWorldPointTextPositioner.cs" />
     <Compile Include="Assets\Code\GameHud.cs" />
     <Compile Include="Assets\Code\GameManager.cs" />
+    <Compile Include="Assets\Code\GhostAI.cs" />
     <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\GiveHealth.cs" />
     <Compile Include="Assets\Code\HealthBar.cs" />
