@@ -34,6 +34,9 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     // Sound
     public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
 
+    // Animation
+    Animator anim;
+
     // Use this for initialization
     void Start()
     {
@@ -41,6 +44,7 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         _direction = new Vector2(-1, 0);                        // this GameObject will move the left upon initialization
         _startPosition = transform.position;                    // starting position of this GameObject
         Health = MaxHealth;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -56,6 +60,7 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         if (isPlayerInRange)
         {
             // Handles movement of this GameObject
+
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             return;
         }

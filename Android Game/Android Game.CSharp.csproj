@@ -77,13 +77,18 @@
     <Compile Include="Assets\Code\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\ControllerPhysicsVolume2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\TurretAI.cs" />
     <Compile Include="Assets\Code\FloatingText.cs" />
     <Compile Include="Assets\Code\FollowObject.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\FromWorldPointTextPositioner.cs" />
     <Compile Include="Assets\Code\GameHud.cs" />
     <Compile Include="Assets\Code\GameManager.cs" />
-    <Compile Include="Assets\Code\GhostAI.cs" />
     <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\GiveHealth.cs" />
     <Compile Include="Assets\Code\HealthBar.cs" />
@@ -103,14 +108,11 @@
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\PathedProjectile.cs" />
     <Compile Include="Assets\Code\PathedProjectileSpawner.cs" />
-    <Compile Include="Assets\Code\PatrolEnemyAI.cs" />
-    <Compile Include="Assets\Code\PatrolEnemyAI2.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectile.cs" />
-    <Compile Include="Assets\Code\SimpleEnemyAI.cs" />
     <Compile Include="Assets\Code\SimpleProjectile.cs" />
-    <Compile Include="Assets\Code\TurretAI.cs" />
+    <Compile Include="Assets\Code\SinProjectile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
