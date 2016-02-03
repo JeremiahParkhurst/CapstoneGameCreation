@@ -72,6 +72,21 @@ public class Player : MonoBehaviour, ITakeDamage {
     }
 
     /*
+    * Resource: https://www.youtube.com/watch?v=lHb213yRP-Y&index=33&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n
+    *
+    * This method will disable user input, and ignore the features in game
+    * such as physics, collision, death, etc.
+    */
+    public void FinishLevel()
+    {
+        // TODO: play sound + animation
+
+        enabled = false;
+        _controller.enabled = false;
+        //GetComponent<Collider2D>().enabled = false;
+    }
+
+    /*
     * Method invoked when the player's health reaches zero.
     */
     public void Kill()
