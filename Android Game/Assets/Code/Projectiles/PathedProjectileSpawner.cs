@@ -21,11 +21,11 @@ public class PathedProjectileSpawner : MonoBehaviour {
 
     private float _nextShotInSeconds;       // the cooldown before firing another shot
 
-    Animator anim;                          // animation variable
+    public Animator anim;                   // animation
 
     // Use this for initialization
     void Start () {
-        anim = GetComponent<Animator>();    // initializes the animations
+        //anim = GetComponent<Animator>();    // initializes the animations
         _nextShotInSeconds = FireRate;
 	}
 	
@@ -47,6 +47,9 @@ public class PathedProjectileSpawner : MonoBehaviour {
         // Sound
         if (SpawnProjectileSound != null)
             AudioSource.PlayClipAtPoint(SpawnProjectileSound, transform.position);
+
+        if (anim != null)
+            anim.SetTrigger("Fire");
 	}
 
     // Visual indicator for line of travel for the projectile
