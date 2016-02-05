@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/*
+* Resource:
+*
+* This class is used to format text that appears on screen, such as the timer and
+* the accumulated points.
+*
+* TODO: Indicator for amount of lives the player has
+*/
 public class GameHud : MonoBehaviour {
 
     public GUISkin Skin;
