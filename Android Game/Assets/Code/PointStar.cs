@@ -14,7 +14,7 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
     public int PointsToAdd = 10;    // the number of points the player is rewarded
     public AudioClip PickupSound;   // sound played when the player collides this GameObject
     public Animator anim;
-    public SpriteRenderer rend;
+    //public SpriteRenderer rend;
 
     private bool _isCollected;
 
@@ -51,9 +51,9 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
     // Method used to set this GameObject to false when animation is done
     public void FinishAnimationEvent()
     {
-        //gameObject.SetActive(false); // hides this GameObject
-        rend.enabled = false;
-        anim.SetTrigger("Reset");
+        gameObject.SetActive(false); // hides this GameObject
+        //rend.enabled = false;
+        //anim.SetTrigger("Reset");
     }
 
     /*
