@@ -35,21 +35,24 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
 
     // Animation
-    Animator anim;
+    //Animator anim;
 
     // Use this for initialization
     void Start()
     {
+        player = FindObjectOfType<Player>();
         _controller = GetComponent<CharacterController2D>();    // instance of Charactercontroller2D
         _direction = new Vector2(-1, 0);                        // this GameObject will move the left upon initialization
         _startPosition = transform.position;                    // starting position of this GameObject
         Health = MaxHealth;
-        anim = GetComponent<Animator>();
+       // anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     public void Update()
     {
+        //anim.SetFloat("Speed", Mathf.Abs(speed));
+        
         // Sets the x-velocity of this GameObject
         _controller.SetHorizontalForce(_direction.x * speed);
 
@@ -58,9 +61,8 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 
         // Follows the Player Object of they are in range of this GameObject's sphere
         if (isPlayerInRange)
-        {
+        {           
             // Handles movement of this GameObject
-
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             return;
         }
