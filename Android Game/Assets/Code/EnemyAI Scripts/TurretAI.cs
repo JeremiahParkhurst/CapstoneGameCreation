@@ -49,8 +49,7 @@ public class TurretAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 
     // Update is called once per frame
     public void Update()
-    {
-        Debug.Log(Health);
+    {        
         // Handles when this GameObject cannot shoot
         if ((_canFireIn -= Time.deltaTime) > 0)
             return;       
