@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 
 /*
-* Adapted from: FlyingEnemyAI & SimpleEnemyAI
+* Adapted from: ElizabethAI
 * 
-* This GameObject will draw a sphere around it which detects the certain GameObject
-* set by the CollisionMask Layer. If the GameObject has the choosen Layer's property, then
-* this GameObject will pursue it, dealing damage upon colliding with it. This GameObject
-* will move left and right, changing direction (velocity) and continuing until the Player
-* Object leaves this GameObject's sphere. This GameObject is dependent on platforms, in 
-* order for this GameObject to switch directions. If there is no platforms, then this
-* object will continue traveling until it collides with a platform.
+* This GameObject will patrol an area, and switch x-directions upon colliding with a platform.
+* This GameObject casts rays, which if it detects a player-tagged Game Object, it will
+* speed up and pursue the Player.
 */
 public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 { 
@@ -18,10 +14,6 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     public GameObject DestroyedEffect;  // the destroyed effect
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
     public Transform RespawnPosition;   // position where this GameObject is respawned at
-
-    public float detectionRange;        // the distance between the Player Object and this GameObject
-    public bool isPlayerInRange;        // used to determine if the Player Object is in range of this GameObject
-    public LayerMask CollisionMask;     // determines what this GameObject is colliding with
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
     private Vector2 _direction;                 // the x-direction of this GameObject
@@ -34,9 +26,6 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     // Sound
     public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
 
-    // Animation
-    //Animator anim;
-
     // Use this for initialization
     void Start()
     {
@@ -45,34 +34,29 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         _direction = new Vector2(-1, 0);                        // this GameObject will move the left upon initialization
         _startPosition = transform.position;                    // starting position of this GameObject
         Health = MaxHealth;
-       // anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     public void Update()
-    {
-        //anim.SetFloat("Speed", Mathf.Abs(speed));
-        
+    {      
         // Sets the x-velocity of this GameObject
         _controller.SetHorizontalForce(_direction.x * speed);
-
-        // Variable used to determines if the CollisionMask overlaps with the Circle
-        isPlayerInRange = Physics2D.OverlapCircle(transform.position, detectionRange, CollisionMask);
-
-        // Follows the Player Object of they are in range of this GameObject's sphere
-        if (isPlayerInRange)
-        {           
-            // Handles movement of this GameObject
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-            return;
-        }
 
         // Checks to see if this GameObject is colliding with something in the same direction
         if ((_direction.x < 0 && _controller.State.IsCollidingLeft) || (_direction.x > 0 && _controller.State.IsCollidingRight))
         {
-            _direction = -_direction; // switches direction (velocity)
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); // switch sprite direction
+            _direction = -_direction; // switches direction
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
+
+        // Casts rays to detect player
+        var raycast = Physics2D.Raycast(transform.position, _direction, 10, 1 << LayerMask.NameToLayer("Player"));
+        if (!raycast)
+            return;
+
+        // Handles movement of this GameObject
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            return;
     }
 
     /*
@@ -125,11 +109,5 @@ public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         
         // Resets health
         Health = MaxHealth;                             // sets current health to the GameObject's max health
-    }
-
-    // Method draws a sphere indicating the range of view of this GameObject
-    public void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawSphere(transform.position, detectionRange);
     }
 }
