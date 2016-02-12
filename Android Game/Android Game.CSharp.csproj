@@ -118,6 +118,7 @@
     <Compile Include="Assets\Code\Projectiles\AutoDestroyParticleSystem.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner.cs" />
+    <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner2.cs" />
     <Compile Include="Assets\Code\Projectiles\Projectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SimpleProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SinProjectile.cs" />
