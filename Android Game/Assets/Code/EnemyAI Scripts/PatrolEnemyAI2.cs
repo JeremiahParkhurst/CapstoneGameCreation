@@ -59,10 +59,10 @@ public class PatrolEnemyAI2 : MonoBehaviour, ITakeDamage//, IPlayerRespawnListen
 	}
 
     /*
-* @param damage, the damage this GameObject receives
-* @param instigator, the GameObject inflicting damage on this GameObject
-* Handles how this GameObject receives damage from the Player Object's projectiles
-*/
+    * @param damage, the damage this GameObject receives
+    * @param instigator, the GameObject inflicting damage on this GameObject
+    * Handles how this GameObject receives damage from the Player Object's projectiles
+    */
     public void TakeDamage(int damage, GameObject instigator)
     {
         if (PointsToGivePlayer != 0)
@@ -83,6 +83,7 @@ public class PatrolEnemyAI2 : MonoBehaviour, ITakeDamage//, IPlayerRespawnListen
 
         gameObject.SetActive(false); // hides this GameObject
     }
+
     /*
     * @param checkpoint, the last checkpoint the Player Object has acquired
     * @param player, the Player Object
@@ -91,11 +92,11 @@ public class PatrolEnemyAI2 : MonoBehaviour, ITakeDamage//, IPlayerRespawnListen
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
         // Re-initializes this GameObject's direction, and start position
-        //_direction = new Vector2(-1, 0);
+        _direction = new Vector2(-1, 0);                // the direction set to left
         transform.localScale = new Vector3(1, 1, 1);
-        transform.position = _startPosition;
+        transform.position = _startPosition;            // intial position of this GameObject
 
-        gameObject.SetActive(true); // shows this GameObject
-        transform.position = RespawnPosition.position; // position where this GameObject is respawned at
+        gameObject.SetActive(true);                     // shows this GameObject
+        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
     }
 }

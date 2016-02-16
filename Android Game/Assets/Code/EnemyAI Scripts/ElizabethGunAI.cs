@@ -8,7 +8,7 @@
 * This GameObject will also be able to shoot projectiles at the player. The player is rewarded points 
 * for killing this GameObject, and can be awarded poitns form killing this GameObject's projectiles.
 */
-public class ElizabethAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
+public class ElizabethGunAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
    
     public float Speed;                 // travel speed of this GameObject
     public float FireRate = 1;          // cooldown time after firing a projectile

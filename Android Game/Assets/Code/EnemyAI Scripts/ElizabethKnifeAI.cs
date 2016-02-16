@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
 /*
-* Adapted from: ElizabethAI
+* Adapted from: ElizabethGunAI
 * 
 * This GameObject will patrol an area, and switch x-directions upon colliding with a platform.
 * This GameObject casts rays, which if it detects a player-tagged Game Object, it will
 * speed up and pursue the Player.
 */
-public class PatrolEnemyAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
+public class ElizabethKnifeAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 { 
     private Player player;              // instance of the player class
     public float speed;                 // travel speed of this GameObject
