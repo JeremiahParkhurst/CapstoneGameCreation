@@ -51,17 +51,11 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -78,10 +72,11 @@
     <Compile Include="Assets\Code\CharacterController2D.cs" />
     <Compile Include="Assets\Code\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\BirdAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethGunAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethKnifeAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\TurretAI.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
@@ -116,6 +111,8 @@
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectiles\AutoDestroyParticleSystem.cs" />
+    <Compile Include="Assets\Code\Projectiles\MonsterPortalProjectile.cs" />
+    <Compile Include="Assets\Code\Projectiles\MonsterPortalSpawner.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner2.cs" />

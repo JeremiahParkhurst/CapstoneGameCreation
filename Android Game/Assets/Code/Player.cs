@@ -93,7 +93,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     {
         // Sound
         AudioSource.PlayClipAtPoint(PlayerDeathSound, transform.position);
-
+        
         _controller.HandleCollisions = false;       // player will fall through object
         GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
         IsDead = true;
