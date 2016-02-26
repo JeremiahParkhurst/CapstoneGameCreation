@@ -24,14 +24,12 @@ public class PatrolEnemyAI2 : MonoBehaviour, ITakeDamage//, IPlayerRespawnListen
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
     public Transform RespawnPosition;   // position where this GameObject is respawned at
 
-    private CharacterController2D _controller;  // has an instance of the CharacterController2D  
-    private Vector2 _direction;                 // the x-direction of this GameObject
+    private CharacterController2D _controller;  // has an instance of the CharacterController2D      
     private Vector2 _startPosition;             // the initial spawn position of this GameObject
 
     // Use this for initialization
     void Start () {
         _controller = GetComponent<CharacterController2D>();    // instance of Charactercontroller2D  
-        _direction = new Vector2(-1, 0);                        // this GameObject will move the left upon initialization
         _startPosition = transform.position;                    // starting position of this GameObject
     }
 	
@@ -92,7 +90,6 @@ public class PatrolEnemyAI2 : MonoBehaviour, ITakeDamage//, IPlayerRespawnListen
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
         // Re-initializes this GameObject's direction, and start position
-        _direction = new Vector2(-1, 0);                // the direction set to left
         transform.localScale = new Vector3(1, 1, 1);
         transform.position = _startPosition;            // intial position of this GameObject
 

@@ -7,7 +7,7 @@
 * detected, this GameObject will spawn a projectile that will follow the Player. The turret has a set 
 * amount of health, which can be decremented by the Player's projectiles. 
 */
-public class TurretAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
+public class MageElizabethAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 {
     public float Speed;                     // travel speed of this GameObject
     public float FireRate = 1;              // cooldown time after firing a projectile  
@@ -18,7 +18,7 @@ public class TurretAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     public GameObject SpawnEffect;          // effect played when spawning the projectile
     public GameObject DestroyedEffect;      // the destroyed effect of this GameObject
 
-    public Transform Destination;           // the location where the projectile will travel to    
+    public Transform Destination;           // the location where the projectile will travel to   
     public Transform RespawnPosition;       // position where this GameObject is respawned at
     public Transform ProjectileFireLocation;// the location of which the projectile is fired at
     public PathedProjectile Projectile;     // the projectile shot
@@ -50,6 +50,8 @@ public class TurretAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
     // Update is called once per frame
     public void Update()
     {        
+
+
         // Handles when this GameObject cannot shoot
         if ((_canFireIn -= Time.deltaTime) > 0)
             return;       

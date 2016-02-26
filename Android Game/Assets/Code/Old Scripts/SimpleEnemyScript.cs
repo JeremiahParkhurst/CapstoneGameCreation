@@ -9,11 +9,11 @@ public class SimpleEnemyScript : MonoBehaviour {
     public Transform sightEnd;
     public LayerMask detectWhat;
     public bool colliding;
-    Animator anim;
+    //Animator anim;
 
 	// Use this for initialization
 	void Start () {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame

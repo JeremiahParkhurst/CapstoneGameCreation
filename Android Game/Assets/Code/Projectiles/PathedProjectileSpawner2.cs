@@ -25,7 +25,7 @@ public class PathedProjectileSpawner2 : MonoBehaviour
     public int PointsToGivePlayer;          // points awarded to the player upon killing this GameObject
     public GameObject DestroyedEffect;      // the destroyed effect of this GameObject
     public Transform RespawnPosition;       // position where this GameObject is respawned at
-    public AudioClip EnemyDestroySound;    // sound played when this GameObject is destroyed
+    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D   
     private Vector2 _startPosition;             // the initial spawn position of this GameObject
@@ -39,7 +39,11 @@ public class PathedProjectileSpawner2 : MonoBehaviour
     void Start()
     {
         _nextShotInSeconds = FireRate;
+        _controller = GetComponent<CharacterController2D>();
+        _startPosition = transform.position;    // initial spawn position of this GameObject     
         Health = MaxHealth;
+
+
     }
 
     // Update is called once per frame

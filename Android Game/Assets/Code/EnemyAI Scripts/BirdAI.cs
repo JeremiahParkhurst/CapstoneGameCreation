@@ -10,10 +10,9 @@
 */
 public class BirdAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
 {
-
     private Player player;          // instance of the player class
     public LayerMask CollisionMask; // determines what this GameObject is colliding with
-    public float Speed;             // the movement speed of this GameObject
+    public float MovementSpeed;             // the movement speed of this GameObject
     public float PlayerRange;       // the distance between the Player Object and this GameObject
     public bool playerInRange;      // used to determine if the Player Object is in range of this GameObject
 
@@ -49,7 +48,7 @@ public class BirdAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         if (playerInRange)
         {
             // Handles movement of this GameObject
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, MovementSpeed * Time.deltaTime);
             return;
         }
     }
