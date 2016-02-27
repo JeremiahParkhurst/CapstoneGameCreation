@@ -15,11 +15,11 @@ public class CharacterController2D : MonoBehaviour
     private static readonly float SlopeLimitTangant = Mathf.Tan(75f * Mathf.Deg2Rad);
 
     public LayerMask PlatformMask;                      // used for detection between GameObjects
-    public ControllerParameters2D DefaultParameters;    // 
+    public ControllerParameters2D DefaultParameters;    // instance of the ControllerParameters2D
 
     // Properties
-    public ControllerState2D State { get; private set; }
-    public Vector2 Velocity { get { return _velocity; } }
+    public ControllerState2D State { get; private set; }    // state of the Controller
+    public Vector2 Velocity { get { return _velocity; } }   // x-direction velocity
     public bool CanJump
     {
         get
@@ -40,12 +40,12 @@ public class CharacterController2D : MonoBehaviour
 
     // Allias
     private Vector2 _velocity;                              // override velocity
-    private Transform _transform;                           // 
-    private Vector3 _localScale;                            // 
-    private BoxCollider2D _boxCollider;                     //
-    private ControllerParameters2D _overrideParameters;     //
-    private float _jumpIn;                                  //
-    private GameObject _lastStandingOn;                     // 
+    private Transform _transform;                           // instance of the Transform position
+    private Vector3 _localScale;                            // instance of the LocalScale
+    private BoxCollider2D _boxCollider;                     // instance of the BoxCollider
+    private ControllerParameters2D _overrideParameters;     // instances of the ControllerParameters2D
+    private float _jumpIn;                                  // 
+    private GameObject _lastStandingOn;                     // last GameObject this GameObject was standing on
 
     private Vector3
         _activeGlobalPlatformPoint,

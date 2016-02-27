@@ -53,6 +53,7 @@
     <Compile Include="Assets\Code\CharacterController2D.cs" />
     <Compile Include="Assets\Code\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
+    <Compile Include="Assets\Code\CrumblingPlatform.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\BirdAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethGunAI.cs" />
