@@ -58,6 +58,7 @@
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethGunAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethKnifeAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ExecutionerElizabethAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\MageElizabethAI2.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />

@@ -3,22 +3,21 @@
 /*
 * Resource: www.youtube.com/watch?v=ieXwKpbpGVk&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n&index=26
 *
-* This class is used by GameObject who shoot projectiles. The projectiles can be destroyed by
-* colliding with another GameObject. The Player Object can destroy projectiles and be awarded 
-* a certain amount of points, and a simple sound/effect is played upon the death of a projectile.
+* This class is used by GameObject who shoot projectiles. This Projectile will travel in a similar
+* pathing to sine functions which is determined by its frequency and magnitude. The Projectile
+* is undestroyable by the Player, but it has a certain time to live.
 */
-public class SinProjectile : Projectile, ITakeDamage
+public class SinProjectile : Projectile
 {
 
     public int Damage;                  // the damage this projectile inflicts
     public GameObject DestroyedEffect;  // the effect played upon the destruction of this GameObject
-    public int PointsToGiveToPlayer;    // the amount of points the Player Object receives
     public float TimeToLive;            // the amount of time this GameObject lives
     public AudioClip DestroySound;      // the sound played when this GameObject dies
 
     public float MoveSpeed = 5.0f;
-    public float frequency = 20.0f;  // Speed of sine movement
-    public float magnitude = 0.5f;   // Size of sine movement
+    public float frequency = 10.0f;  // Speed of sine movement
+    public float magnitude = 5.0f;   // Size of sine movement
     private Vector3 axis;
     private Vector3 pos;
 
@@ -42,27 +41,12 @@ public class SinProjectile : Projectile, ITakeDamage
 
         // Handles the speed of the projectile
         pos += transform.right * Time.deltaTime * MoveSpeed;
+
+        // Handles the position of the projectile
         transform.position = pos + axis * Mathf.Sin(Time.time * frequency) * magnitude;
         //transform.Translate(Direction * ((Mathf.Abs(InitialVelocity.x) + Speed) * Time.deltaTime), Space.World);
     }
 
-    /*
-    * @param damage, the amount of damage
-    * @param instigator, the GameObject inflicting damage
-    * Method allows this projectile to deal damage to another GameObject
-    */
-    public void TakeDamage(int damage, GameObject instigator)
-    {
-        if (PointsToGiveToPlayer != 0)
-        {
-            var projectile = instigator.GetComponent<Projectile>();
-            if (projectile != null && projectile.Owner.GetComponent<PlayerController>() != null)
-            {
-                GameManager.Instance.AddPoints(PointsToGiveToPlayer);
-                FloatingText.Show(string.Format("+{0}!", PointsToGiveToPlayer), "PointStarText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
-            }
-        }
-    }
 
     /*
     * @param other, the other GameObject
