@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 /* 
 * Resource: https://www.youtube.com/watch?v=re6fookKraU&index=28&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n 
@@ -29,11 +30,16 @@ public class ExecutionerElizabethAI : MonoBehaviour, ITakeDamage, IPlayerRespawn
     private float _canFireIn;                   // the amount of time this GameObject can shoot projectiles
 
     public Transform ProjectileFireLocation;    // the location of which the projectile is fired at
-    //public GameObject FireProjectileEffect;         // the effect played when the player is shooting
 
     // Health
     public int MaxHealth = 100;                 // maximum health of the this GameObject
     public int Health { get; private set; }     // this GameObject's current health    
+
+    // Test Stuff
+    public float DelayBetweenProjectiles = 1.0f;
+    public float DelayBetweenPathedProjectiles = 1.0f;
+    //public float DelayBetweenAttacks;
+    public GameObject PathedProjectile;
 
     // Use this for initialization
     void Start()
@@ -62,22 +68,24 @@ public class ExecutionerElizabethAI : MonoBehaviour, ITakeDamage, IPlayerRespawn
         if ((_canFireIn -= Time.deltaTime) > 0)
             return;
 
-        /*if (FireProjectileEffect != null)
-        {
-            // Plays the effect in the direction the player is facing
-            var effect = (GameObject)Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
-            effect.transform.parent = transform;
-        }*/
-
         // Casts rays to detect player
         var raycast = Physics2D.Raycast(transform.position, _direction, 10, 1 << LayerMask.NameToLayer("Player"));
         if (!raycast)
             return;
 
-        // Instantiates the projectile, and initilializes the speed, and direction of the projectile
-        var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
-        projectile.Initialize(gameObject, _direction, _controller.Velocity);
-        _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject
+        int projectilesFired = 0;
+
+        while (projectilesFired < 4) {
+            // Instantiates the projectile, and initilializes the speed, and direction of the projectile
+            var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+            projectile.Initialize(gameObject, _direction, _controller.Velocity);
+            _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject
+            projectilesFired++;
+            Debug.Log("p fired: " + projectilesFired);
+            StartCoroutine(ProjectileDelay());
+        }
+
+        var pathedFlail = (GameObject)Instantiate(gameObject, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
 
         // Handles Sound
         if (ShootSound != null)
@@ -133,5 +141,17 @@ public class ExecutionerElizabethAI : MonoBehaviour, ITakeDamage, IPlayerRespawn
 
         // Resets health
         Health = MaxHealth;                             // sets current health to the GameObject's max health
+    }
+
+    IEnumerator ProjectileDelay()
+    {
+        yield return new WaitForSeconds(DelayBetweenProjectiles);       
+        yield return 0;
+    }
+
+    IEnumerator PathedProjectileDelay()
+    {
+        yield return new WaitForSeconds(DelayBetweenPathedProjectiles);
+        yield return 0;
     }
 }
