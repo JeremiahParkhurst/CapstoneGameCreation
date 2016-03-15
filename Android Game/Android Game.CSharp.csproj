@@ -72,13 +72,15 @@
     <Compile Include="Assets\Code\CharacterController2D.cs" />
     <Compile Include="Assets\Code\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\ControllerState2D.cs" />
+    <Compile Include="Assets\Code\CrumblingPlatform.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\BirdAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethGunAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethKnifeAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ExecutionerElizabethAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\MageElizabethAI2.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\TurretAI.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\GiveHealth.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Assets\Code\Level Managers\LevelManager.cs" />
     <Compile Include="Assets\Code\Level Managers\StartScreen.cs" />
     <Compile Include="Assets\Code\Old Scripts\Camera2D.cs" />
+    <Compile Include="Assets\Code\Old Scripts\MageElizabethAI.cs" />
     <Compile Include="Assets\Code\Old Scripts\PickupDestroy.cs" />
     <Compile Include="Assets\Code\Old Scripts\PlayerController.cs" />
     <Compile Include="Assets\Code\Old Scripts\PlayerMove.cs" />

@@ -38,11 +38,13 @@ public class Player : MonoBehaviour, ITakeDamage {
     // Health
     public int Health { get; private set; }         // Player Object's current health
     public bool IsDead { get; private set; }        // determines if the user can control the Player Object
-    
+
     // Ladder
     //public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
     //private float GravityStore;                     // variable used to store the Player Object's default gravity
- 
+
+    // Animation
+    public Animator Animator;
 
     // Use this for initialization
     public void Awake()
@@ -69,6 +71,10 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Handles horizontal velocity
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
         //_controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
+
+        Animator.SetBool("IsGrounded", _controller.State.IsGrounded);
+        Animator.SetBool("IsDead", IsDead);
+        Animator.SetFloat("Speed", Mathf.Abs(_controller.Velocity.x) / MaxSpeed);
     }
 
     /*
@@ -254,6 +260,8 @@ public class Player : MonoBehaviour, ITakeDamage {
 
         // Sound
         AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
+
+        Animator.SetTrigger("Shoot");
     }
 
     /*
