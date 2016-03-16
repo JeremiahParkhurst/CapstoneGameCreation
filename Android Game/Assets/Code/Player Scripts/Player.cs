@@ -43,6 +43,12 @@ public class Player : MonoBehaviour, ITakeDamage {
     //public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
     //private float GravityStore;                     // variable used to store the Player Object's default gravity
 
+    // Swimming
+    private Sprite DefaultSprite;   // the Player's starting sprite
+    private Sprite CurrentSprite;   // the current Player's sprite
+    public Sprite SwimmingSprite;   // the Player's swimming sprite
+    public bool inWater;            // value used to determine if the Player is colliding with "Water"
+
     // Animation
     public Animator Animator;
 
@@ -52,9 +58,13 @@ public class Player : MonoBehaviour, ITakeDamage {
         _controller = GetComponent<CharacterController2D>();    // initializes an instance of the CharacterController2D
         _isFacingRight = transform.localScale.x > 0;            // ensure Player Object's sprite is facing to the right
         Health = MaxHealth;                                     // initializes Player Object's health to max health
-        
+
         // Ladder initialization
         //GravityStore = _controller.DefaultParameters.Gravity;
+
+        // Swimming
+        DefaultSprite = GetComponent<SpriteRenderer>().sprite;   // stores original Player Sprite
+        CurrentSprite = DefaultSprite;                          // sets CurrentSprites
     }
 
     // Update is called once per frame
@@ -68,10 +78,32 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Changes movement factor depending on if the Player object is falling in midair, or when it is grounded
         var movementFactor = _controller.State.IsGrounded ? SpeedAccelerationOnGround : SpeedAccelerationInAir;
 
-        // Handles horizontal velocity
+        // Handles horizontal velocity + interpolates/scales the horizontal movement of the Player
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
         //_controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
 
+
+
+
+
+
+        // Swimming
+        if (inWater == true)
+        {
+            GetComponent<SpriteRenderer>().sprite = SwimmingSprite;
+        }
+        else
+            GetComponent<SpriteRenderer>().sprite = CurrentSprite;
+
+
+
+
+
+
+
+
+
+        // Animation
         Animator.SetBool("IsGrounded", _controller.State.IsGrounded);
         Animator.SetBool("IsDead", IsDead);
         Animator.SetFloat("Speed", Mathf.Abs(_controller.Velocity.x) / MaxSpeed);
@@ -261,6 +293,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Sound
         AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
 
+        // Animation
         Animator.SetTrigger("Shoot");
     }
 

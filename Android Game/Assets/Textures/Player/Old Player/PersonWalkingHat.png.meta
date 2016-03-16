@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 0299e3325dd33094e950fd5a844436bd
-timeCreated: 1447650866
+guid: bc1e6d48fea616c47af171cda2ec085a
+timeCreated: 1458171837
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: PersonWalkingJump_0
-    21300002: PersonWalkingJump_1
-    21300004: PersonWalkingJump_2
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -33,7 +30,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -41,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,37 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: PersonWalkingJump_0
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 60
-        width: 255
-        height: 420
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PersonWalkingJump_1
-      rect:
-        serializedVersion: 2
-        x: 540
-        y: 60
-        width: 255
-        height: 420
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PersonWalkingJump_2
-      rect:
-        serializedVersion: 2
-        x: 1020
-        y: 90
-        width: 255
-        height: 390
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
