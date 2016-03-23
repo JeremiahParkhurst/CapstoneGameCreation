@@ -68,10 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\BackgroundParallax.cs" />
-    <Compile Include="Assets\Code\CharacterController2D.cs" />
-    <Compile Include="Assets\Code\ControllerParameters2D.cs" />
-    <Compile Include="Assets\Code\ControllerState2D.cs" />
     <Compile Include="Assets\Code\CrumblingPlatform.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\BirdAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
@@ -82,13 +78,10 @@
     <Compile Include="Assets\Code\EnemyAI Scripts\MageElizabethAI2.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
     <Compile Include="Assets\Code\FollowPath.cs" />
-    <Compile Include="Assets\Code\GiveDamageToPlayer.cs" />
-    <Compile Include="Assets\Code\GiveHealth.cs" />
-    <Compile Include="Assets\Code\HealthBar.cs" />
     <Compile Include="Assets\Code\ITakeDamage.cs" />
     <Compile Include="Assets\Code\InstaKill.cs" />
     <Compile Include="Assets\Code\JumpPlatform.cs" />
-    <Compile Include="Assets\Code\LadderController2D.cs" />
+    <Compile Include="Assets\Code\Level Managers\BackgroundParallax.cs" />
     <Compile Include="Assets\Code\Level Managers\CameraController.cs" />
     <Compile Include="Assets\Code\Level Managers\CenteredTextPositioner.cs" />
     <Compile Include="Assets\Code\Level Managers\Checkpoint.cs" />
@@ -111,7 +104,15 @@
     <Compile Include="Assets\Code\Old Scripts\Scroll.cs" />
     <Compile Include="Assets\Code\Old Scripts\SimpleEnemyScript.cs" />
     <Compile Include="Assets\Code\PathDefinition.cs" />
-    <Compile Include="Assets\Code\Player.cs" />
+    <Compile Include="Assets\Code\Player Scripts\CharacterController2D.cs" />
+    <Compile Include="Assets\Code\Player Scripts\ControllerParameters2D.cs" />
+    <Compile Include="Assets\Code\Player Scripts\ControllerState2D.cs" />
+    <Compile Include="Assets\Code\Player Scripts\GiveDamageToPlayer.cs" />
+    <Compile Include="Assets\Code\Player Scripts\GiveHealth.cs" />
+    <Compile Include="Assets\Code\Player Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Code\Player Scripts\LadderController2D.cs" />
+    <Compile Include="Assets\Code\Player Scripts\Player.cs" />
+    <Compile Include="Assets\Code\Player Scripts\SwimmingController2D.cs" />
     <Compile Include="Assets\Code\PointStar.cs" />
     <Compile Include="Assets\Code\Projectiles\AutoDestroyParticleSystem.cs" />
     <Compile Include="Assets\Code\Projectiles\MonsterPortalProjectile.cs" />

@@ -40,8 +40,8 @@ public class Player : MonoBehaviour, ITakeDamage {
     public bool IsDead { get; private set; }        // determines if the user can control the Player Object
 
     // Ladder
-    //public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
-    //private float GravityStore;                     // variable used to store the Player Object's default gravity
+    public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
+    private float GravityStore;                     // variable used to store the Player Object's default gravity
 
     // Swimming
     private Sprite DefaultSprite;   // the Player's starting sprite
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         Health = MaxHealth;                                     // initializes Player Object's health to max health
 
         // Ladder initialization
-        //GravityStore = _controller.DefaultParameters.Gravity;
+        GravityStore = _controller.DefaultParameters.Gravity;
 
         // Swimming
         DefaultSprite = GetComponent<SpriteRenderer>().sprite;   // stores original Player Sprite
@@ -80,12 +80,9 @@ public class Player : MonoBehaviour, ITakeDamage {
 
         // Handles horizontal velocity + interpolates/scales the horizontal movement of the Player
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
-        //_controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
+        _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
 
-
-
-
-
+        //Debug.Log(_normalizedVerticalSpeed);
 
         // Swimming
         if (inWater == true)
@@ -94,13 +91,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         }
         else
             GetComponent<SpriteRenderer>().sprite = CurrentSprite;
-
-
-
-
-
-
-
+        
 
 
         // Animation
@@ -211,6 +202,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Handles right direction, and changing the Player object's sprite to match
         if (Input.GetKey(KeyCode.D))
         {
+            _controller.DefaultParameters.Gravity = GravityStore;   // reset gravity     
             _normalizedHorizontalSpeed = 1;
             if (!_isFacingRight)
                 Flip();
@@ -219,36 +211,48 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Handles left direction, and changing the Player object's sprite to match
         else if (Input.GetKey(KeyCode.A))
         {
+            _controller.DefaultParameters.Gravity = GravityStore;   // reset gravity     
             _normalizedHorizontalSpeed = -1;
             if (_isFacingRight)
                 Flip();
-        }
-        /*
-        * Bugs: player !onLadder, if they're moving up, they will continue moving up
-        * player wont stay on the ladder without falling
-        * vertical gravity does not reset itself to -9.8 after getting off ladder
+        } 
         
         else if (onLadder)
         {
-            _controller.DefaultParameters.Gravity = 0;
-
+           // Moves the player upwards on the ladder
             if (Input.GetKey(KeyCode.W))
             {
                 _normalizedVerticalSpeed = 1;   // Y-direction speed = positive = up
+                _controller.DefaultParameters.Gravity = 0;
             }
+
+            // Moves the player upwards
+            else if (Input.GetKeyUp(KeyCode.W))
+            {
+                _normalizedVerticalSpeed = 0;   // Y-direction speed = positive = up
+                _controller.DefaultParameters.Gravity = GravityStore;
+            }
+
+            // Moves the player downwards on the ladder
             else if (Input.GetKey(KeyCode.S))
             {
                 _normalizedVerticalSpeed = -1;  // Y-direction speed = negative = down
             }
+            
+            // If the player is hanging on the ladder & no input has been detected
             else
-                _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving        
-        }*/
+            {
+                _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving    
+                _controller.DefaultParameters.Gravity = 0;
+            } 
+        }
 
         // If the player is not pressing anything
         else
         {
             _normalizedHorizontalSpeed = 0;
-            //_controller.DefaultParameters.Gravity = -25;   // reset gravity
+            _normalizedVerticalSpeed = 0;
+            _controller.DefaultParameters.Gravity = GravityStore;   // reset gravity                
         }
 
         // Handles jumping
