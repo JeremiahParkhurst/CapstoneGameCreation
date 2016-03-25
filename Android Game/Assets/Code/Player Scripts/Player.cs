@@ -80,9 +80,10 @@ public class Player : MonoBehaviour, ITakeDamage {
 
         // Handles horizontal velocity + interpolates/scales the horizontal movement of the Player
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
-        _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
-
-        //Debug.Log(_normalizedVerticalSpeed);
+        if (onLadder)
+        {
+            _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
+        }               
 
         // Swimming
         if (inWater == true)
@@ -223,30 +224,41 @@ public class Player : MonoBehaviour, ITakeDamage {
             if (Input.GetKey(KeyCode.W))
             {
                 _normalizedVerticalSpeed = 1;   // Y-direction speed = positive = up
+                _normalizedHorizontalSpeed = 0;
                 _controller.DefaultParameters.Gravity = 0;
             }
-
+            /*
             // Moves the player upwards
             else if (Input.GetKeyUp(KeyCode.W))
             {
                 _normalizedVerticalSpeed = 0;   // Y-direction speed = positive = up
                 _controller.DefaultParameters.Gravity = GravityStore;
             }
-
+            */
             // Moves the player downwards on the ladder
             else if (Input.GetKey(KeyCode.S))
             {
                 _normalizedVerticalSpeed = -1;  // Y-direction speed = negative = down
-            }
-            
+                _normalizedHorizontalSpeed = 0;
+                _controller.DefaultParameters.Gravity = 0;
+            }                      
+
             // If the player is hanging on the ladder & no input has been detected
             else
             {
+                _normalizedHorizontalSpeed = 0;
                 _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving    
                 _controller.DefaultParameters.Gravity = 0;
             } 
         }
-
+        /*
+        else if ((Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)))
+        {
+            _normalizedHorizontalSpeed = 0;
+            _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving    
+            _controller.DefaultParameters.Gravity = 0;
+        }
+        */
         // If the player is not pressing anything
         else
         {

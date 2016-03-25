@@ -122,8 +122,7 @@ public class CharacterController2D : MonoBehaviour
     */
     public void Jump()
     {
-         AddForce(new Vector2(0, Parameters.JumpMagnitude));
-        //AddForce(new Vector2(0, 20));
+         AddForce(new Vector2(0, Parameters.JumpMagnitude));        
         _jumpIn = Parameters.JumpFrequency;
     }
 
