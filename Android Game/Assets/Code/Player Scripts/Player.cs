@@ -146,7 +146,11 @@ public class Player : MonoBehaviour, ITakeDamage {
         GetComponent<Collider2D>().enabled = true;  // collider2D.enabled = true;
         _controller.HandleCollisions = true;        // sets collisions to true again
         Health = MaxHealth;                         // sets current health to the Player object's max health
-
+        /*
+        _normalizedHorizontalSpeed = 0;
+        _normalizedVerticalSpeed = 0;
+        _controller.DefaultParameters.Gravity = GravityStore;   // reset gravity       
+        */
         transform.position = spawnPoint.position;   // respawns the player at the spawnPoint
     }
 
@@ -251,14 +255,7 @@ public class Player : MonoBehaviour, ITakeDamage {
                 _controller.DefaultParameters.Gravity = 0;
             } 
         }
-        /*
-        else if ((Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A)))
-        {
-            _normalizedHorizontalSpeed = 0;
-            _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving    
-            _controller.DefaultParameters.Gravity = 0;
-        }
-        */
+        
         // If the player is not pressing anything
         else
         {
