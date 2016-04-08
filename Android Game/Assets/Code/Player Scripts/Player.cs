@@ -146,6 +146,8 @@ public class Player : MonoBehaviour, ITakeDamage {
         GetComponent<Collider2D>().enabled = true;  // collider2D.enabled = true;
         _controller.HandleCollisions = true;        // sets collisions to true again
         Health = MaxHealth;                         // sets current health to the Player object's max health
+        onLadder = false;
+
         /*
         _normalizedHorizontalSpeed = 0;
         _normalizedVerticalSpeed = 0;
