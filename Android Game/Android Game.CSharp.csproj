@@ -96,6 +96,8 @@
     <Compile Include="Assets\Code\Level Managers\IFloatingTextPositioner.cs" />
     <Compile Include="Assets\Code\Level Managers\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\Level Managers\LevelManager.cs" />
+    <Compile Include="Assets\Code\Level Managers\LevelSelect.cs" />
+    <Compile Include="Assets\Code\Level Managers\MainMenus.cs" />
     <Compile Include="Assets\Code\Level Managers\StartScreen.cs" />
     <Compile Include="Assets\Code\Old Scripts\Camera2D.cs" />
     <Compile Include="Assets\Code\Old Scripts\MageElizabethAI.cs" />
