@@ -97,8 +97,7 @@
     <Compile Include="Assets\Code\Level Managers\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\Level Managers\LevelManager.cs" />
     <Compile Include="Assets\Code\Level Managers\LevelSelect.cs" />
-    <Compile Include="Assets\Code\Level Managers\MainMenus.cs" />
-    <Compile Include="Assets\Code\Level Managers\StartScreen.cs" />
+    <Compile Include="Assets\Code\Level Managers\MainMenu.cs" />
     <Compile Include="Assets\Code\Old Scripts\Camera2D.cs" />
     <Compile Include="Assets\Code\Old Scripts\MageElizabethAI.cs" />
     <Compile Include="Assets\Code\Old Scripts\PickupDestroy.cs" />
@@ -106,6 +105,7 @@
     <Compile Include="Assets\Code\Old Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Code\Old Scripts\Scroll.cs" />
     <Compile Include="Assets\Code\Old Scripts\SimpleEnemyScript.cs" />
+    <Compile Include="Assets\Code\Old Scripts\StartScreen.cs" />
     <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\Player Scripts\CharacterController2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\ControllerParameters2D.cs" />

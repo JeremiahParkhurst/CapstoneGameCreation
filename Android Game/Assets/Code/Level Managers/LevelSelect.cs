@@ -8,6 +8,7 @@ public class LevelSelect : MonoBehaviour {
     public string level3;
     public string level4;
     public string level5;
+    public string backTo;
 
     public void Level1()
     {
@@ -32,5 +33,15 @@ public class LevelSelect : MonoBehaviour {
     public void Level5()
     {
         Application.LoadLevel(level5);
+    }
+
+    public void Back()
+    {
+        Application.LoadLevel(backTo);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
