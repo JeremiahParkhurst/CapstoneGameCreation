@@ -79,6 +79,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         var movementFactor = _controller.State.IsGrounded ? SpeedAccelerationOnGround : SpeedAccelerationInAir;
 
         // Handles horizontal velocity + interpolates/scales the horizontal movement of the Player
+        //_controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
         if (onLadder)
         {
@@ -233,14 +234,7 @@ public class Player : MonoBehaviour, ITakeDamage {
                 _normalizedHorizontalSpeed = 0;
                 _controller.DefaultParameters.Gravity = 0;
             }
-            /*
-            // Moves the player upwards
-            else if (Input.GetKeyUp(KeyCode.W))
-            {
-                _normalizedVerticalSpeed = 0;   // Y-direction speed = positive = up
-                _controller.DefaultParameters.Gravity = GravityStore;
-            }
-            */
+           
             // Moves the player downwards on the ladder
             else if (Input.GetKey(KeyCode.S))
             {
@@ -319,5 +313,30 @@ public class Player : MonoBehaviour, ITakeDamage {
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         _isFacingRight = transform.localScale.x > 0;
+    }
+
+    public void Move(int num)
+    {
+        //_controller.SetHorizontalForce(Mathf.Lerp(num, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * 10f));
+        _controller.SetHorizontalForce(num * 10f);
+
+        if(num == 1)
+        {
+            if (!_isFacingRight)
+                Flip();
+        }
+        else if (num == -1)
+        {
+            if (_isFacingRight)
+                Flip();
+        }
+    }
+
+    public void TouchJump()
+    {
+        if (_controller.CanJump)
+        {
+            _controller.Jump();
+        }
     }
 }
