@@ -78,8 +78,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Changes movement factor depending on if the Player object is falling in midair, or when it is grounded
         var movementFactor = _controller.State.IsGrounded ? SpeedAccelerationOnGround : SpeedAccelerationInAir;
 
-        // Handles horizontal velocity + interpolates/scales the horizontal movement of the Player
-        //_controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
+        // Handles horizontal velocity + interpolates/scales the horizontal movement of the Player      
         _controller.SetHorizontalForce(Mathf.Lerp(_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
         if (onLadder)
         {
@@ -207,6 +206,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     */
     private void HandleInput()
     {
+        /*
         // Handles right direction, and changing the Player object's sprite to match
         if (Input.GetKey(KeyCode.D))
         {
@@ -224,8 +224,12 @@ public class Player : MonoBehaviour, ITakeDamage {
             if (_isFacingRight)
                 Flip();
         } 
-        
-        else if (onLadder)
+        */
+
+        _normalizedHorizontalSpeed = (int) Input.GetAxisRaw("Horizontal");
+        Debug.Log(_normalizedHorizontalSpeed);
+
+        if (onLadder)
         {
            // Moves the player upwards on the ladder
             if (Input.GetKey(KeyCode.W))
@@ -315,20 +319,30 @@ public class Player : MonoBehaviour, ITakeDamage {
         _isFacingRight = transform.localScale.x > 0;
     }
 
-    public void Move(int num)
+    public void Move(int direction)
     {
         //_controller.SetHorizontalForce(Mathf.Lerp(num, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * 10f));
-        _controller.SetHorizontalForce(num * 10f);
+        _controller.SetHorizontalForce(direction * 10f);
 
-        if(num == 1)
+        if(direction == 1)
         {
             if (!_isFacingRight)
                 Flip();
         }
-        else if (num == -1)
+        else if (direction == -1)
         {
             if (_isFacingRight)
                 Flip();
+        }
+    }
+
+    public void MoveVertical(int direction)
+    {
+        if (onLadder)
+        {
+            _controller.SetVerticalForce(direction * 10f);
+            _normalizedHorizontalSpeed = 0;
+            _controller.DefaultParameters.Gravity = 0;
         }
     }
 
@@ -338,5 +352,10 @@ public class Player : MonoBehaviour, ITakeDamage {
         {
             _controller.Jump();
         }
+    }
+
+    public void TouchShoot()
+    {
+        FireProjectile();
     }
 }

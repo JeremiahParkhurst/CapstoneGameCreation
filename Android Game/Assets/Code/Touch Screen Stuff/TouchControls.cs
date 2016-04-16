@@ -23,21 +23,23 @@ public class TouchControls : MonoBehaviour {
     public void UpArrow()
     {
         thePlayer.TouchJump();
+        thePlayer.MoveVertical(1);
     }
 
     public void DownArrow()
     {
-
+        thePlayer.MoveVertical(-1);
     }
 
     public void UnpressedArrow()
     {
-
+        thePlayer.Move(0);
+        thePlayer.MoveVertical(0);
     }
 
     public void ShootButton()
     {
-
+        thePlayer.TouchShoot();
     }
 
     public void JumpButton()
