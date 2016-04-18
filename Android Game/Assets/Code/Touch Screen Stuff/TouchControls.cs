@@ -4,10 +4,12 @@ using System.Collections;
 public class TouchControls : MonoBehaviour {
 
     private Player thePlayer;
+    private PauseMenu thePauseMenu;
 
 	// Use this for initialization
 	void Start () {
         thePlayer = FindObjectOfType<Player>();
+        thePauseMenu = FindObjectOfType<PauseMenu>();
 	}
 	
     public void LeftArrow(int horiztontalInput)
@@ -45,5 +47,10 @@ public class TouchControls : MonoBehaviour {
     public void JumpButton()
     {
         thePlayer.TouchJump();
+    }
+
+    public void PauseMenu()
+    {
+        thePauseMenu.TouchPause();
     }
 }

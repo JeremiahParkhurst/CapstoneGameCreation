@@ -41,5 +41,21 @@ public class PauseMenu : MonoBehaviour {
         Application.LoadLevel(mainMenu);
     }
 
+    public void TouchPause()
+    {
+        if (isPaused)
+        {
+            pausedMenuCanvas.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            pausedMenuCanvas.SetActive(false);
+            Time.timeScale = 1f;
+        }
+       
+        isPaused = !isPaused;
+        
+    }
 
 }
