@@ -272,10 +272,11 @@ public class Player : MonoBehaviour, ITakeDamage {
         {
             _controller.Jump();
         }
-
+        /*
         // Handles shooting
         if (Input.GetMouseButton(0))
             FireProjectile();     
+        */
     }
 
     /*
