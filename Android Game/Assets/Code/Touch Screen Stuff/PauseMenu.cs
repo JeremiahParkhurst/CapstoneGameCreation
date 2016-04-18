@@ -20,6 +20,7 @@ public class PauseMenu : MonoBehaviour {
             pausedMenuCanvas.SetActive(false);
             Time.timeScale = 1f;
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;

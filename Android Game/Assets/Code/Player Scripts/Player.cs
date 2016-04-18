@@ -210,7 +210,10 @@ public class Player : MonoBehaviour, ITakeDamage {
     */
     private void HandleInput()
     {
-        /*
+
+        Move(hInput);
+        MoveVertical(vInput);
+
         // Handles right direction, and changing the Player object's sprite to match
         if (Input.GetKey(KeyCode.D))
         {
@@ -227,15 +230,9 @@ public class Player : MonoBehaviour, ITakeDamage {
             _normalizedHorizontalSpeed = -1;
             if (_isFacingRight)
                 Flip();
-        } 
-        */
+        }                 
 
-        //_normalizedHorizontalSpeed = (int) Input.GetAxisRaw("Horizontal");
-        //Debug.Log(_normalizedHorizontalSpeed);
-        Move(hInput);
-        MoveVertical(vInput);
-
-        if (onLadder)
+        else if (onLadder)
         {
            // Moves the player upwards on the ladder
             if (Input.GetKey(KeyCode.W))

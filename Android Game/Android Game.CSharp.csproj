@@ -130,6 +130,7 @@
     <Compile Include="Assets\Code\Projectiles\Projectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SimpleProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SinProjectile.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\EndLevelMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\LevelSelect.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\MainMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\PauseMenu.cs" />

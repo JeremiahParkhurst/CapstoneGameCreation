@@ -7,13 +7,23 @@
 */
 public class FinishLevel : MonoBehaviour {
 
-    public string LevelName; // the next level/scene or null if it is the last level/go back to start screen etc.
+    //public string LevelName; // the next level/scene or null if it is the last level/go back to start screen etc.
+    private EndLevelMenu theEndLevelMenu;
+
+    public void Update()
+    {
+        theEndLevelMenu = FindObjectOfType<EndLevelMenu>();        
+    }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.GetComponent<Player>() == null)
+        if (other.GetComponent<Player>() == null)
+        {
+            theEndLevelMenu.HideEndLevelMenu();
             return;
-
-        LevelManager.Instance.GotoNextLevel(LevelName);
+        }
+            
+        theEndLevelMenu.ShowEndLevelMenu();        
+        //LevelManager.Instance.GotoNextLevel(LevelName);
     }
 }
