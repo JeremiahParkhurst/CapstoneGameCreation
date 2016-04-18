@@ -52,6 +52,10 @@ public class Player : MonoBehaviour, ITakeDamage {
     // Animation
     public Animator Animator;
 
+    // Movement
+    public int hInput = 0;
+    public int vInput = 0;
+
     // Use this for initialization
     public void Awake()
     {
@@ -226,8 +230,10 @@ public class Player : MonoBehaviour, ITakeDamage {
         } 
         */
 
-        _normalizedHorizontalSpeed = (int) Input.GetAxisRaw("Horizontal");
-        Debug.Log(_normalizedHorizontalSpeed);
+        //_normalizedHorizontalSpeed = (int) Input.GetAxisRaw("Horizontal");
+        //Debug.Log(_normalizedHorizontalSpeed);
+        Move(hInput);
+        MoveVertical(vInput);
 
         if (onLadder)
         {
@@ -358,4 +364,5 @@ public class Player : MonoBehaviour, ITakeDamage {
     {
         FireProjectile();
     }
+
 }

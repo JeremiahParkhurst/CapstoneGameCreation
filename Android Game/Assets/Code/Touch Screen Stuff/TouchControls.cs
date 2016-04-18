@@ -10,25 +10,25 @@ public class TouchControls : MonoBehaviour {
         thePlayer = FindObjectOfType<Player>();
 	}
 	
-    public void LeftArrow()
+    public void LeftArrow(int horiztontalInput)
     {
-        thePlayer.Move(-1);
+        thePlayer.hInput = horiztontalInput;
     }
 
-    public void RightArrow()
+    public void RightArrow(int horiztonalInput)
     {
-        thePlayer.Move(1);
+        thePlayer.hInput = horiztonalInput;
     }
 
-    public void UpArrow()
+    public void UpArrow(int verticalInput)
     {
         thePlayer.TouchJump();
-        thePlayer.MoveVertical(1);
+        thePlayer.vInput = verticalInput;
     }
 
-    public void DownArrow()
+    public void DownArrow(int verticalInput)
     {
-        thePlayer.MoveVertical(-1);
+        thePlayer.vInput = verticalInput;
     }
 
     public void UnpressedArrow()
@@ -44,6 +44,6 @@ public class TouchControls : MonoBehaviour {
 
     public void JumpButton()
     {
-
+        thePlayer.TouchJump();
     }
 }
