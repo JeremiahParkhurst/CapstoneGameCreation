@@ -325,7 +325,6 @@ public class Player : MonoBehaviour, ITakeDamage {
 
     public void Move(int direction)
     {
-        //_controller.SetHorizontalForce(Mathf.Lerp(num, _normalizedHorizontalSpeed * MaxSpeed, Time.deltaTime * 10f));
         _controller.SetHorizontalForce(direction * 10f);
 
         if(direction == 1)
