@@ -1,54 +1,88 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+* Resource:
+*
+*/
 public class TouchControls : MonoBehaviour {
 
+    // Reference Objects
     private Player thePlayer;
     private PauseMenu thePauseMenu;
 
 	// Use this for initialization
 	void Start () {
         thePlayer = FindObjectOfType<Player>();
-        thePauseMenu = FindObjectOfType<PauseMenu>();
+        thePauseMenu = FindObjectOfType<PauseMenu>();       
 	}
 	
-    public void LeftArrow(int horiztontalInput)
+    /*
+    * @param horizontalInput, 
+    * Moves the Player left
+    */
+    public void LeftArrow(int horizontalInput)
     {
-        thePlayer.hInput = horiztontalInput;
+        thePlayer.hInput = horizontalInput;
     }
 
+    /*
+    * @param horizontalInput,
+    * Moves the Player right
+    */
     public void RightArrow(int horiztonalInput)
     {
         thePlayer.hInput = horiztonalInput;
     }
 
+    /*
+    * @param verticalInput,
+    * Moves the Player up if they're on the ladder,
+    * otherwise causes the Player to jump
+    */
     public void UpArrow(int verticalInput)
     {
         thePlayer.TouchJump();
         thePlayer.vInput = verticalInput;
     }
 
+    /*
+    * @param verticalInput,
+    * Moves the Player down if they're on the ladder
+    */
     public void DownArrow(int verticalInput)
     {
         thePlayer.vInput = verticalInput;
     }
 
+    /*
+    * Defaults input when no buttons are pressed
+    */
     public void UnpressedArrow()
     {
-        thePlayer.Move(0);
+        thePlayer.MoveHorizontal(0);
         thePlayer.MoveVertical(0);
     }
 
+    /*
+    * Player shoots
+    */
     public void ShootButton()
     {
         thePlayer.TouchShoot();
     }
 
+    /*
+    * Player jumps
+    */
     public void JumpButton()
     {
-        thePlayer.TouchJump();
+        thePlayer.TouchJump();       
     }
 
+    /*
+    * Shows the pause menu
+    */
     public void PauseMenu()
     {
         thePauseMenu.TouchPause();

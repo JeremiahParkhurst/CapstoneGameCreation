@@ -91,9 +91,9 @@ public class PatrolEnemyAI2 : MonoBehaviour, ITakeDamage//, IPlayerRespawnListen
     {
         // Re-initializes this GameObject's direction, and start position
         transform.localScale = new Vector3(1, 1, 1);
-        transform.position = _startPosition;            // intial position of this GameObject
+        //transform.position = _startPosition;            // intial position of this GameObject
 
         gameObject.SetActive(true);                     // shows this GameObject
-        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
+        //transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
     }
 }

@@ -13,10 +13,6 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
     public GameObject Effect;       // special effects upon colliding with the GameObject
     public int PointsToAdd = 10;    // the number of points the player is rewarded
     public AudioClip PickupSound;   // sound played when the player collides this GameObject
-    //public Animator anim;
-    //public SpriteRenderer rend;
-
-    //private bool _isCollected;
 
     /*
     * @param other, the other GameObject
@@ -43,18 +39,8 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
 
         // Floating text appears when picked up
         FloatingText.Show(string.Format("+{0}!", PointsToAdd), "PointStarText", new FromWorldPointTextPositioner(Camera.main, transform.position, 1.5f, 50));
-        gameObject.SetActive(false); // hides this GameObject
-        //_isCollected = true;
-        //anim.SetTrigger("Collect");           
+        gameObject.SetActive(false); // hides this GameObject        
     }
-
-    // Method used to set this GameObject to false when animation is done
-   // public void FinishAnimationEvent()
-    //{
-     //   gameObject.SetActive(false); // hides this GameObject
-        //rend.enabled = false;
-        //anim.SetTrigger("Reset");
-   // }
 
     /*
     * @param checkpoint, the most recent checkpoint the Player Object has acquired
@@ -63,7 +49,6 @@ public class PointStar : MonoBehaviour, IPlayerRespawnListener {
     */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
-       // _isCollected = false;
         gameObject.SetActive(true); // shows this GameObject
     }
 }

@@ -16,7 +16,7 @@ public class SwimmingController2D : MonoBehaviour {
         if (other.GetComponent<Player>() == null)
             return;
 
-        player.inWater = true;      
+        //player.inWater = true;      
     }
 
     // Handles collision
@@ -25,6 +25,6 @@ public class SwimmingController2D : MonoBehaviour {
         if (other.GetComponent<Player>() == null)
             return;
 
-        player.inWater = false;        
+        //player.inWater = false;        
     }
 }

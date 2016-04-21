@@ -18,12 +18,14 @@ public class MonsterPortalSpawner : MonoBehaviour, ITakeDamage, IPlayerRespawnLi
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
     private Vector2 _startPosition;             // the initial spawn position of this GameObject
+
     // Health
-    public int MaxHealth = 100;                 // maximum health of the this GameObject
-    public int Health { get; private set; }     // this GameObject's current health    
-    public GameObject DestroyedEffect;  // the destroyed effect of this GameObject
-    public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
+    public int MaxHealth = 100;             // maximum health of the this GameObject
+    public int Health { get; private set; } // this GameObject's current health    
+    public GameObject DestroyedEffect;      // the destroyed effect of this GameObject
+    public int PointsToGivePlayer;          // points awarded to the player upon killing this GameObject
     public Transform RespawnPosition;       // position where this GameObject is respawned at
+
     // Sound
     public AudioClip ShootSound;            // the sound when this GameObject shoots a projectile
     public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
@@ -58,8 +60,8 @@ public class MonsterPortalSpawner : MonoBehaviour, ITakeDamage, IPlayerRespawnLi
         if (SpawnProjectileSound != null)
             AudioSource.PlayClipAtPoint(SpawnProjectileSound, transform.position);
 
-        //if (anim != null)
-         //   anim.SetTrigger("Fire");
+      //if (anim != null)
+        //   anim.SetTrigger("Fire");
     }
 
     // Visual indicator for line of travel for the projectile
@@ -113,10 +115,8 @@ public class MonsterPortalSpawner : MonoBehaviour, ITakeDamage, IPlayerRespawnLi
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
         // Re-initializes this GameObject's direction, and start position
-        transform.localScale = new Vector3(1, 1, 1);
-        transform.position = _startPosition;            // initial position of this GameObject
-        gameObject.SetActive(true);                     // shows this GameObject
-        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
+        transform.localScale = new Vector3(1, 1, 1);    
+        gameObject.SetActive(true);                     // shows this GameObject   
 
         // Resets health
         Health = MaxHealth;                             // sets current health to the GameObject's max health

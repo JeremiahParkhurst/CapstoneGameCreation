@@ -43,16 +43,10 @@ public class Player : MonoBehaviour, ITakeDamage {
     public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
     private float GravityStore;                     // variable used to store the Player Object's default gravity
 
-    // Swimming
-    private Sprite DefaultSprite;   // the Player's starting sprite
-    private Sprite CurrentSprite;   // the current Player's sprite
-    public Sprite SwimmingSprite;   // the Player's swimming sprite
-    public bool inWater;            // value used to determine if the Player is colliding with "Water"
-
     // Animation
     public Animator Animator;
 
-    // Movement
+    // Touch Control Movement
     public int hInput = 0;
     public int vInput = 0;
 
@@ -64,11 +58,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         Health = MaxHealth;                                     // initializes Player Object's health to max health
 
         // Ladder initialization
-        GravityStore = _controller.DefaultParameters.Gravity;
-
-        // Swimming
-        DefaultSprite = GetComponent<SpriteRenderer>().sprite;   // stores original Player Sprite
-        CurrentSprite = DefaultSprite;                          // sets CurrentSprites
+        GravityStore = _controller.DefaultParameters.Gravity;        
     }
 
     // Update is called once per frame
@@ -88,21 +78,15 @@ public class Player : MonoBehaviour, ITakeDamage {
         {
             _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
         }               
-
-        // Swimming
-        if (inWater == true)
-        {
-            GetComponent<SpriteRenderer>().sprite = SwimmingSprite;
-        }
-        else
-            GetComponent<SpriteRenderer>().sprite = CurrentSprite;
         
-
-
         // Animation
         Animator.SetBool("IsGrounded", _controller.State.IsGrounded);
         Animator.SetBool("IsDead", IsDead);
         Animator.SetFloat("Speed", Mathf.Abs(_controller.Velocity.x) / MaxSpeed);
+
+        // Touch Controls
+        MoveHorizontal(hInput);
+        MoveVertical(vInput);
     }
 
     /*
@@ -151,12 +135,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         _controller.HandleCollisions = true;        // sets collisions to true again
         Health = MaxHealth;                         // sets current health to the Player object's max health
         onLadder = false;
-
-        /*
-        _normalizedHorizontalSpeed = 0;
-        _normalizedVerticalSpeed = 0;
-        _controller.DefaultParameters.Gravity = GravityStore;   // reset gravity       
-        */
+        
         transform.position = spawnPoint.position;   // respawns the player at the spawnPoint
     }
 
@@ -210,10 +189,6 @@ public class Player : MonoBehaviour, ITakeDamage {
     */
     private void HandleInput()
     {
-
-        Move(hInput);
-        MoveVertical(vInput);
-
         // Handles right direction, and changing the Player object's sprite to match
         if (Input.GetKey(KeyCode.D))
         {
@@ -302,10 +277,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         // Instantiates the projectile, and initilializes the speed, and direction of the projectile
         var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
         projectile.Initialize(gameObject, direction, _controller.Velocity);
-        _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject
-
-        // Reflects the projectile to match the direction the player is facing
-        //projectile.transform.localScale = new Vector3(_isFacingRight ? 1 : -1, 1, 1);
+        _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject      
 
         // Sound
         AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
@@ -314,16 +286,15 @@ public class Player : MonoBehaviour, ITakeDamage {
         Animator.SetTrigger("Shoot");
     }
 
-    /*
-    * Method to vertically flip the Player object's sprite
-    */
+    // Method to vertically flip the Player object's sprite    
     private void Flip()
     {
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         _isFacingRight = transform.localScale.x > 0;
     }
 
-    public void Move(int direction)
+    // Function invoked by TouchControls.cs to allow horizontal movement of the player
+    public void MoveHorizontal(int direction)
     {
         _controller.SetHorizontalForce(direction * 10f);
 
@@ -339,6 +310,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         }
     }
 
+    // Function invoked by TouchControls.cs to allow vertical movement of the player
     public void MoveVertical(int direction)
     {
         if (onLadder)
@@ -349,6 +321,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         }
     }
 
+    // Function invoked by TouchControls.cs to make the player jump
     public void TouchJump()
     {
         if (_controller.CanJump)
@@ -357,6 +330,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         }
     }
 
+    // Function invoked by TouchControls.cs to fire a projectile
     public void TouchShoot()
     {
         FireProjectile();

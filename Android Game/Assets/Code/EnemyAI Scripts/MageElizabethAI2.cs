@@ -134,9 +134,9 @@ public class MageElizabethAI2 : MonoBehaviour, ITakeDamage, IPlayerRespawnListen
     */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
-        transform.position = _startPosition;            // initial position of this GameObject
+        //transform.position = _startPosition;            // initial position of this GameObject
         gameObject.SetActive(true);                     // shows this GameObject
-        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
+        //transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
 
         // Resets health
         Health = MaxHealth;                             // sets current health to the GameObject's max health

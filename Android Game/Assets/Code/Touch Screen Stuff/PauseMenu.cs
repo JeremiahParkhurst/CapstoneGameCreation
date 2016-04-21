@@ -3,30 +3,30 @@ using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
 
-    public string levelSelect;
-    public string mainMenu;
-    public bool isPaused;
-    public GameObject pausedMenuCanvas;	
+    public string levelSelect;          // name of the level select screen
+    public string mainMenu;             // name of the main menu scene
+    public bool isPaused;               // checks to see if the game is currently paused
+    public GameObject pausedMenuCanvas;	// instance of the pausedMenuCanvas
 	
 	// Update is called once per frame
 	void Update () {
+        //Debug.Log(Time.timeScale);
         if (isPaused)
         {
-            pausedMenuCanvas.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            pausedMenuCanvas.SetActive(false);
-            Time.timeScale = 1f;
+            pausedMenuCanvas.SetActive(true);   // shows the pause menu canvas
+            Time.timeScale = 0f;                // freezes time
+            // need to stop gamehud time
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else
         {
-            isPaused = !isPaused;
+            pausedMenuCanvas.SetActive(false);  // hides the pause menu canvas
+            Time.timeScale = 1f;                // reverts time
+            // need to revert gamehud time
         }
 	}
 
+    // Sets isPaused to false
     public void Resume()
     {
         isPaused = false;
@@ -44,19 +44,6 @@ public class PauseMenu : MonoBehaviour {
 
     public void TouchPause()
     {
-        if (isPaused)
-        {
-            pausedMenuCanvas.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            pausedMenuCanvas.SetActive(false);
-            Time.timeScale = 1f;
-        }
-       
-        isPaused = !isPaused;
-        
+        isPaused = true;
     }
-
 }

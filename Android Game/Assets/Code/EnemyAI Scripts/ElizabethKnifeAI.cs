@@ -102,10 +102,10 @@ public class ElizabethKnifeAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListen
         // Re-initializes this GameObject's direction, and start position
         _direction = new Vector2(-1, 0);                // the direction set to left
         transform.localScale = new Vector3(1, 1, 1);
-        transform.position = _startPosition;            // intial position of this GameObject
+        //transform.position = _startPosition;            // intial position of this GameObject
 
         gameObject.SetActive(true);                     // shows this GameObject
-        transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
+        //transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
         
         // Resets health
         Health = MaxHealth;                             // sets current health to the GameObject's max health
