@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /*
-* Resource:
+* Resource: https://www.youtube.com/watch?v=qvJCjy8vIrY&index=29&list=PLiyfvmtjWC_Up8XNvM3OSqgbJoMQgHkVz
 *
+* Class invokes functions within the Player and PauseMenu classes when the UI buttons
+* and UI images are selected in game by the user.
 */
 public class TouchControls : MonoBehaviour {
 

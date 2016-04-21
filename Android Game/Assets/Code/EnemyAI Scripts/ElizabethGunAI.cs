@@ -9,26 +9,24 @@
 * for killing this GameObject, and can be awarded poitns form killing this GameObject's projectiles.
 */
 public class ElizabethGunAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener {
-   
+
+    // Parameters   
     public float Speed;                 // travel speed of this GameObject
     public float FireRate = 1;          // cooldown time after firing a projectile
+    private float Cooldown;             // the amount of time this GameObject can shoot projectiles
     public Projectile Projectile;       // this GameObject's projectile
-    public GameObject DestroyedEffect;  // the destroyed effect of this GameObject
+    public GameObject DestroyedEffect;  // the destroyed effect of this GameObject   
+    public Transform ProjectileFireLocation;    // the location of which the projectile is fired at
     public int PointsToGivePlayer;      // points awarded to the player upon killing this GameObject
 
     // Sound
     public AudioClip ShootSound;            // the sound when this GameObject shoots a projectile
-    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
+    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed    
 
-    public Transform RespawnPosition;       // position where this GameObject is respawned at
-
+    // Character Essentials
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
     private Vector2 _direction;                 // the x-direction of this GameObject
-    private Vector2 _startPosition;             // the initial spawn position of this GameObject
-    private float _canFireIn;                   // the amount of time this GameObject can shoot projectiles
-
-    public Transform ProjectileFireLocation;    // the location of which the projectile is fired at
-    //public GameObject FireProjectileEffect;         // the effect played when the player is shooting
+    private Vector2 _startPosition;             // the initial spawn position of this GameObject    
 
     // Health
     public int MaxHealth = 100;                 // maximum health of the this GameObject
@@ -56,15 +54,8 @@ public class ElizabethGunAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         }
 
         // Handles when this GameObject cannot shoot
-        if ((_canFireIn -= Time.deltaTime) > 0)
-            return;
-
-        /*if (FireProjectileEffect != null)
-        {
-            // Plays the effect in the direction the player is facing
-            var effect = (GameObject)Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
-            effect.transform.parent = transform;
-        }*/
+        if ((Cooldown -= Time.deltaTime) > 0)
+            return;       
 
         // Casts rays to detect player
         var raycast = Physics2D.Raycast(transform.position, _direction, 10, 1 << LayerMask.NameToLayer("Player"));
@@ -74,7 +65,7 @@ public class ElizabethGunAI : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
         // Instantiates the projectile, and initilializes the speed, and direction of the projectile
         var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
         projectile.Initialize(gameObject, _direction, _controller.Velocity);
-        _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject
+        Cooldown = FireRate; // time frame, when projectiles can be shot from this GameObject
 
         // Handles Sound
         if(ShootSound != null)

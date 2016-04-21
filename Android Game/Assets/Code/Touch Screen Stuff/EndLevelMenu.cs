@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+/*
+* Resource: Adapted from PauseMenu
+*
+* Class to display buttons and hide/show the EndLevelMenu canvas overlay.
+*/
 public class EndLevelMenu : MonoBehaviour {
 
     // For the buttons

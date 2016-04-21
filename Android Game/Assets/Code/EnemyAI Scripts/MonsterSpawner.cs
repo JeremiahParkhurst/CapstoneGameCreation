@@ -1,77 +1,71 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class MonsterPortalSpawner : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
-{
-
-    public Transform Destination;           // the location where the projectile will travel to
-    public PathedProjectile Projectile;     // the projectile shot
-    public GameObject SpawnEffect;          // effect played when spawning the projectile
-
+/*
+* Resource: Adapted from ElizabethAI & ProjectileSpawner
+* 
+* This GameObject behaves like the ProjectileSpawner and fires Projectiles.
+* The main difference from this and the ProjectileSpawner is that it is
+* destroyable. This means that it implements the ITakeDamage and IPlayerRespawnListener
+* interfaces, so when this GameObject is destroyed it will respawn at its _startPosotion.
+*/
+public class MonsterSpawner : MonoBehaviour, ITakeDamage, IPlayerRespawnListener
+{   
+    // Parameters
     public float Speed;                     // the travel speed of the projectile towards its destination
     public float FireRate;                  // the rate of shots the projectile will be fired at
+    private float Cooldown;                 // the cooldown before firing another shot
+    public Projectile Projectile;           // the projectile shot
+    public GameObject ProjectileSpawnEffect;// effect played when spawning the projectile
+    public GameObject DestroyedEffect;      // the destroyed effect of this GameObject
+    public Transform ProjectileFireLocation;// the location of which the projectile is fired at
+    public int PointsToGivePlayer;          // points awarded to the player upon killing this GameObject
+
+    // Sound
     public AudioClip SpawnProjectileSound;  // the sound of the projectile spawning
+    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed   
 
-    private float _nextShotInSeconds;       // the cooldown before firing another shot
-
-    //public Animator anim;                   // animation
-
+    // Character Essentials
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
+    private Vector2 _direction;                 // the x-direction of this GameObject
     private Vector2 _startPosition;             // the initial spawn position of this GameObject
 
     // Health
-    public int MaxHealth = 100;             // maximum health of the this GameObject
-    public int Health { get; private set; } // this GameObject's current health    
-    public GameObject DestroyedEffect;      // the destroyed effect of this GameObject
-    public int PointsToGivePlayer;          // points awarded to the player upon killing this GameObject
-    public Transform RespawnPosition;       // position where this GameObject is respawned at
+    public int MaxHealth = 100;                 // maximum health of the this GameObject
+    public int Health { get; private set; }     // this GameObject's current health    
 
-    // Sound
-    public AudioClip ShootSound;            // the sound when this GameObject shoots a projectile
-    public AudioClip EnemyDestroySound;     // sound played when this GameObject is destroyed
-
+    //public Animator anim;                   // animation
 
     // Use this for initialization
     void Start()
-    {
+    {       
         _controller = GetComponent<CharacterController2D>();
+        _direction = new Vector2(-1, 0);    // this GameObject will move the left upon initialization
         _startPosition = transform.position;
         Health = MaxHealth;
-        //anim = GetComponent<Animator>();    // initializes the animations
-        _nextShotInSeconds = FireRate;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Spawner code
-        if ((_nextShotInSeconds -= Time.deltaTime) > 0)
+        if ((Cooldown -= Time.deltaTime) > 0)
             return;
 
-        _nextShotInSeconds = FireRate;
-        var projectile = (PathedProjectile)Instantiate(Projectile, transform.position, transform.rotation); // initializes the projectile
-        projectile.Initialize(Destination, Speed); // moving the projectile
+        // Instantiates the projectile, and initilializes the speed, and direction of the projectile
+        var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+        projectile.Initialize(gameObject, _direction, _controller.Velocity);
+        Cooldown = FireRate; // time frame, when projectiles can be shot from this GameObject
 
         // Handles projectile effects
-        if (SpawnEffect != null)
-            Instantiate(SpawnEffect, transform.position, transform.rotation);
+        if (ProjectileSpawnEffect != null)
+            Instantiate(ProjectileSpawnEffect, transform.position, transform.rotation);
 
         // Sound
         if (SpawnProjectileSound != null)
             AudioSource.PlayClipAtPoint(SpawnProjectileSound, transform.position);
-
-      //if (anim != null)
-        //   anim.SetTrigger("Fire");
-    }
-
-    // Visual indicator for line of travel for the projectile
-    public void OnDrawGizmos()
-    {
-        if (Destination == null)
-            return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, Destination.position);
+        /*
+        if (anim != null)
+            anim.SetTrigger("Fire");*/
     }
 
     /*
@@ -114,9 +108,10 @@ public class MonsterPortalSpawner : MonoBehaviour, ITakeDamage, IPlayerRespawnLi
     */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
     {
-        // Re-initializes this GameObject's direction, and start position
-        transform.localScale = new Vector3(1, 1, 1);    
-        gameObject.SetActive(true);                     // shows this GameObject   
+        // Re-initializes this GameObject
+        _direction = new Vector2(-1, 0);
+        transform.localScale = new Vector3(1, 1, 1);
+        gameObject.SetActive(true);                     // shows this GameObject
 
         // Resets health
         Health = MaxHealth;                             // sets current health to the GameObject's max health

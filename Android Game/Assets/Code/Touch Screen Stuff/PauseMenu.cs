@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/*
+* Resource: https://www.youtube.com/watch?v=Wrelb5WBnoQ&index=18&list=PLiyfvmtjWC_Up8XNvM3OSqgbJoMQgHkVz
+*
+* Class to display buttons and hide/show the PauseMenu canvas overlay.
+*/
 public class PauseMenu : MonoBehaviour {
 
     public string levelSelect;          // name of the level select screen

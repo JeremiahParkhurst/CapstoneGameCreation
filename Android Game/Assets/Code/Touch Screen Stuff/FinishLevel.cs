@@ -3,7 +3,7 @@
 /*
 * Resource: https://www.youtube.com/watch?v=lHb213yRP-Y&index=33&list=PLt_Y3Hw1v3QSFdh-evJbfkxCK_bjUD37n
 *
-*
+* Class that handles the EndLevelMenu upon completion of a level.
 */
 public class FinishLevel : MonoBehaviour {
     

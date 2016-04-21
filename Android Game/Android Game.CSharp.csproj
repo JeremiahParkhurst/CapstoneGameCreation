@@ -51,11 +51,17 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -75,8 +81,8 @@
     <Compile Include="Assets\Code\EnemyAI Scripts\ExecutionerElizabethAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\MageElizabethAI2.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\MonsterSpawner.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
-    <Compile Include="Assets\Code\FollowPath.cs" />
     <Compile Include="Assets\Code\Health &amp; Respawn\GiveHealth.cs" />
     <Compile Include="Assets\Code\Health &amp; Respawn\HealthBar.cs" />
     <Compile Include="Assets\Code\Health &amp; Respawn\ITakeDamage.cs" />
@@ -105,10 +111,11 @@
     <Compile Include="Assets\Code\Old Scripts\SimpleEnemyScript.cs" />
     <Compile Include="Assets\Code\Old Scripts\StartScreen.cs" />
     <Compile Include="Assets\Code\Old Scripts\SwimmingController2D.cs" />
-    <Compile Include="Assets\Code\PathDefinition.cs" />
     <Compile Include="Assets\Code\Platforms, Pickups\ControllerPhysicsVolume2D.cs" />
     <Compile Include="Assets\Code\Platforms, Pickups\CrumblingPlatform.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\FollowPath.cs" />
     <Compile Include="Assets\Code\Platforms, Pickups\JumpPlatform.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\PathDefinition.cs" />
     <Compile Include="Assets\Code\Platforms, Pickups\PointStar.cs" />
     <Compile Include="Assets\Code\Player Scripts\CharacterController2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\ControllerParameters2D.cs" />
@@ -116,8 +123,6 @@
     <Compile Include="Assets\Code\Player Scripts\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\Player Scripts\Player.cs" />
     <Compile Include="Assets\Code\Projectiles\AutoDestroyParticleSystem.cs" />
-    <Compile Include="Assets\Code\Projectiles\MonsterPortalProjectile.cs" />
-    <Compile Include="Assets\Code\Projectiles\MonsterPortalSpawner.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner.cs" />
     <Compile Include="Assets\Code\Projectiles\Projectile.cs" />
