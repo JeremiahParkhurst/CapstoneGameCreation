@@ -14,8 +14,8 @@
 */
 public class Player : MonoBehaviour, ITakeDamage {
 
-    private bool _isFacingRight;                    // checks if the Player Object's sprite is facing right
-    private CharacterController2D _controller;      // instance of the CharacterController2D
+    public bool _isFacingRight;                    // checks if the Player Object's sprite is facing right
+    public CharacterController2D _controller;      // instance of the CharacterController2D
     private float _normalizedHorizontalSpeed;       // x-direction speed: -1 = left, 1 = right
     private float _normalizedVerticalSpeed;         // y-direction speed: -1 = down, 1 = up
 
@@ -50,6 +50,10 @@ public class Player : MonoBehaviour, ITakeDamage {
     public int hInput = 0;
     public int vInput = 0;
 
+    // Weapon
+    public Weapon weapon;
+    public Transform weaponLocation;    
+
     // Use this for initialization
     public void Awake()
     {
@@ -58,12 +62,15 @@ public class Player : MonoBehaviour, ITakeDamage {
         Health = MaxHealth;                                     // initializes Player Object's health to max health
 
         // Ladder initialization
-        GravityStore = _controller.DefaultParameters.Gravity;        
+        GravityStore = _controller.DefaultParameters.Gravity;
+
+        weapon = GetComponent<Weapon>();
     }
 
     // Update is called once per frame
     public void Update()
     {
+        //Instantiate(weapon.gunSprite, weaponLocation.position, weaponLocation.rotation);
         _canFireIn -= Time.deltaTime; // When this reaches 0, they player can shoot again
 
         if(!IsDead)
@@ -254,37 +261,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         */
     }
 
-    /*
-    * Method that determines when the Player object can fire. 
-    * Handles instantiation and initialize, direction of the projectile and resets canFireIn.
-    */
-    public void FireProjectile()
-    {
-        // If the cooldown is still counting down to 0, the player cannot fire.
-        if (_canFireIn > 0)
-            return;
-
-        if (FireProjectileEffect != null)
-        {
-            // Plays the effect in the direction the player is facing
-            var effect = (GameObject)Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
-            effect.transform.parent = transform;            
-        }
-
-        // Check direction to ensure projectiles are firing in the same direction as the Player class
-        var direction = _isFacingRight ? Vector2.right : -Vector2.right;
-
-        // Instantiates the projectile, and initilializes the speed, and direction of the projectile
-        var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
-        projectile.Initialize(gameObject, direction, _controller.Velocity);
-        _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject      
-
-        // Sound
-        AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
-
-        // Animation
-        Animator.SetTrigger("Shoot");
-    }
+    
 
     // Method to vertically flip the Player object's sprite    
     private void Flip()
@@ -333,7 +310,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     // Function invoked by TouchControls.cs to fire a projectile
     public void TouchShoot()
     {
-        FireProjectile();
+        weapon.FireProjectile();
     }
 
 }
