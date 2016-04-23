@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_2_2;UNITY_5_2;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_REFLECTION_BUFFERS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_LOG_MIXED_STACKTRACE;ENABLE_UNITYWEBREQUEST;ENABLE_EVENT_QUEUE;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_2_2;UNITY_5_2;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_REFLECTION_BUFFERS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -49,26 +49,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\CrumblingPlatform.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\BirdAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethGunAI.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethKnifeAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ExecutionerElizabethAI.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\FrogAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\MageElizabethAI2.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolEnemyAI2.cs" />
-    <Compile Include="Assets\Code\FollowPath.cs" />
-    <Compile Include="Assets\Code\ITakeDamage.cs" />
-    <Compile Include="Assets\Code\InstaKill.cs" />
-    <Compile Include="Assets\Code\JumpPlatform.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\MonsterSpawner.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\MoveTowardsPatrolAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\PatrolRaycastShootAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\SporeMushroom.cs" />
+    <Compile Include="Assets\Code\Health &amp; Respawn\GiveHealth.cs" />
+    <Compile Include="Assets\Code\Health &amp; Respawn\HealthBar.cs" />
+    <Compile Include="Assets\Code\Health &amp; Respawn\ITakeDamage.cs" />
+    <Compile Include="Assets\Code\Health &amp; Respawn\InstaKill.cs" />
+    <Compile Include="Assets\Code\Health &amp; Respawn\LadderController2D.cs" />
     <Compile Include="Assets\Code\Level Managers\BackgroundParallax.cs" />
     <Compile Include="Assets\Code\Level Managers\CameraController.cs" />
     <Compile Include="Assets\Code\Level Managers\CenteredTextPositioner.cs" />
     <Compile Include="Assets\Code\Level Managers\Checkpoint.cs" />
-    <Compile Include="Assets\Code\Level Managers\ControllerPhysicsVolume2D.cs" />
-    <Compile Include="Assets\Code\Level Managers\FinishLevel.cs" />
     <Compile Include="Assets\Code\Level Managers\FloatingText.cs" />
     <Compile Include="Assets\Code\Level Managers\FollowObject.cs" />
     <Compile Include="Assets\Code\Level Managers\FromWorldPointTextPositioner.cs" />
@@ -78,33 +77,36 @@
     <Compile Include="Assets\Code\Level Managers\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\Level Managers\LevelManager.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\Camera2D.cs" />
+    <Compile Include="Assets\Code\OLD SCRIPTS\FrogAI.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\MageElizabethAI.cs" />
+    <Compile Include="Assets\Code\OLD SCRIPTS\PathedProjectileSpawner2.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\PickupDestroy.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\PlayerController.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\PlayerMove.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\Scroll.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\SimpleEnemyScript.cs" />
     <Compile Include="Assets\Code\OLD SCRIPTS\StartScreen.cs" />
-    <Compile Include="Assets\Code\PathDefinition.cs" />
+    <Compile Include="Assets\Code\OLD SCRIPTS\SwimmingController2D.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\ControllerPhysicsVolume2D.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\CrumblingPlatform.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\FollowPath.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\JumpPlatform.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\PathDefinition.cs" />
+    <Compile Include="Assets\Code\Platforms, Pickups\PointStar.cs" />
     <Compile Include="Assets\Code\Player Scripts\CharacterController2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\ControllerParameters2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\ControllerState2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\GiveDamageToPlayer.cs" />
-    <Compile Include="Assets\Code\Player Scripts\GiveHealth.cs" />
-    <Compile Include="Assets\Code\Player Scripts\HealthBar.cs" />
-    <Compile Include="Assets\Code\Player Scripts\LadderController2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\Player.cs" />
-    <Compile Include="Assets\Code\Player Scripts\SwimmingController2D.cs" />
-    <Compile Include="Assets\Code\PointStar.cs" />
+    <Compile Include="Assets\Code\Player Scripts\Weapon.cs" />
     <Compile Include="Assets\Code\Projectiles\AutoDestroyParticleSystem.cs" />
-    <Compile Include="Assets\Code\Projectiles\MonsterPortalProjectile.cs" />
-    <Compile Include="Assets\Code\Projectiles\MonsterPortalSpawner.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner.cs" />
-    <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner2.cs" />
     <Compile Include="Assets\Code\Projectiles\Projectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SimpleProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SinProjectile.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\EndLevelMenu.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\FinishLevel.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\LevelSelect.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\MainMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\PauseMenu.cs" />
