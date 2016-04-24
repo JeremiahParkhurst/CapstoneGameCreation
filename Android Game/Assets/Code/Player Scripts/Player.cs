@@ -24,14 +24,14 @@ public class Player : MonoBehaviour, ITakeDamage {
     public float SpeedAccelerationInAir = 5f;       // how quickly the Player Object goes from moving to not moving on air
     public int MaxHealth = 100;                     // maximum health of the Player Object
     public GameObject OuchEffect;                   // effect played when the Player Object is receiving damage
-
+    /*
     // Projectile
     public Projectile Projectile;                   // the Player Object's projectile
     public float FireRate;                          // cooldown after firing a projectile
     public Transform ProjectileFireLocation;        // the location of which the projectile is fired at
     public GameObject FireProjectileEffect;         // the effect played when the Player Object is shooting
     private float _canFireIn;                       // Player object is able to fire when this equals the FireRate
-
+    */
     // Sound
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour, ITakeDamage {
 
     // Weapon
     public Weapon weapon;
-    public Transform weaponLocation;    
+    public Transform weaponLocation; 
 
     // Use this for initialization
     public void Awake()
@@ -62,16 +62,14 @@ public class Player : MonoBehaviour, ITakeDamage {
         Health = MaxHealth;                                     // initializes Player Object's health to max health
 
         // Ladder initialization
-        GravityStore = _controller.DefaultParameters.Gravity;
-
-        weapon = GetComponent<Weapon>();
+        GravityStore = _controller.DefaultParameters.Gravity;               
     }
 
     // Update is called once per frame
     public void Update()
     {
-        //Instantiate(weapon.gunSprite, weaponLocation.position, weaponLocation.rotation);
-        _canFireIn -= Time.deltaTime; // When this reaches 0, they player can shoot again
+        Instantiate(weapon.gunSprite, weaponLocation.position, weaponLocation.rotation);
+        weapon._canFireIn -= Time.deltaTime; // When this reaches 0, they player can shoot again
 
         if(!IsDead)
             HandleInput(); // Handles what the player press (left, right, jump, shoot)

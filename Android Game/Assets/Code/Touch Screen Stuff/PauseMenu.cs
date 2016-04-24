@@ -9,11 +9,17 @@ public class PauseMenu : MonoBehaviour {
 
     public string levelSelect;          // name of the level select screen
     public string mainMenu;             // name of the main menu scene
-    public bool isPaused;               // checks to see if the game is currently paused
+    //public bool isPaused;               // checks to see if the game is currently paused
     public GameObject pausedMenuCanvas;	// instance of the pausedMenuCanvas
 	
+    void Start()
+    {
+         pausedMenuCanvas.SetActive(false);  // hides the pause menu canvas
+            Time.timeScale = 1f;                // reverts time
+    }
+
 	// Update is called once per frame
-	void Update () {
+	void Update () {/*
         //Debug.Log(Time.timeScale);
         if (isPaused)
         {
@@ -27,13 +33,13 @@ public class PauseMenu : MonoBehaviour {
             pausedMenuCanvas.SetActive(false);  // hides the pause menu canvas
             Time.timeScale = 1f;                // reverts time
             // need to revert gamehud time
-        }
+        }*/
 	}
-
-    // Sets isPaused to false
+   
     public void Resume()
     {
-        isPaused = false;
+        pausedMenuCanvas.SetActive(false);  // hides the pause menu canvas
+        Time.timeScale = 1f;                // reverts time
     }
 
     public void LevelSelect()
@@ -48,6 +54,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void TouchPause()
     {
-        isPaused = true;
+        pausedMenuCanvas.SetActive(true);   // shows the pause menu canvas
+        Time.timeScale = 0f;                // freezes time        
     }
 }

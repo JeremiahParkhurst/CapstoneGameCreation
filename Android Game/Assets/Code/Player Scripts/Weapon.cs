@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Weapon : MonoBehaviour {
 
@@ -8,7 +7,7 @@ public class Weapon : MonoBehaviour {
     public float FireRate;                          // cooldown after firing a projectile
     public Transform ProjectileFireLocation;        // the location of which the projectile is fired at
     public GameObject FireProjectileEffect;         // the effect played when the Player Object is shooting
-    private float _canFireIn;                       // Player object is able to fire when this equals the FireRate
+    public float _canFireIn;                       // Player object is able to fire when this equals the FireRate
 
     public Sprite gunSprite;
 

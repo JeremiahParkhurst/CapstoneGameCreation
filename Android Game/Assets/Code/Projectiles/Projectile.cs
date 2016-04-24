@@ -44,8 +44,7 @@ public class Projectile : MonoBehaviour {
             OnCollideOwner();
             return;
         }
-
-        // other.GetComponent<ITakeDamage
+       
         var takeDamage = (ITakeDamage)other.GetComponent(typeof(ITakeDamage));
         if(takeDamage != null)
         {

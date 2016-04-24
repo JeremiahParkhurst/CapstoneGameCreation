@@ -1,42 +1,31 @@
 ﻿using UnityEngine;
 
 /*
-* Resource: Adapted from PauseMenu
+* Resource: Adapted from PauseMenu.
 *
-* Class to display buttons and hide/show the EndLevelMenu canvas overlay.
+* Handles functionality of the EndLevelMenu canvas.
 */
 public class EndLevelMenu : MonoBehaviour {
 
     // For the buttons
-    public string currentLevelName;
+    //public string currentLevelName;
+    public string currentLevel;         // current scene name
     public string levelSelect;
     public string mainMenu;
+     
+    public GameObject endLevelCanvas; // instance of the pausedMenuCanvas
 
-    // 
-    public bool reachedEndLevel;
-    public GameObject endLevelMenuCanvas;       
-
-    // Update is called once per frame
-    void Update()
-    {        
-        if (reachedEndLevel)
-        {
-            endLevelMenuCanvas.SetActive(true);
-            Time.timeScale = 0f;
-            // need to disable gamehud time 
-        }
-        else
-        {
-            endLevelMenuCanvas.SetActive(false);
-            Time.timeScale = 1f;
-            // re-enable gamehud time
-        }        
-    }   
+    void Start()
+    {
+        currentLevel = Application.loadedLevelName;
+        endLevelCanvas.SetActive(false);  // hides the pause menu canvas
+        Time.timeScale = 1f;                // reverts time
+    }
 
     // Restarts the player to the currentLevelName scene
     public void Restart()
     {
-        Application.LoadLevel(currentLevelName);
+        Application.LoadLevel(currentLevel);
     }
 
     // Loads the LevelSelect screen
@@ -51,9 +40,9 @@ public class EndLevelMenu : MonoBehaviour {
         Application.LoadLevel(mainMenu);
     }
 
-    // Sets reachedEndLevel to true
-    public void TouchEndLevelMenu()
-    {        
-        reachedEndLevel = true;
+    public void ShowEndLevelMenu()
+    {
+        endLevelCanvas.SetActive(true);  // hides the pause menu canvas
+        Time.timeScale = 0f;             // reverts time
     }
 }
