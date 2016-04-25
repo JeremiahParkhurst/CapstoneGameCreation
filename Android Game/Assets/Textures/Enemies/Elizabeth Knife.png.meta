@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3d0afa5c6cb76ee40897b424a79dc167
-timeCreated: 1455077468
+timeCreated: 1461542091
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -61,80 +61,30 @@ TextureImporter:
     - name: Elizabeth Knife_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 13
-        width: 352
-        height: 394
+        x: 14
+        y: 0
+        width: 434
+        height: 448
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Elizabeth Knife_1
       rect:
         serializedVersion: 2
-        x: 489
-        y: 13
-        width: 324
-        height: 394
+        x: 462
+        y: 0
+        width: 434
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Elizabeth Knife_2
       rect:
         serializedVersion: 2
-        x: 937
+        x: 924
         y: 0
-        width: 324
-        height: 407
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Elizabeth Knife_3
-      rect:
-        serializedVersion: 2
-        x: 1385
-        y: 0
-        width: 324
-        height: 407
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Elizabeth Knife_4
-      rect:
-        serializedVersion: 2
-        x: 1833
-        y: 0
-        width: 324
-        height: 407
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Elizabeth Knife_5
-      rect:
-        serializedVersion: 2
-        x: 2281
-        y: 0
-        width: 352
-        height: 407
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Elizabeth Knife_6
-      rect:
-        serializedVersion: 2
-        x: 2729
-        y: 0
-        width: 352
-        height: 407
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Elizabeth Knife_7
-      rect:
-        serializedVersion: 2
-        x: 3177
-        y: 0
-        width: 352
-        height: 407
+        width: 420
+        height: 448
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

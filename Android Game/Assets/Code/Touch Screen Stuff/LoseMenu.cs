@@ -31,6 +31,12 @@ public class LoseMenu : MonoBehaviour {
         Application.LoadLevel(mainMenu);
     }
 
+    public void HideLoseMenu()
+    {
+        loseMenuCanvas.SetActive(false);  // hides the pause menu canvas
+        Time.timeScale = 1f;                // reverts time
+    }
+
     public void ShowLoseMenu()
     {
         loseMenuCanvas.SetActive(true);   // shows the pause menu canvas

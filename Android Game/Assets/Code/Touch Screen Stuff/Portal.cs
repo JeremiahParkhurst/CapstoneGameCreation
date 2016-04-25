@@ -21,8 +21,7 @@ public class Portal : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {        
         if (playerInPortal)
-        {
-            //LevelManager.Instance.GotoNextLevel(level);            
+        {                      
             endLevelMenu.ShowEndLevelMenu();
         }
     }
