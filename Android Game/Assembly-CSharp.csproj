@@ -99,7 +99,6 @@
     <Compile Include="Assets\Code\Player Scripts\ControllerState2D.cs" />
     <Compile Include="Assets\Code\Player Scripts\GiveDamageToPlayer.cs" />
     <Compile Include="Assets\Code\Player Scripts\Player.cs" />
-    <Compile Include="Assets\Code\Player Scripts\Weapon.cs" />
     <Compile Include="Assets\Code\Projectiles\AutoDestroyParticleSystem.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\PathedProjectileSpawner.cs" />

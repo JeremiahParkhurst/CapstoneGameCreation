@@ -12,10 +12,11 @@
 * the Player Object's physics react under certain conditions, such as terrain, and special effects
 * caused by other GameObjects.
 */
-public class Player : MonoBehaviour, ITakeDamage {
+public class Player : MonoBehaviour, ITakeDamage
+{
 
-    public bool _isFacingRight;                    // checks if the Player Object's sprite is facing right
-    public CharacterController2D _controller;      // instance of the CharacterController2D
+    private bool _isFacingRight;                    // checks if the Player Object's sprite is facing right
+    private CharacterController2D _controller;      // instance of the CharacterController2D
     private float _normalizedHorizontalSpeed;       // x-direction speed: -1 = left, 1 = right
     private float _normalizedVerticalSpeed;         // y-direction speed: -1 = down, 1 = up
 
@@ -24,14 +25,14 @@ public class Player : MonoBehaviour, ITakeDamage {
     public float SpeedAccelerationInAir = 5f;       // how quickly the Player Object goes from moving to not moving on air
     public int MaxHealth = 100;                     // maximum health of the Player Object
     public GameObject OuchEffect;                   // effect played when the Player Object is receiving damage
-    /*
+
     // Projectile
     public Projectile Projectile;                   // the Player Object's projectile
     public float FireRate;                          // cooldown after firing a projectile
     public Transform ProjectileFireLocation;        // the location of which the projectile is fired at
     public GameObject FireProjectileEffect;         // the effect played when the Player Object is shooting
     private float _canFireIn;                       // Player object is able to fire when this equals the FireRate
-    */
+
     // Sound
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
@@ -50,10 +51,6 @@ public class Player : MonoBehaviour, ITakeDamage {
     public int hInput = 0;
     public int vInput = 0;
 
-    // Weapon
-    public Weapon weapon;
-    public Transform weaponLocation; 
-
     // Use this for initialization
     public void Awake()
     {
@@ -62,16 +59,15 @@ public class Player : MonoBehaviour, ITakeDamage {
         Health = MaxHealth;                                     // initializes Player Object's health to max health
 
         // Ladder initialization
-        GravityStore = _controller.DefaultParameters.Gravity;               
+        GravityStore = _controller.DefaultParameters.Gravity;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        Instantiate(weapon.gunSprite, weaponLocation.position, weaponLocation.rotation);
-        weapon._canFireIn -= Time.deltaTime; // When this reaches 0, they player can shoot again
+        _canFireIn -= Time.deltaTime; // When this reaches 0, they player can shoot again
 
-        if(!IsDead)
+        if (!IsDead)
             HandleInput(); // Handles what the player press (left, right, jump, shoot)
 
         // Changes movement factor depending on if the Player object is falling in midair, or when it is grounded
@@ -82,8 +78,8 @@ public class Player : MonoBehaviour, ITakeDamage {
         if (onLadder)
         {
             _controller.SetVerticalForce(Mathf.Lerp(_controller.Velocity.y, _normalizedVerticalSpeed * MaxSpeed, Time.deltaTime * movementFactor));
-        }               
-        
+        }
+
         // Animation
         Animator.SetBool("IsGrounded", _controller.State.IsGrounded);
         Animator.SetBool("IsDead", IsDead);
@@ -116,7 +112,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     {
         // Sound
         AudioSource.PlayClipAtPoint(PlayerDeathSound, transform.position);
-        
+
         _controller.HandleCollisions = false;       // player will fall through object
         GetComponent<Collider2D>().enabled = false; // collider2D.enabled = false;
         IsDead = true;
@@ -132,7 +128,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     public void RespawnAt(Transform spawnPoint)
     {
         // Handles which direction the player is facing upon Respawn
-        if(!_isFacingRight)
+        if (!_isFacingRight)
             Flip();
 
         IsDead = false;                             // player is not dead
@@ -140,7 +136,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         _controller.HandleCollisions = true;        // sets collisions to true again
         Health = MaxHealth;                         // sets current health to the Player object's max health
         onLadder = false;
-        
+
         transform.position = spawnPoint.position;   // respawns the player at the spawnPoint
     }
 
@@ -210,25 +206,25 @@ public class Player : MonoBehaviour, ITakeDamage {
             _normalizedHorizontalSpeed = -1;
             if (_isFacingRight)
                 Flip();
-        }                 
+        }
 
         else if (onLadder)
         {
-           // Moves the player upwards on the ladder
+            // Moves the player upwards on the ladder
             if (Input.GetKey(KeyCode.W))
             {
                 _normalizedVerticalSpeed = 1;   // Y-direction speed = positive = up
                 _normalizedHorizontalSpeed = 0;
                 _controller.DefaultParameters.Gravity = 0;
             }
-           
+
             // Moves the player downwards on the ladder
             else if (Input.GetKey(KeyCode.S))
             {
                 _normalizedVerticalSpeed = -1;  // Y-direction speed = negative = down
                 _normalizedHorizontalSpeed = 0;
                 _controller.DefaultParameters.Gravity = 0;
-            }                      
+            }
 
             // If the player is hanging on the ladder & no input has been detected
             else
@@ -236,9 +232,9 @@ public class Player : MonoBehaviour, ITakeDamage {
                 _normalizedHorizontalSpeed = 0;
                 _normalizedVerticalSpeed = 0;  // Y-direction speed = 0 = on ladder/not moving    
                 _controller.DefaultParameters.Gravity = 0;
-            } 
+            }
         }
-        
+
         // If the player is not pressing anything
         else
         {
@@ -248,7 +244,7 @@ public class Player : MonoBehaviour, ITakeDamage {
         }
 
         // Handles jumping
-        if(_controller.CanJump && Input.GetKeyDown(KeyCode.Space))
+        if (_controller.CanJump && Input.GetKeyDown(KeyCode.Space))
         {
             _controller.Jump();
         }
@@ -259,7 +255,37 @@ public class Player : MonoBehaviour, ITakeDamage {
         */
     }
 
-    
+    /*
+    * Method that determines when the Player object can fire. 
+    * Handles instantiation and initialize, direction of the projectile and resets canFireIn.
+    */
+    public void FireProjectile()
+    {
+        // If the cooldown is still counting down to 0, the player cannot fire.
+        if (_canFireIn > 0)
+            return;
+
+        if (FireProjectileEffect != null)
+        {
+            // Plays the effect in the direction the player is facing
+            var effect = (GameObject)Instantiate(FireProjectileEffect, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+            effect.transform.parent = transform;
+        }
+
+        // Check direction to ensure projectiles are firing in the same direction as the Player class
+        var direction = _isFacingRight ? Vector2.right : -Vector2.right;
+
+        // Instantiates the projectile, and initilializes the speed, and direction of the projectile
+        var projectile = (Projectile)Instantiate(Projectile, ProjectileFireLocation.position, ProjectileFireLocation.rotation);
+        projectile.Initialize(gameObject, direction, _controller.Velocity);
+        _canFireIn = FireRate; // time frame, when projectiles can be shot from this GameObject      
+
+        // Sound
+        AudioSource.PlayClipAtPoint(PlayerShootSound, transform.position);
+
+        // Animation
+        Animator.SetTrigger("Shoot");
+    }
 
     // Method to vertically flip the Player object's sprite    
     private void Flip()
@@ -273,7 +299,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     {
         _controller.SetHorizontalForce(direction * 10f);
 
-        if(direction == 1)
+        if (direction == 1)
         {
             if (!_isFacingRight)
                 Flip();
@@ -308,7 +334,7 @@ public class Player : MonoBehaviour, ITakeDamage {
     // Function invoked by TouchControls.cs to fire a projectile
     public void TouchShoot()
     {
-        weapon.FireProjectile();
+        FireProjectile();
     }
 
 }
