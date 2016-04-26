@@ -7,39 +7,40 @@
 */
 public class EndLevelMenu : MonoBehaviour {
 
-    // For the buttons
-    //public string currentLevelName;
-    public string currentLevel;         // current scene name
-    public string levelSelect;
-    public string mainMenu;
+    // For the buttons    
+    private string currentLevel;    // current scene name
+    public string levelSelect;      // level select scene name
+    public string mainMenu;         // main menu scene name
      
     public GameObject endLevelCanvas; // instance of the pausedMenuCanvas
 
+    // Initialization
     void Start()
     {
-        currentLevel = Application.loadedLevelName;
-        endLevelCanvas.SetActive(false);  // hides the pause menu canvas
+        currentLevel = Application.loadedLevelName; // stores current scene's name
+        endLevelCanvas.SetActive(false);    // hides the pause menu canvas
         Time.timeScale = 1f;                // reverts time
     }
-
-    // Restarts the player to the currentLevelName scene
+    
+    // Handles restart button functionality
     public void Restart()
     {
-        Application.LoadLevel(currentLevel);
+        Application.LoadLevel(currentLevel); // loads current level scene
     }
 
-    // Loads the LevelSelect screen
+    // Handles level select button functionality
     public void LevelSelect()
     {
-        Application.LoadLevel(levelSelect);
+        Application.LoadLevel(levelSelect); // loads level select screen
     }
 
-    // Loads the MainMenu scene
+    // Handles quit button functionaliy
     public void Quit()
     {
-        Application.LoadLevel(mainMenu);
+        Application.LoadLevel(mainMenu); // loads MainMenu Scene
     }
 
+    // Displays the EndLevelMenu canvas
     public void ShowEndLevelMenu()
     {
         endLevelCanvas.SetActive(true);  // hides the pause menu canvas

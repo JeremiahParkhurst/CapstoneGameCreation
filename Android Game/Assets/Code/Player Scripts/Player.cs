@@ -36,9 +36,10 @@ public class Player : MonoBehaviour, ITakeDamage
     // Sound
     public AudioClip PlayerHitSound, PlayerShootSound, PlayerHealthSound, PlayerDeathSound;
 
-    // Health
+    // Health & Lives
     public int Health { get; private set; }         // Player Object's current health
     public bool IsDead { get; private set; }        // determines if the user can control the Player Object
+    private LifeManager lifeSystem;                 // instance of the LifeManager
 
     // Ladder
     public bool onLadder;                           // determines if the Player Object is overlapping with a ladder
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
     // Touch Control Movement
     public int hInput = 0;
-    public int vInput = 0;
+    public int vInput = 0;        
 
     // Use this for initialization
     public void Awake()
@@ -60,6 +61,8 @@ public class Player : MonoBehaviour, ITakeDamage
 
         // Ladder initialization
         GravityStore = _controller.DefaultParameters.Gravity;
+
+        lifeSystem = FindObjectOfType<LifeManager>();
     }
 
     // Update is called once per frame
@@ -138,6 +141,8 @@ public class Player : MonoBehaviour, ITakeDamage
         onLadder = false;
 
         transform.position = spawnPoint.position;   // respawns the player at the spawnPoint
+
+        lifeSystem.TakeLife();                      // decrements lives on the LifeManager
     }
 
     /*
@@ -336,5 +341,4 @@ public class Player : MonoBehaviour, ITakeDamage
     {
         FireProjectile();
     }
-
 }
