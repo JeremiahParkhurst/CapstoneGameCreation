@@ -53,7 +53,8 @@
     <Compile Include="Assets\Code\EnemyAI Scripts\ElizabethBossAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\ExecutionerElizabethAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\GhostAI.cs" />
-    <Compile Include="Assets\Code\EnemyAI Scripts\MageElizabethAI2.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\GuardAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\JumpAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\MonsterSpawner.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\MoveTowardsPatrolAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolAI.cs" />
@@ -105,11 +106,13 @@
     <Compile Include="Assets\Code\Projectiles\Projectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SimpleProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SinProjectile.cs" />
+    <Compile Include="Assets\Code\ReflectProjectiles.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\EndLevelMenu.cs" />
-    <Compile Include="Assets\Code\Touch Screen Stuff\FinishLevel.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\LevelSelect.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\LoseMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\MainMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\PauseMenu.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\Portal.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\TouchControls.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
