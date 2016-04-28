@@ -38,7 +38,7 @@ public class PauseMenu : MonoBehaviour {
 
     // Handles the Pause button
     public void TouchPause()
-    {
+    {        
         pausedMenuCanvas.SetActive(true);   // shows the pause menu canvas
         Time.timeScale = 0f;                // freezes time        
     }
