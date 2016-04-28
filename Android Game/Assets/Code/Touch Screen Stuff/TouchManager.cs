@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class TouchManager : MonoBehaviour {
 
     public static bool GUITouch = false;
 
+    // Checks if you touched a texture
     public void TouchInput(GUITexture texture)
     {
         if (texture.HitTest(Input.GetTouch(0).position))

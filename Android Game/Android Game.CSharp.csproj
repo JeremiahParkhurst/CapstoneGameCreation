@@ -51,17 +51,11 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -84,6 +78,7 @@
     <Compile Include="Assets\Code\EnemyAI Scripts\MoveTowardsPatrolAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolAI.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\PatrolRaycastShootAI.cs" />
+    <Compile Include="Assets\Code\EnemyAI Scripts\ReflectProjectiles.cs" />
     <Compile Include="Assets\Code\EnemyAI Scripts\SporeMushroom.cs" />
     <Compile Include="Assets\Code\Health &amp; Respawn\GiveHealth.cs" />
     <Compile Include="Assets\Code\Health &amp; Respawn\HealthBar.cs" />
@@ -102,7 +97,6 @@
     <Compile Include="Assets\Code\Level Managers\IFloatingTextPositioner.cs" />
     <Compile Include="Assets\Code\Level Managers\IPlayerRespawnListener.cs" />
     <Compile Include="Assets\Code\Level Managers\LevelManager.cs" />
-    <Compile Include="Assets\Code\LifeManager.cs" />
     <Compile Include="Assets\Code\Old Scripts\Camera2D.cs" />
     <Compile Include="Assets\Code\Old Scripts\FrogAI.cs" />
     <Compile Include="Assets\Code\Old Scripts\MageElizabethAI.cs" />
@@ -131,14 +125,16 @@
     <Compile Include="Assets\Code\Projectiles\Projectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SimpleProjectile.cs" />
     <Compile Include="Assets\Code\Projectiles\SinProjectile.cs" />
-    <Compile Include="Assets\Code\ReflectProjectiles.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\ButtonMovement.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\EndLevelMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\LevelSelect.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\LifeManager.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\LoseMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\MainMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\PauseMenu.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\Portal.cs" />
     <Compile Include="Assets\Code\Touch Screen Stuff\TouchControls.cs" />
+    <Compile Include="Assets\Code\Touch Screen Stuff\TouchManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
