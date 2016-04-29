@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+* Script to make platforms fall and disappear.
+*/
 public class CrumblingPlatform : MonoBehaviour, IPlayerRespawnListener
 {
     private Rigidbody2D _rigidbody2D;
-    public float FallDelay;
-    public float DisappearDelay;
+    public float FallDelay;                     // rate at which this GameObject's Y-direction changes
+    public float DisappearDelay;                // rate at which this GameObject's visibility gets set to false
 
     private CharacterController2D _controller;  // has an instance of the CharacterController2D
-    public Transform RespawnPosition;           // position where this GameObject is respawned at
     private Vector2 _startPosition;             // the initial spawn position of this GameObject
 
     // Use this for initialization
@@ -17,6 +19,10 @@ public class CrumblingPlatform : MonoBehaviour, IPlayerRespawnListener
         _startPosition = transform.position;
     }
 
+    /*
+    * @param other, the other object colliding with this GameObject
+    * Handles Collision
+    */
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<Player>() == null)
@@ -26,14 +32,15 @@ public class CrumblingPlatform : MonoBehaviour, IPlayerRespawnListener
         StartCoroutine(Delay());
     }
 
+    // Applies Gravity
     IEnumerator Fall()
     {
         yield return new WaitForSeconds(FallDelay);
-        _rigidbody2D.isKinematic = false;
-        //GetComponent<Collider2D>().isTrigger = true;
+        _rigidbody2D.isKinematic = false;        
         yield return 0;
     }
 
+    // Delays the GameObject's visibility
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(DisappearDelay);
@@ -47,11 +54,9 @@ public class CrumblingPlatform : MonoBehaviour, IPlayerRespawnListener
     * Method used to respawn this GameObject after the player respawns at the given checkpoint
     */
     public void OnPlayerRespawnInThisCheckpoint(Checkpoint checkpoint, Player player)
-    {
-        //transform.position = _startPosition;            // initial position of this GameObject
-        gameObject.SetActive(true);                     // shows this GameObject
-        //transform.position = RespawnPosition.position;  // position where this GameObject is respawned at
-        _rigidbody2D.isKinematic = true;
+    {        
+        gameObject.SetActive(true);         // shows this GameObject       
+        _rigidbody2D.isKinematic = true;    // turns of Unity Physics
     }
 
 }

@@ -12,7 +12,7 @@ public class TouchManager : MonoBehaviour {
             switch (Input.GetTouch(0).phase)
             {
                 case TouchPhase.Began:
-                    SendMessage("OnFirstTouchBegan");
+                    SendMessage("OnFirstTouchBegan");                    
                     SendMessage("OnFirstTouch");
                     GUITouch = true;
                     break;

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, ITakeDamage
 {
 
     private bool _isFacingRight;                    // checks if the Player Object's sprite is facing right
-    private CharacterController2D _controller;      // instance of the CharacterController2D
+    public CharacterController2D _controller;      // instance of the CharacterController2D
     private float _normalizedHorizontalSpeed;       // x-direction speed: -1 = left, 1 = right
     private float _normalizedVerticalSpeed;         // y-direction speed: -1 = down, 1 = up
 
@@ -302,8 +302,8 @@ public class Player : MonoBehaviour, ITakeDamage
     // Function invoked by TouchControls.cs to allow horizontal movement of the player
     public void MoveHorizontal(int direction)
     {
-        _controller.SetHorizontalForce(direction * 10f);
-
+        _controller.SetHorizontalForce(direction * 5.0f);    
+        //transform.Translate(direction*Vector2.right*2.0f*Time.deltaTime);    
         if (direction == 1)
         {
             if (!_isFacingRight)

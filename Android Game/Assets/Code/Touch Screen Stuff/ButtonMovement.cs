@@ -8,8 +8,7 @@ public class ButtonMovement : TouchManager {
     private Player thePlayer;
 
     // Use this for initialization
-    void Start () {
-       
+    void Start () {       
         thePlayer = FindObjectOfType<Player>();
     }
 	
@@ -23,8 +22,14 @@ public class ButtonMovement : TouchManager {
     {
         switch (buttonType)
         {
-            case type.JumpButton:               
-                thePlayer.TouchJump();
+            case type.JumpButton:
+                if (thePlayer._controller.CanJump) {
+                   thePlayer._controller.Jump();
+                }
+                   
+                break;
+            case type.ShootButton:
+                thePlayer.TouchShoot();
                 break;
         }
     }
@@ -34,8 +39,14 @@ public class ButtonMovement : TouchManager {
     {
         switch (buttonType)
         {
-            case type.JumpButton:               
-                thePlayer.TouchJump();
+            case type.JumpButton:
+                if (thePlayer._controller.CanJump)
+                {
+                    thePlayer._controller.Jump();
+                }
+                break;
+            case type.ShootButton:
+                thePlayer.TouchShoot();
                 break;
         }
     }
