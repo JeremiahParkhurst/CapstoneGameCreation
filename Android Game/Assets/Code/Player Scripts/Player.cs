@@ -302,8 +302,7 @@ public class Player : MonoBehaviour, ITakeDamage
     // Function invoked by TouchControls.cs to allow horizontal movement of the player
     public void MoveHorizontal(int direction)
     {
-        _controller.SetHorizontalForce(direction * 5.0f);    
-        //transform.Translate(direction*Vector2.right*2.0f*Time.deltaTime);    
+        _controller.SetHorizontalForce(direction * 5.0f);       
         if (direction == 1)
         {
             if (!_isFacingRight)
@@ -321,7 +320,7 @@ public class Player : MonoBehaviour, ITakeDamage
     {
         if (onLadder)
         {
-            _controller.SetVerticalForce(direction * 10f);
+            _controller.SetVerticalForce(direction * 2.5f);
             _normalizedHorizontalSpeed = 0;
             _controller.DefaultParameters.Gravity = 0;
         }
